@@ -84,10 +84,10 @@ int main() {
             "Moonilight Trails~");
 
     while(window.isOpen()){
-        //boost::timer::auto_cpu_timer t;
+        boost::timer::auto_cpu_timer t;
 
         process_events(window);
-        window.clear(sf::Color::Blue);
+        window.clear(sf::Color(0xaa, 0xaa, 0xaa));
         for(auto const & bg : gameScene.DoParallax({0, 0}))
             do_draw(bg, window);
 
