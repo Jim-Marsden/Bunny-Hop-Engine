@@ -1,0 +1,60 @@
+{
+  //Is for us, doesn't effect the scene directly.
+  "name": "default area",
+  "background" :[
+    {
+      // Is valid
+      "speed": 2,
+      "texture name": "Scenes/Textures/parallax_test-bg001.png"
+
+    }
+  ],
+  "geometry": [
+    {
+      "top": 0,
+      "left": 450,
+      "height": 100,
+      "width": 100
+    },
+
+    {
+      "top": 0,
+      "left": 300,
+      "height": 100,
+      "width": 100
+    },
+
+    {
+      "top": 400,
+      "left": 100,
+      "height": 100,
+      "width": 1500
+    }
+  ],
+  "decoration foreground": [
+    {
+      "texture name": "Scenes/Textures/tree.png",
+      "top": 200,
+      "left": 1000,
+      "height": 100,
+      "width": 100
+    }],
+  "decoration background": [
+    {
+      "texture name": "Scenes/Textures/tree.png",
+      "top": 0,
+      "left": 0,
+      "height": 100,
+      "width": 100
+    }],
+  "entities": [
+    {
+      "name": "default", //Prolly ignored
+      "texture name": "Scenes/Textures/default.png",
+      "spawn location": {
+        "top": 0,
+        "left": 0
+      }
+    }
+  ]
+}
