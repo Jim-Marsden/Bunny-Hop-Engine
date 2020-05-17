@@ -2,7 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#include "TextureManager.h"
+#include "TextureManager.hpp"
 
 size_t TextureManager::AddTexture(const std::string &texture_name) {
     if(textures[texture_name] == nullptr){

@@ -51,6 +51,7 @@
     {
       "name": "default", //Prolly ignored
       "texture name": "Scenes/Textures/default.png",
+      "health": 1000,
       "spawn location": {
         "top": 0,
         "left": 0

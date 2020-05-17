@@ -2,7 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#include "GameScene.h"
+#include "GameScene.hpp"
 #include <json/json.h>
 
 #include <fstream>
@@ -48,6 +48,11 @@ std::vector<MT::Entity> GameScene::LoadFromJson(const std::string &json_file, Te
     std::vector<Entity> entities;
     for(auto const & element : root["entities"]){
         entities.emplace_back(Entity(*(textureManager_out += element["texture name"].asString())));
+        entities.back().SetHealth(element["health"].asInt());
+        entities.back().setPosition(element["spawn location"]["left"].asFloat(),element["spawn location"]["top"].asFloat() );
+
+
+
     }
 
     return entities;

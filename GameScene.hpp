@@ -2,13 +2,13 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_GAMESCENE_H
-#define MOONLIGHT_TRAILS_GAMESCENE_H
+#ifndef MOONLIGHT_TRAILS_GAMESCENE_HPP
+#define MOONLIGHT_TRAILS_GAMESCENE_HPP
 
-#include "TextureManager.h"
-#include "Parallax.h"
-#include "Drawable.h"
-#include "Entity.h"
+#include "TextureManager.hpp"
+#include "Parallax.hpp"
+#include "Drawable.hpp"
+#include "Entity.hpp"
 
 #include <string>
 #include <vector>
@@ -45,4 +45,4 @@ inline namespace MT {
 
 } //namespace MT
 
-#endif //MOONLIGHT_TRAILS_GAMESCENE_H
+#endif //MOONLIGHT_TRAILS_GAMESCENE_HPP

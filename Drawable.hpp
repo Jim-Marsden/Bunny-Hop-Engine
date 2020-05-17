@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_DRAWABLE_H
-#define MOONLIGHT_TRAILS_DRAWABLE_H
+#ifndef MOONLIGHT_TRAILS_DRAWABLE_HPP
+#define MOONLIGHT_TRAILS_DRAWABLE_HPP
 #include <SFML/Graphics.hpp>
 inline namespace MT {
     class Drawable {
@@ -23,4 +23,4 @@ inline namespace MT {
     };
 }
 
-#endif //MOONLIGHT_TRAILS_DRAWABLE_H
+#endif //MOONLIGHT_TRAILS_DRAWABLE_HPP

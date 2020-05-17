@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_PARALLAX_H
-#define MOONLIGHT_TRAILS_PARALLAX_H
+#ifndef MOONLIGHT_TRAILS_PARALLAX_HPP
+#define MOONLIGHT_TRAILS_PARALLAX_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -29,4 +29,4 @@ namespace MT {
 }// namespace MT
 
 
-#endif //MOONLIGHT_TRAILS_PARALLAX_H
+#endif //MOONLIGHT_TRAILS_PARALLAX_HPP

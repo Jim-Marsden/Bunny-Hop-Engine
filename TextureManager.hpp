@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_TEXTUREMANAGER_H
-#define MOONLIGHT_TRAILS_TEXTUREMANAGER_H
+#ifndef MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
+#define MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
 #include <string>
 #include <map>
 #include <memory>
@@ -34,4 +34,4 @@ inline namespace MT {
 } //namespace MT
 
 
-#endif //MOONLIGHT_TRAILS_TEXTUREMANAGER_H
+#endif //MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP

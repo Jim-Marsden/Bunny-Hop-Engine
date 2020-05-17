@@ -2,7 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#include "Drawable.h"
+#include "Drawable.hpp"
 
 void Drawable::setTexture(sf::Texture const &texture) {
     _sprite.setTexture(texture);
