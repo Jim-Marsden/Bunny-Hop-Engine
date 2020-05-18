@@ -25,7 +25,7 @@ inline namespace MT{
     template<class Callable>
     template<class... Args>
     size_t Delegate<Callable>::operator()(Args &&... args) {
-        size_t result;
+        size_t result{};
         for(auto const & element  : callables){
             element(args ...); ++result;
         }

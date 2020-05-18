@@ -4,7 +4,25 @@
   "background" :[
     {
       // Is valid
-      "speed": 2,
+      "speed": 10,
+      "texture name": "Scenes/Textures/parallax_test-bg001.png"
+
+    },
+    {
+      // Is valid
+      "speed": 5,
+      "texture name": "Scenes/Textures/parallax_test-bg001.png"
+
+    },
+    {
+      // Is valid
+      "speed": 2.5,
+      "texture name": "Scenes/Textures/parallax_test-bg001.png"
+
+    },
+    {
+      // Is valid
+      "speed": 1,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
 
     }
@@ -49,12 +67,18 @@
     }],
   "entities": [
     {
-      "name": "default", //Prolly ignored
-      "texture name": "Scenes/Textures/default.png",
-      "health": 1000,
+      "file name": "Entity/Test.json",
       "spawn location": {
         "top": 0,
         "left": 0
+      }
+
+    },
+    {
+      "file name": "Entity/Test.json",
+      "spawn location": {
+        "top": 0,
+        "left": 100
       }
     }
   ]

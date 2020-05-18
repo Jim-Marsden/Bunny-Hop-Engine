@@ -14,7 +14,10 @@ sf::Sprite const &MT::Parallax::GetSprite() const {
     return _sprite;
 }
 
-void MT::Parallax::ApplyParallax(const sf::Vector2f &offset) {
+void MT::Parallax::ApplyParallax(const sf::Vector2f &player_speed) {
+
+    _sprite.move({(player_speed.x / offset),
+                  player_speed.y / offset});
     //TODO stuff
 
 }

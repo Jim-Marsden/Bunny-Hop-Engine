@@ -1,0 +1,19 @@
+{
+  "texture name": "Entity/Texture/default.png",
+  "enty name": "test entity",
+  "health": 100,
+  "sprite size": {
+    "h": 0,
+    "w": 0
+  },
+
+  "animation" :[
+    {
+      "name": "idle",
+      "sprite frame count": 2,
+      "frames per animation frame": 10
+    }
+
+  ]
+
+}

@@ -13,68 +13,45 @@ Entity::Entity(const sf::Texture &texture) {
 }
 
 
-bool Entity::isColliding(const std::vector<sf::RectangleShape> & Rectangles) const {
+Entity::CollisionDirection Entity::isColliding(const std::vector<sf::RectangleShape> & Rectangles) const {
+    CollisionDirection collisionDirection;
     for(auto & element : Rectangles) {
         if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
+            return {isCollidingTop(element), isCollidingDown(element),
+                    isCollidingLeft(element), isCollidingRight(element)};
+        }
+    }
+    return {false, false, false , false};
+}
+
+bool Entity::isCollidingDown(sf::RectangleShape const  &Rectangles) const {
+
+        if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
+
+            if((_sprite.getPosition().y - _sprite.getLocalBounds().height) < 0) {
+                return true;
+            }
+        }
+    return false;
+}
+
+bool Entity::isCollidingRight(sf::RectangleShape const &Rectangles) const {
+    if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
+
+        if((_sprite.getPosition().x - _sprite.getLocalBounds().width) < 0) {
             return true;
         }
     }
     return false;
 }
 
-bool Entity::isCollidingDown(const std::vector<sf::RectangleShape> &Rectangles) const {
-    for(auto & element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
+bool Entity::isCollidingLeft(sf::RectangleShape const &Rectangles) const {
+    return !isCollidingRight(Rectangles);
 
-
-            auto x{_sprite.getLocalBounds().top - _sprite.getLocalBounds().top};
-            auto xs{_sprite.getPosition().y - _sprite.getLocalBounds().height};
-            auto y{element.getLocalBounds().top - element.getLocalBounds().height};
-            //std::cout << "xs" << xs << "X" << x << "y" << y <<  " x&y" << (( x < 0 ? -x : x /2) > y) << "Entity::isCollidingDown\n";
-
-            if((_sprite.getPosition().y - _sprite.getLocalBounds().height) < 0) {
-                std::cout << "bounce!~\n";
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
-bool Entity::isCollidingRight(const std::vector<sf::RectangleShape> &Rectangles) const {
-    for(auto & element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
-            if(_sprite.getGlobalBounds().left < element.getGlobalBounds().left) {
-                std::cout << "Entity::isCollidingRight\n";
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Entity::isCollidingLeft(const std::vector<sf::RectangleShape> &Rectangles) const {
-    for(auto & element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
-            if(_sprite.getGlobalBounds().left > element.getGlobalBounds().left) {
-                std::cout << "Entity::isCollidingLeft\n";
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Entity::isCollidingTop(const std::vector<sf::RectangleShape> &Rectangles) const {
-    for(auto & element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
-            if(_sprite.getGlobalBounds().height > element.getGlobalBounds().height) {
-                std::cout << "Entity::isCollidingTop\n";
-                return true;
-            }
-        }
-    }
-    return false;
+bool Entity::isCollidingTop(const sf::RectangleShape &Rectangles) const {
+   return !isCollidingDown(Rectangles);
 }
 
 void Entity::DoGravity(bool doit) {
@@ -123,6 +100,9 @@ void Entity::AddSpeedX(float X) {
 
 }
 
+sf::Vector2f Entity::GetSpeed() const {
+    return speed;
+}
 
 
 void MT::deal_damage(Entity &entity, long damage_amount) {

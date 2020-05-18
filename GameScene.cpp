@@ -6,6 +6,7 @@
 #include <json/json.h>
 
 #include <fstream>
+#include <iostream>
 
 std::vector<MT::Entity> GameScene::LoadFromJson(const std::string &json_file, TextureManager &textureManager_out) {
     Json::Value root;   // will contain the root value after parsing.
@@ -46,14 +47,20 @@ std::vector<MT::Entity> GameScene::LoadFromJson(const std::string &json_file, Te
     }
 
     std::vector<Entity> entities;
-    for(auto const & element : root["entities"]){
-        entities.emplace_back(Entity(*(textureManager_out += element["texture name"].asString())));
-        entities.back().SetHealth(element["health"].asInt());
+    for (auto const &element : root["entities"]) {
+
+
+        Json::Value entity;   // will contain the root value after parsing.
+        std::ifstream stream(element["file name"].asString(), std::ifstream::binary);
+        stream >> entity;
+        entities.emplace_back(Entity(*(textureManager_out += entity["texture name"].asString())));
+        entities.back().SetHealth(entity["health"].asInt());
         entities.back().setPosition(element["spawn location"]["left"].asFloat(),element["spawn location"]["top"].asFloat() );
 
 
 
     }
+
 
     return entities;
 

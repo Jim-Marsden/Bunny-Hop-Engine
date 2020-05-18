@@ -10,6 +10,9 @@
 
 inline namespace MT {
     class Entity : public MT::Drawable {
+    public:
+        struct CollisionDirection{bool top, bottom, left, right;
+        CollisionDirection()= default;} collision_direction;
 
     protected:
 
@@ -25,15 +28,15 @@ inline namespace MT {
         explicit Entity(sf::Texture const &texture);
 
         //TODO replace these with a single function for single faster checks
-        bool isColliding(std::vector<sf::RectangleShape> const &Rectangles) const;
+        CollisionDirection isColliding(std::vector<sf::RectangleShape> const &Rectangles) const;
 
-        bool isCollidingDown(std::vector<sf::RectangleShape> const &Rectangles) const;
+        bool isCollidingDown(sf::RectangleShape const &Rectangles) const;
 
-        bool isCollidingRight(std::vector<sf::RectangleShape> const &Rectangles) const;
+        bool isCollidingRight(sf::RectangleShape const &Rectangles) const;
 
-        bool isCollidingLeft(std::vector<sf::RectangleShape> const &Rectangles) const;
+        bool isCollidingLeft(sf::RectangleShape const &Rectangles) const;
 
-        bool isCollidingTop(std::vector<sf::RectangleShape> const &Rectangles) const;
+        bool isCollidingTop(sf::RectangleShape const &Rectangles) const;
 
         void DoGravity(bool doit);
 
@@ -42,6 +45,8 @@ inline namespace MT {
         void AddSpeed(sf::Vector2f const & speed_in);
         void AddSpeedY(float Y);
         void AddSpeedX(float X);
+
+        sf::Vector2f GetSpeed() const;
 
 
         [[nodiscard]] decltype(health) GetHealth() const;

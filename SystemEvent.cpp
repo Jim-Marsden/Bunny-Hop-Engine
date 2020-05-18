@@ -5,13 +5,126 @@
 #include <iostream>
 #include "SystemEvent.hpp"
 
+#include <json/json.h>
+#include <fstream>
+#include <string_view>
+
+sf::Keyboard::Key GetKey(std::string_view const & key){
+    if(key == "A" || key == "a")
+        return sf::Keyboard::A;
+    else if(key == "B" || key == "b")
+        return sf::Keyboard::B;
+    else if(key == "C" || key == "c")
+        return sf::Keyboard::C;
+    else if(key == "D" || key == "d")
+        return sf::Keyboard::D;
+    else if(key == "E" || key == "e")
+        return sf::Keyboard::E;
+    else if(key == "F" || key == "f")
+        return sf::Keyboard::F;
+    else if(key == "G" || key == "g")
+        return sf::Keyboard::G;
+    else if(key == "H" || key == "h")
+        return sf::Keyboard::H;
+    else if(key == "I" || key == "i")
+        return sf::Keyboard::I;
+    else if(key == "J" || key == "j")
+        return sf::Keyboard::J;
+    else if(key == "K" || key == "k")
+        return sf::Keyboard::K;
+    else if(key == "L" || key == "l")
+        return sf::Keyboard::L;
+    else if(key == "M" || key == "m")
+        return sf::Keyboard::M;
+    else if(key == "N" || key == "n")
+        return sf::Keyboard::N;
+    else if(key == "O" || key == "o")
+        return sf::Keyboard::O;
+    else if(key == "P" || key == "p")
+        return sf::Keyboard::P;
+    else if(key == "Q" || key == "q")
+        return sf::Keyboard::Q;
+    else if(key == "R" || key == "r")
+        return sf::Keyboard::R;
+    else if(key == "S" || key == "s")
+        return sf::Keyboard::S;
+    else if(key == "T" || key == "t")
+        return sf::Keyboard::T;
+    else if(key == "U" || key == "u")
+        return sf::Keyboard::U;
+    else if(key == "V" || key == "v")
+        return sf::Keyboard::V;
+    else if(key == "W" || key == "w")
+        return sf::Keyboard::W;
+    else if(key == "X" || key == "x")
+        return sf::Keyboard::X;
+    else if(key == "Y" || key == "y")
+        return sf::Keyboard::Y;
+    else if(key == "Z" || key == "z")
+        return sf::Keyboard::Z;
+    else if(key == "Space" || key == "space" || key == " ")
+        return sf::Keyboard::Space;
+    else
+        return sf::Keyboard::Unknown;
+
+    /* Unknown = -1, A = 0, B, C,
+  D, E, F, G,
+  H, I, J, K,
+  L, M, N, O,
+  P, Q, R, S,
+  T, U, V, W,
+  X, Y, Z, Num0,
+  Num1, Num2, Num3, Num4,
+  Num5, Num6, Num7, Num8,
+  Num9, Escape, LControl, LShift,
+  LAlt, LSystem, RControl, RShift,
+  RAlt, RSystem, Menu, LBracket,
+  RBracket, Semicolon, Comma, Period,
+  Quote, Slash, Backslash, Tilde,
+  Equal, Hyphen, Space, Enter,
+  Backspace, Tab, PageUp, PageDown,
+  End, Home, Insert, Delete,
+  Add, Subtract, Multiply, Divide,
+  Left, Right, Up, Down,
+  Numpad0, Numpad1, Numpad2, Numpad3,
+  Numpad4, Numpad5, Numpad6, Numpad7,
+  Numpad8, Numpad9, F1, F2,
+  F3, F4, F5, F6,
+  F7, F8, F9, F10,
+  F11, F12, F13, F14,
+  F15, Pause, KeyCount, Dash = Hyphen,
+  BackSpace = Backspace, BackSlash = Backslash, SemiColon = Semicolon, Return = Enter
+}*/
+}
+
+std::map<sf::Keyboard::Key, SystemEvent::MT_Key> Load_Controls(std::string const &json_file){
+    Json::Value root;   // will contain the root value after parsing.
+    std::ifstream stream(json_file, std::ifstream::binary);
+    stream >> root;
+
+
+
+    return {
+        {GetKey(root["Up"].asString()), SystemEvent::MT_Key::Up},
+        {GetKey(root["Down"].asString()), SystemEvent::MT_Key::Down},
+        {GetKey(root["Left"].asString()), SystemEvent::MT_Key::Left},
+        {GetKey(root["Right"].asString()), SystemEvent::MT_Key::Right},
+        {GetKey(root["Jump"].asString()), SystemEvent::MT_Key::Jump},
+    };
+
+
+
+
+}
+
 SystemEvent::SystemEvent(sf::RenderWindow &window_in, Player & player1) : window{window_in}, player{player1}{
-    key_bindings[sf::Keyboard::Key::S] = MT_Key::Down;
+    /*key_bindings[sf::Keyboard::Key::S] = MT_Key::Down;
     key_bindings[sf::Keyboard::Key::A] = MT_Key::Left;
     key_bindings[sf::Keyboard::Key::W] = MT_Key::Up;
     key_bindings[sf::Keyboard::Key::D] = MT_Key::Right;
 
-    key_bindings[sf::Keyboard::Key::Space] = MT_Key::Jump;
+    key_bindings[sf::Keyboard::Key::Space] = MT_Key::Jump;*/
+    key_bindings = Load_Controls("Settings/Controls.json");
 }
 
 void SystemEvent::AddMoveLeft(std::function<KeyboardFunctionType> const & callable){

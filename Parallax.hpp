@@ -7,11 +7,11 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace MT {
+inline namespace MT {
 
     class Parallax {
         sf::Sprite _sprite;
-        int offset;
+        float offset;
     public:
         Parallax() = default;
         explicit Parallax(sf::Texture const & texture, int offset_in = 1);

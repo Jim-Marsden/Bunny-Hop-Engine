@@ -10,6 +10,7 @@
 
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Main.hpp>
 #include <chrono>
 
 void Move_Player_Left(Player & player, bool is_down){
@@ -42,7 +43,7 @@ void Move_Player_Jump(Player & player, bool is_down){
 
 
 
-int main() {
+int main(int argc, char ** argv) {
     //boost::timer::auto_cpu_timer t;
     std::vector<std::vector<Entity>::iterator > cleanup;
 
@@ -63,6 +64,8 @@ int main() {
     SystemEvent systemEvent(window, player);
     window.setKeyRepeatEnabled(false);
 
+    window.setFramerateLimit(60);
+
     systemEvent.AddMoveLeft(Move_Player_Left);
     systemEvent.AddMoveRight(Move_Player_Right);
     systemEvent.AddMoveUp(Move_Player_Up);
@@ -79,7 +82,7 @@ int main() {
 
 
     while(window.isOpen()){
-        //boost::timer::auto_cpu_timer t;
+        boost::timer::auto_cpu_timer t;
 
         systemEvent.DoEvents();
         cleanup.clear();
@@ -89,7 +92,7 @@ int main() {
 
 ;
             started = std::chrono::high_resolution_clock::now();
-            for (auto const &bg : gameScene.DoParallax({0, 0}))
+            for (auto const &bg : gameScene.DoParallax(player.GetSpeed()))
                 do_draw(bg, window);
 
             for (auto const &element : gameScene.BackDecoration())
@@ -108,11 +111,9 @@ int main() {
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>( std::chrono::steady_clock::now() - fpsTimer).count() >= 1) {
             fpsTimer = std::chrono::steady_clock::now();
 
-            auto bad = player.isCollidingDown(gameScene.GetCollisionBoxes());
-            player.DoGravity(!bad);
-            if(bad){
-                std::cout <<"colliding\n";
-            }
+            auto bad = player.isColliding(gameScene.GetCollisionBoxes());
+            player.DoGravity(!bad.bottom);
+
             player.Move();
             window.setView(sf::View(static_cast<sf::Sprite>(player).getPosition(),
                                     {static_cast<float>(window.getSize().x),
@@ -123,13 +124,15 @@ int main() {
                 //TODO Check if player is touching monster
 
 
-                    auto bad = iterator->isColliding(gameScene.GetCollisionBoxes());
+                    auto bad = iterator->isColliding(gameScene.GetCollisionBoxes()).bottom;
                     iterator->DoGravity(!bad);
                     iterator->Move();
-                    if (bad) {
-                        MT::deal_damage(*iterator, 1,
-                                        [](Entity &entity1) { std::cout << entity1.GetHealth() << "is dead!\n"; });
+                    if(iterator == entities.begin()) {
+                        if (bad) {
+                            MT::deal_damage(*iterator, 1,
+                                            [](Entity &entity1) { std::cout << entity1.GetHealth() << "is dead!\n"; });
 
+                        }
                     }
                     //if(entity.isColliding(gameScene.GetCollisionBoxes()))std::cout << "can be const!\n";
                     if (iterator->GetHealth() < 1) {
@@ -139,9 +142,11 @@ int main() {
 
             }
 
-            for (auto const &cleanup_i: cleanup) {
-                entities.erase(cleanup_i);
+            while(!cleanup.empty()) {
+                entities.erase(cleanup.back());
+                cleanup.pop_back();
             }
+
 
 
         do_draw(player, window);
