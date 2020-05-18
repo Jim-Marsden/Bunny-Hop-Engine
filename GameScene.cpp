@@ -94,4 +94,8 @@ GameScene::GameScene(const std::string &json_file, TextureManager &textureManage
     LoadFromJson(json_file, textureManager_out);
 }
 
+bool GameScene::isActive() {
+    return true;
+}
+
 

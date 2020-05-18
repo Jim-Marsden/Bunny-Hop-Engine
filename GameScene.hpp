@@ -40,6 +40,7 @@ inline namespace MT {
 
         std::vector<Entity> LoadFromJson(std::string const &json_file, TextureManager &textureManager_out);
 
+        bool isActive();
     };
 
 

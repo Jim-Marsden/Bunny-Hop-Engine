@@ -5,9 +5,9 @@
 #include <iostream>
 #include "Entity.hpp"
 
-Entity::Entity(const sf::Sprite &sprite) : Drawable(sprite) {}
+Entity::Entity(const sf::Sprite &sprite) : Drawable(sprite) , speed{} {}
 
-Entity::Entity(const sf::Texture &texture) {
+Entity::Entity(const sf::Texture &texture): speed{} {
     _sprite.setTexture(texture);
 
 }

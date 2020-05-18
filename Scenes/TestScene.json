@@ -1,31 +1,28 @@
 {
   //Is for us, doesn't effect the scene directly.
   "name": "default area",
-  "background" :[
+  "background": [
     {
       // Is valid
       "speed": 10,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
-
     },
     {
       // Is valid
       "speed": 5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
-
     },
     {
       // Is valid
       "speed": 2.5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
-
     },
     {
       // Is valid
       "speed": 1,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
-
     }
+
   ],
   "geometry": [
     {
@@ -34,7 +31,6 @@
       "height": 100,
       "width": 100
     },
-
     {
       "top": 0,
       "left": 300,
@@ -43,11 +39,12 @@
     },
 
     {
-      "top": 400,
-      "left": 100,
-      "height": 100,
-      "width": 1500
+      "top": 350,
+      "left": 0,
+      "height": 10,
+      "width": 10000
     }
+
   ],
   "decoration foreground": [
     {
@@ -56,7 +53,8 @@
       "left": 1000,
       "height": 100,
       "width": 100
-    }],
+    }
+  ],
   "decoration background": [
     {
       "texture name": "Scenes/Textures/tree.png",
@@ -64,7 +62,8 @@
       "left": 0,
       "height": 100,
       "width": 100
-    }],
+    }
+  ],
   "entities": [
     {
       "file name": "Entity/Test.json",
@@ -72,7 +71,6 @@
         "top": 0,
         "left": 0
       }
-
     },
     {
       "file name": "Entity/Test.json",
@@ -81,5 +79,6 @@
         "left": 100
       }
     }
+
   ]
 }
