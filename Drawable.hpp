@@ -23,18 +23,21 @@ inline namespace MT {
 
     };
 
-    int sf::Sprite set_animation_frame(ToDraw  & toDraw, int frame_to_wait, int current_frame, int number_of_frames);
+    template<class ToDraw>
+    int  set_animation_frame(ToDraw  & toDraw, int frame_to_wait, int current_frame, int number_of_frames);
 
     template<class ToDraw>
-    sf::Sprite set_animation_frame(const ToDraw &toDraw, int frame_to_wait, int current_frame, int number_of_frames) {
+    int set_animation_frame( ToDraw &toDraw, int frame_to_wait, int current_frame, int number_of_frames) {
         auto sprite = static_cast<sf::Sprite>(toDraw);
 
         if((frame_to_wait % current_frame) == 1){
             ++current_frame;
             if(number_of_frames < current_frame){
-                curremt_frame = 0;
+                current_frame = 0;
             }
-            sprite.setTextureRect({sprite.getTextureRect().top * current, 0 ,0 ,0});
+            sprite.setTextureRect({sprite.getTextureRect().left * current_frame,
+                                   sprite.getTextureRect().top ,sprite.getTextureRect().width ,
+                                   sprite.getTextureRect().height});
 
         }
 
