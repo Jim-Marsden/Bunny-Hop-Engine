@@ -45,7 +45,14 @@ inline namespace MT {
 
     }
 
+    template<class ToDraw>
+    sf::Sprite set_animation_state(const ToDraw &toDraw, int offset) {
+        return sf::Sprite();
+    }
+
     template<class ToDraw> sf::Sprite set_animation_state(ToDraw const & toDraw, int offset);
+
+
 
 
 

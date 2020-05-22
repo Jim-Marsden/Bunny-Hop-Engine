@@ -5,6 +5,7 @@
 #ifndef MOONLIGHT_TRAILS_ENTITY_HPP
 #define MOONLIGHT_TRAILS_ENTITY_HPP
 
+#include "State_Machine.h"
 #include "Drawable.hpp"
 #include <functional>
 
@@ -14,8 +15,11 @@ inline namespace MT {
         struct CollisionDirection{bool top, bottom, left, right;
         CollisionDirection()= default;} collision_direction;
 
+        enum class AI_States{Default, Idle, Walking, Attacking, Falling, Jumping};
+
     protected:
 
+        StateMachine<Entity::AI_States, void(*)Entity&> stateMachine;
         long health;
         sf::Vector2f speed;
         bool is_gravity_applied;
