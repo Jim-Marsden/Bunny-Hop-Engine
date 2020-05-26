@@ -14,25 +14,37 @@ Entity::Entity(const sf::Texture &texture): speed{} {
 
 
 Entity::CollisionDirection Entity::isColliding(const std::vector<sf::RectangleShape> & Rectangles) const {
-    CollisionDirection collisionDirection;
+    CollisionDirection collisionDirection{};
     for(auto & element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
+
+        if(_sprite.getGlobalBounds().intersects(element.getGlobalBounds()))
+        {
+
+
             return {isCollidingTop(element), isCollidingDown(element),
                     isCollidingLeft(element), isCollidingRight(element)};
         }
     }
+
     return {false, false, false , false};
 }
 
 bool Entity::isCollidingDown(sf::RectangleShape const  &Rectangles) const {
 
-        if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
+    //if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
+        auto s = _sprite.getGlobalBounds().height; //-  _sprite.getLocalBounds().height;
+    auto r = Rectangles.getGlobalBounds().height; //- Rectangles.getGlobalBounds().height;
 
-            if((_sprite.getPosition().y - _sprite.getLocalBounds().height) < 0) {
-                return true;
-            }
-        }
+        s = s <= 0? -s : s;
+        r = r <= 0? -r : r;
+        return  s > r;
+               ;
+    //}
     return false;
+
+    //std::cout << _sprite.getGlobalBounds().top << " " << _sprite.getGlobalBounds().height << '\t';
+
+    //std::cout << Rectangles.getGlobalBounds().top << " " << Rectangles.getGlobalBounds().height << '\n';
 }
 
 bool Entity::isCollidingRight(sf::RectangleShape const &Rectangles) const {

@@ -1,24 +1,23 @@
 {
-  //Is for us, doesn't effect the scene directly.
   "name": "default area",
   "background": [
     {
-      // Is valid
+
       "speed": 10,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-      // Is valid
+
       "speed": 5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-      // Is valid
+
       "speed": 2.5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-      // Is valid
+
       "speed": 1,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     }

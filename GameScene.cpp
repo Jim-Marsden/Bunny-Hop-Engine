@@ -51,11 +51,34 @@ std::vector<MT::Entity> GameScene::LoadFromJson(const std::string &json_file, Te
 
 
         Json::Value entity;   // will contain the root value after parsing.
-        std::ifstream stream(element["file name"].asString(), std::ifstream::binary);
-        stream >> entity;
+        std::ifstream lstream(element["file name"].asString(), std::ifstream::binary);
+        lstream >> entity;
         entities.emplace_back(Entity(*(textureManager_out += entity["texture name"].asString())));
-        entities.back().SetHealth(entity["health"].asInt());
-        entities.back().setPosition(element["spawn location"]["left"].asFloat(),element["spawn location"]["top"].asFloat() );
+        auto &current_entity = entities.back();
+        current_entity.SetHealth(entity["health"].asInt());
+        current_entity.setPosition(element["spawn location"]["left"].asFloat(),element["spawn location"]["top"].asFloat() );
+        current_entity.setTextureRect({0, 0,
+                                        entity["sprite size"]["h"].asInt(), entity["sprite size"]["w"].asInt()});
+
+
+        /*
+         * std::string name;
+        int sprite_frame_count;
+        int frames_per_animation_frame;
+        int current_frame_count;
+         */
+        uint_fast64_t val{};
+
+        for(auto const & animations : entity["animation"]) {
+
+            current_entity.AddAnimationState({animations["name"].asString(),
+                                              animations["number of frames"].asUInt64(),
+                                              animations["ticks per frame"].asUInt64(),
+                                              0,0, ++val});
+
+
+        }
+
 
 
 
@@ -95,6 +118,7 @@ GameScene::GameScene(const std::string &json_file, TextureManager &textureManage
 }
 
 bool GameScene::isActive() {
+    //TODO
     return true;
 }
 

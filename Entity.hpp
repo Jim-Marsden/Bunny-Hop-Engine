@@ -13,16 +13,16 @@ inline namespace MT {
     class Entity : public MT::Drawable {
     public:
         struct CollisionDirection{bool top, bottom, left, right;
-        CollisionDirection()= default;} collision_direction;
+        CollisionDirection()= default;} collision_direction{};
 
-        enum class AI_States{Default, Idle, Walking, Attacking, Falling, Jumping};
+        enum class AI_States{Default, Idle, Walking, Attacking, Falling, Jumping} _current_state;
 
     protected:
 
-        StateMachine<Entity::AI_States, void(*)Entity&> stateMachine;
-        long health;
+        StateMachine<Entity::AI_States, void(*)(Entity&)> stateMachine;
+        long health{};
         sf::Vector2f speed;
-        bool is_gravity_applied;
+        bool is_gravity_applied{};
 
     public:
         Entity() = default;
@@ -57,10 +57,16 @@ inline namespace MT {
 
         void SetHealth(int health_in);
 
+        //void DoAi();
+        //void SetAIState(Entity::AI_States const & state);
+        //[[nodiscard]] Entity::AI_States GetState() const;
     };
 
     void deal_damage(Entity &entity, long damage_amount);
     void deal_damage(Entity &entity, long damage_amount, std::function<void(Entity &)> const & at_zero);
+
+
+
 }
 
 

@@ -88,6 +88,7 @@ std::string_view Do_Game_Update(std::string_view const & scene_File, MT::Texture
             auto bad = player.isColliding(gameScene.GetCollisionBoxes());
             player.DoGravity(!bad.bottom);
 
+
             player.Move();
             window.setView(sf::View(static_cast<sf::Sprite>(player).getPosition(),
                                     {static_cast<float>(window.getSize().x),
@@ -101,17 +102,7 @@ std::string_view Do_Game_Update(std::string_view const & scene_File, MT::Texture
                 auto bad_my = iterator->isColliding(gameScene.GetCollisionBoxes()).bottom;
                 iterator->DoGravity(!bad_my);
                 iterator->Move();
-                if (iterator == entities.begin()) {
-                    if (bad_my) {
-                        MT::deal_damage(*iterator, 1,
-                                        [](Entity &entity1) { std::cout << entity1.GetHealth() << "is dead!\n"; });
-
-                    }
-                }
-                //if(entity.isColliding(gameScene.GetCollisionBoxes()))std::cout << "can be const!\n";
-                if (iterator->GetHealth() < 1) {
-                    cleanup.push_back(iterator);
-                }
+                iterator->DoAnimation(frame_counter);
             }
 
         }

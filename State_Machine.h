@@ -42,7 +42,7 @@ inline namespace MT {
 
 
 
-    template<class Enumerator, class Function, size_t array_size>
+    template<class Enumerator, class Function, int array_size>
     constexpr Function & StateMachine<Enumerator, Function, array_size>::operator[](int index) {
         if (index >= _states.size()) {
             return _states.front();

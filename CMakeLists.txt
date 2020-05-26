@@ -10,6 +10,8 @@ configure_file(Scenes/Textures/tree.png Scenes/Textures/tree.png COPYONLY)
 configure_file(Scenes/Textures/parallax_test-bg001.png
         Scenes/Textures/parallax_test-bg001.png COPYONLY)
 
+configure_file(Entity/Texture/animation_tests.png Entity/Texture/animation_tests.png COPYONLY)
+
 configure_file(Entity/Test.json Entity/Test.json COPYONLY)
 configure_file(Entity/Texture/default.png Entity/Texture/default.png COPYONLY)
 
@@ -20,7 +22,7 @@ configure_file(Settings/Controls.json Settings/Controls.json COPYONLY)
 
 
 
-add_executable(Moonlight_Trails main.cpp  GameScene.cpp GameScene.hpp TextureManager.cpp TextureManager.hpp Parallax.cpp Parallax.hpp Print_helper.hpp Drawable.cpp Drawable.hpp Entity.cpp Entity.hpp Player.cpp Player.hpp Delegate.hpp SystemEvent.cpp SystemEvent.hpp State_Machine.cpp State_Machine.h)
+add_executable(Moonlight_Trails main.cpp  GameScene.cpp GameScene.hpp TextureManager.cpp TextureManager.hpp Parallax.cpp Parallax.hpp Print_helper.hpp Drawable.cpp Drawable.hpp Entity.cpp Entity.hpp Player.cpp Player.hpp Delegate.hpp SystemEvent.cpp SystemEvent.hpp State_Machine.cpp State_Machine.h AnimationState.cpp AnimationState.hpp)
 find_package(TGUI CONFIG REQUIRED)
 find_package(SFML CONFIG REQUIRED graphics system window network audio)
 find_package(Catch2 CONFIG REQUIRED)
