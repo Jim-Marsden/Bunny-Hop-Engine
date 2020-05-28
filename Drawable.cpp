@@ -5,25 +5,25 @@
 #include <iostream>
 #include "Drawable.hpp"
 
-void Drawable::setTexture(sf::Texture const &texture) {
+void MT::Drawable::setTexture(sf::Texture const &texture) {
     _sprite.setTexture(texture);
 
 }
 
-void Drawable::setPosition(float top, float left) {
+void MT::Drawable::setPosition(float top, float left) {
     _sprite.setPosition(top, left);
 }
 
-Drawable::operator sf::Sprite const &() const {
+MT::Drawable::operator sf::Sprite const &() const {
     return _sprite;
 }
 
-Drawable::Drawable(const sf::Sprite &sprite) {
+MT::Drawable::Drawable(const sf::Sprite &sprite) {
     _sprite = sprite;
 
 }
 
-void Drawable::DoAnimation(uint_fast64_t frame_count) {
+void MT::Drawable::DoAnimation(uint_fast64_t frame_count) {
     if(!_animation_information.empty()){
         if(_animation_information.size() > _current_aniomation){
             auto & frame_data = _animation_information[_current_aniomation];
@@ -48,12 +48,12 @@ void Drawable::DoAnimation(uint_fast64_t frame_count) {
 
 }
 
-void Drawable::setTextureRect(const sf::IntRect &rect) {
+void MT::Drawable::setTextureRect(const sf::IntRect &rect) {
     _sprite.setTextureRect(rect);
 
 }
 
-void Drawable::AddAnimationState(const AnimationState &animationState) {
+void MT::Drawable::AddAnimationState(const AnimationState &animationState) {
     _animation_information.emplace_back(animationState);
 
 }

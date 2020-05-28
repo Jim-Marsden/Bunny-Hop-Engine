@@ -97,7 +97,7 @@ sf::Keyboard::Key GetKey(std::string_view const & key){
 }*/
 }
 
-std::map<sf::Keyboard::Key, SystemEvent::MT_Key> Load_Controls(std::string const &json_file){
+std::map<sf::Keyboard::Key, MT::SystemEvent::MT_Key> Load_Controls(std::string const &json_file){
     Json::Value root;   // will contain the root value after parsing.
     std::ifstream stream(json_file, std::ifstream::binary);
     stream >> root;
@@ -105,11 +105,11 @@ std::map<sf::Keyboard::Key, SystemEvent::MT_Key> Load_Controls(std::string const
 
 
     return {
-        {GetKey(root["Up"].asString()), SystemEvent::MT_Key::Up},
-        {GetKey(root["Down"].asString()), SystemEvent::MT_Key::Down},
-        {GetKey(root["Left"].asString()), SystemEvent::MT_Key::Left},
-        {GetKey(root["Right"].asString()), SystemEvent::MT_Key::Right},
-        {GetKey(root["Jump"].asString()), SystemEvent::MT_Key::Jump},
+        {GetKey(root["Up"].asString()), MT::SystemEvent::MT_Key::Up},
+        {GetKey(root["Down"].asString()), MT::SystemEvent::MT_Key::Down},
+        {GetKey(root["Left"].asString()), MT::SystemEvent::MT_Key::Left},
+        {GetKey(root["Right"].asString()), MT::SystemEvent::MT_Key::Right},
+        {GetKey(root["Jump"].asString()), MT::SystemEvent::MT_Key::Jump},
     };
 
 
@@ -117,7 +117,7 @@ std::map<sf::Keyboard::Key, SystemEvent::MT_Key> Load_Controls(std::string const
 
 }
 
-SystemEvent::SystemEvent(sf::RenderWindow &window_in, Player & player1) : window{window_in}, player{player1}{
+MT::SystemEvent::SystemEvent(sf::RenderWindow &window_in, Player & player1) : window{window_in}, player{player1}{
     /*key_bindings[sf::Keyboard::Key::S] = MT_Key::Down;
     key_bindings[sf::Keyboard::Key::A] = MT_Key::Left;
     key_bindings[sf::Keyboard::Key::W] = MT_Key::Up;
@@ -127,31 +127,31 @@ SystemEvent::SystemEvent(sf::RenderWindow &window_in, Player & player1) : window
     key_bindings = Load_Controls("Settings/Controls.json");
 }
 
-void SystemEvent::AddMoveLeft(std::function<KeyboardFunctionType> const & callable){
+void MT::SystemEvent::AddMoveLeft(std::function<KeyboardFunctionType> const & callable){
     MoveLeft += callable;
 }
 
-void SystemEvent::AddMoveRight(std::function<KeyboardFunctionType> const & callable){
+void MT::SystemEvent::AddMoveRight(std::function<KeyboardFunctionType> const & callable){
     MoveRight += callable;
 }
 
-void SystemEvent::AddMoveUp(std::function<KeyboardFunctionType> const & callable){
+void MT::SystemEvent::AddMoveUp(std::function<KeyboardFunctionType> const & callable){
     MoveUp+= callable;
 }
 
-void SystemEvent::AddMoveDown(std::function<KeyboardFunctionType> const & callable){
+void MT::SystemEvent::AddMoveDown(std::function<KeyboardFunctionType> const & callable){
     MoveDown += callable;
 }
 
-void SystemEvent::AddMoveJump(std::function<KeyboardFunctionType> const & callable){
+void MT::SystemEvent::AddMoveJump(std::function<KeyboardFunctionType> const & callable){
     MoveJump += callable;
 }
 
-void SystemEvent::AddClose(std::function<void()> const & callable) {
+void MT::SystemEvent::AddClose(std::function<void()> const & callable) {
     Close += callable;
 }
 
-void SystemEvent::DoEvents() {
+void MT::SystemEvent::DoEvents() {
     sf::Event event{};
     sf::FloatRect visibleArea{};
     std::map<sf::Keyboard::Key, MT_Key>::iterator iterator;

@@ -7,7 +7,7 @@
 #include <utility>
 #include <array>
 
-inline namespace MT {
+ namespace MT {
 
     template<class Enumerator, class Function, int array_size = 0xf>
     class StateMachine {

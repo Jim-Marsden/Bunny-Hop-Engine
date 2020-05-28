@@ -5,22 +5,17 @@
 #include <iostream>
 #include "Entity.hpp"
 
-Entity::Entity(const sf::Sprite &sprite) : Drawable(sprite) , speed{} {}
+MT::Entity::Entity(const sf::Sprite &sprite) : Drawable(sprite) , speed{}, _current_state{AI_States::Default} {}
 
-Entity::Entity(const sf::Texture &texture): speed{} {
+MT::Entity::Entity(const sf::Texture &texture): speed{}, _current_state{AI_States::Default} {
     _sprite.setTexture(texture);
 
 }
 
 
-Entity::CollisionDirection Entity::isColliding(const std::vector<sf::RectangleShape> & Rectangles) const {
-    CollisionDirection collisionDirection{};
+MT::Entity::CollisionDirection MT::Entity::isColliding(const std::vector<sf::RectangleShape> & Rectangles) const {
     for(auto & element : Rectangles) {
-
-        if(_sprite.getGlobalBounds().intersects(element.getGlobalBounds()))
-        {
-
-
+        if(_sprite.getGlobalBounds().intersects(element.getGlobalBounds())){
             return {isCollidingTop(element), isCollidingDown(element),
                     isCollidingLeft(element), isCollidingRight(element)};
         }
@@ -29,44 +24,23 @@ Entity::CollisionDirection Entity::isColliding(const std::vector<sf::RectangleSh
     return {false, false, false , false};
 }
 
-bool Entity::isCollidingDown(sf::RectangleShape const  &Rectangles) const {
-
-    //if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
-        auto s = _sprite.getGlobalBounds().height; //-  _sprite.getLocalBounds().height;
-    auto r = Rectangles.getGlobalBounds().height; //- Rectangles.getGlobalBounds().height;
-
-        s = s <= 0? -s : s;
-        r = r <= 0? -r : r;
-        return  s > r;
-               ;
-    //}
-    return false;
-
-    //std::cout << _sprite.getGlobalBounds().top << " " << _sprite.getGlobalBounds().height << '\t';
-
-    //std::cout << Rectangles.getGlobalBounds().top << " " << Rectangles.getGlobalBounds().height << '\n';
+bool MT::Entity::isCollidingDown(sf::RectangleShape const  &Rectangles) const {
+    return _sprite.getGlobalBounds().top  < Rectangles.getGlobalBounds().top;
 }
 
-bool Entity::isCollidingRight(sf::RectangleShape const &Rectangles) const {
-    if (_sprite.getGlobalBounds().intersects(Rectangles.getGlobalBounds())) {
-
-        if((_sprite.getPosition().x - _sprite.getLocalBounds().width) < 0) {
-            return true;
-        }
-    }
-    return false;
+bool MT::Entity::isCollidingRight(sf::RectangleShape const &Rectangles) const {
+    return _sprite.getGlobalBounds().left  < Rectangles.getGlobalBounds().left;
 }
 
-bool Entity::isCollidingLeft(sf::RectangleShape const &Rectangles) const {
-    return !isCollidingRight(Rectangles);
-
+bool MT::Entity::isCollidingLeft(sf::RectangleShape const &Rectangles) const {
+    return _sprite.getGlobalBounds().left  < Rectangles.getGlobalBounds().left + Rectangles.getGlobalBounds().width;
 }
 
-bool Entity::isCollidingTop(const sf::RectangleShape &Rectangles) const {
-   return !isCollidingDown(Rectangles);
+bool MT::Entity::isCollidingTop(const sf::RectangleShape &Rectangles) const {
+    return _sprite.getGlobalBounds().top  < Rectangles.getGlobalBounds().top + Rectangles.getGlobalBounds().height;
 }
 
-void Entity::DoGravity(bool doit) {
+void MT::Entity::DoGravity(bool doit) {
     if(doit) {
         if(!is_gravity_applied) {
             speed.y += 2;
@@ -83,36 +57,36 @@ void Entity::DoGravity(bool doit) {
 
 }
 
-decltype(Entity::health) Entity::GetHealth() const {
+decltype(MT::Entity::health) MT::Entity::GetHealth() const {
     return health;
 }
 
-void Entity::SetHealth(int health_in) {
+void MT::Entity::SetHealth(int health_in) {
     health = health_in;
 
 }
 
-void Entity::Move() {
+void MT::Entity::Move() {
     _sprite.move(speed);
 
 }
 
-void Entity::AddSpeed(const sf::Vector2f &speed_in) {
+void MT::Entity::AddSpeed(const sf::Vector2f &speed_in) {
     speed += speed_in;
 
 }
 
-void Entity::AddSpeedY(float Y) {
+void MT::Entity::AddSpeedY(float Y) {
     speed.y += Y;
 
 }
 
-void Entity::AddSpeedX(float X) {
+void MT::Entity::AddSpeedX(float X) {
     speed.x += X;
 
 }
 
-sf::Vector2f Entity::GetSpeed() const {
+sf::Vector2f MT::Entity::GetSpeed() const {
     return speed;
 }
 

@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-inline namespace MT {
+namespace MT {
     class GameScene {
         std::string _name;
 

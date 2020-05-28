@@ -7,7 +7,7 @@
 #include <vector>
 #include <tuple>
 
-inline namespace MT{
+ namespace MT{
 
     template<class Callable>
     class Delegate{

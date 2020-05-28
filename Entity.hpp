@@ -9,13 +9,13 @@
 #include "Drawable.hpp"
 #include <functional>
 
-inline namespace MT {
+ namespace MT {
     class Entity : public MT::Drawable {
     public:
         struct CollisionDirection{bool top, bottom, left, right;
         CollisionDirection()= default;} collision_direction{};
 
-        enum class AI_States{Default, Idle, Walking, Attacking, Falling, Jumping} _current_state;
+        enum class AI_States{Default, Idle, Walking, Attacking, Falling, Jumping} _current_state{AI_States::Default};
 
     protected:
 

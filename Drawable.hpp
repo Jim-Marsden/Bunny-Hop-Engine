@@ -8,7 +8,7 @@
 #include <vector>
 #include "AnimationState.hpp"
 
-inline namespace MT {
+namespace MT {
     class Drawable {
 
     protected:

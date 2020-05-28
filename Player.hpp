@@ -6,7 +6,7 @@
 #define MOONLIGHT_TRAILS_PLAYER_HPP
 
 #include "Entity.hpp"
-inline namespace MT {
+namespace MT {
     class Player : public MT::Entity {
     public:
         Player() = default;

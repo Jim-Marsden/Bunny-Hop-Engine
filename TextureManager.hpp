@@ -9,7 +9,7 @@
 #include <memory>
 
 #include <SFML/Graphics.hpp>
-inline namespace MT {
+namespace MT {
     class TextureManager {
         std::map<std::string, std::shared_ptr<sf::Texture>> textures;
         //std::vector<std::shared_ptr<sf::Texture>> textures;

@@ -5,7 +5,7 @@
 #ifndef MOONLIGHT_TRAILS_ANIMATIONSTATE_HPP
 #define MOONLIGHT_TRAILS_ANIMATIONSTATE_HPP
 #include <string>
-inline namespace MT {
+ namespace MT {
 
     struct AnimationState {
 

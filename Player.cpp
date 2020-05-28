@@ -3,3 +3,15 @@
 //
 
 #include "Player.hpp"
+
+MT::Player::Player(const sf::Sprite &sprite) : MT::Entity(sprite) {
+
+}
+
+MT::Player::Player(const sf::Texture &texture) : Entity(texture) {
+
+}
+
+void MT::Player::DoJump(const bool &should_jump) {
+
+}

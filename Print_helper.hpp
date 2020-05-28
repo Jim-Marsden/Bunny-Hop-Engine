@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <type_traits>
 
-inline namespace MT {
+namespace MT {
     template<class Sprite_Type>
     void do_draw(Sprite_Type const &drawable, sf::RenderWindow &window) {
         window.draw(static_cast<sf::Sprite>(drawable));

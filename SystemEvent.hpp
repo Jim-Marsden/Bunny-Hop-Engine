@@ -12,7 +12,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-inline namespace MT {
+namespace MT {
 
     class Player;
 

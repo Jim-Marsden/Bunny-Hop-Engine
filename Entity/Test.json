@@ -11,7 +11,8 @@
     {
       "name": "idle",
       "number of frames": 5,
-      "ticks per frame": 10
+      "ticks per frame": 100,
+      "tick offset": 0
     }
 
   ]

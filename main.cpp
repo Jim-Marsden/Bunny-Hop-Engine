@@ -13,30 +13,30 @@
 #include <SFML/Main.hpp>
 #include <chrono>
 
-void Move_Player_Left(Player & player, bool is_down){
+void Move_Player_Left(MT::Player & player, bool is_down){
     if(is_down) player.AddSpeedX(-5);
     else player.AddSpeedX(5);
 
 
 }
-void Move_Player_Right(Player & player, bool is_down){
+void Move_Player_Right(MT::Player & player, bool is_down){
 
     if(is_down) player.AddSpeedX(5);
     else player.AddSpeedX(-5);
 }
 
-void Move_Player_Up(Player & player, bool is_down){
+void Move_Player_Up(MT::Player & player, bool is_down){
 
     std::cout << "Down!" << is_down << '\n';
 
 }
 
-void Move_Player_Down(Player & player, bool is_down){
+void Move_Player_Down(MT::Player & player, bool is_down){
     if(is_down) player.AddSpeedY(5);
     else player.AddSpeedY(-5);
 }
 
-void Move_Player_Jump(Player & player, bool is_down){
+void Move_Player_Jump(MT::Player & player, bool is_down){
     if(is_down) player.AddSpeedY(-5);
     else player.AddSpeedY(5);
 }
@@ -44,6 +44,8 @@ void Move_Player_Jump(Player & player, bool is_down){
 std::string_view Do_Game_Update(std::string_view const & scene_File, MT::TextureManager & textureManager, sf::RenderWindow & window, MT::Player &player, MT::SystemEvent &systemEvent){
     uint_fast64_t frame_counter{};
     auto started = std::chrono::high_resolution_clock::now();
+
+
 
     MT::GameScene gameScene;
 
@@ -53,7 +55,6 @@ std::string_view Do_Game_Update(std::string_view const & scene_File, MT::Texture
 
     std::chrono::time_point<std::chrono::steady_clock> fpsTimer(std::chrono::steady_clock::now());
     std::chrono::duration<int32_t, std::ratio<1, 60>> FPS{};
-    std::vector<std::vector<Entity>::iterator > cleanup;
 
     while(gameScene.isActive() && window.isOpen()) {
         ++frame_counter;
@@ -66,20 +67,20 @@ std::string_view Do_Game_Update(std::string_view const & scene_File, MT::Texture
         ;
         started = std::chrono::high_resolution_clock::now();
         for (auto const &bg : gameScene.DoParallax(player.GetSpeed()))
-            do_draw(bg, window);
+            MT::do_draw(bg, window);
 
         for (auto const &element : gameScene.BackDecoration())
-            do_draw(element, window);
+            MT::do_draw(element, window);
 
 
         for (auto const &element : gameScene.FrontDecoration())
-            do_draw(element, window);
+            MT::do_draw(element, window);
 
         for (auto const &shape : gameScene.GetCollisionBoxes())
-            do_draw(shape, window);
+            MT::do_draw(shape, window);
 
         for (auto const &item : entities)
-            do_draw(item, window);
+            MT::do_draw(item, window);
 
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
                 std::chrono::steady_clock::now() - fpsTimer).count() >= 1) {
@@ -95,25 +96,25 @@ std::string_view Do_Game_Update(std::string_view const & scene_File, MT::Texture
                                      static_cast<float>(window.getSize().y)}));
 
 
-            for (auto iterator = entities.begin(); entities.end() != iterator; ++iterator) {
+            for(auto  & entity : entities) {
                 //TODO Check if player is touching monster
 
 
-                auto bad_my = iterator->isColliding(gameScene.GetCollisionBoxes()).bottom;
-                iterator->DoGravity(!bad_my);
-                iterator->Move();
-                iterator->DoAnimation(frame_counter);
+                auto bad_my = entity.isColliding(gameScene.GetCollisionBoxes()).bottom;
+                //if(bad_my) MT::deal_damage(entity, 1000);
+
+                entity.DoGravity(!bad_my);
+                entity.Move();
+                entity.DoAnimation(frame_counter);
+
             }
 
         }
 
-        while (!cleanup.empty()) {
-            entities.erase(cleanup.back());
-            cleanup.pop_back();
-        }
+        entities.erase( std::remove_if(entities.begin(), entities.end(),
+                [](MT::Entity const & entity){return entity.GetHealth() < 1;}), entities.end());
 
-
-        do_draw(player, window);
+         do_draw(player, window);
 
         window.display();
     }
@@ -131,13 +132,13 @@ int main(int argc, char ** argv) {
 
     std::cout << gameScene.Name() << '\n';
 
-    Player player;
+    MT::Player player;
     player.setTexture(*(textureManager+="Scenes/Textures/default.png"));
 
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),
             "Moonilight Trails~");
-    SystemEvent systemEvent(window, player);
+    MT::SystemEvent systemEvent(window, player);
     window.setKeyRepeatEnabled(false);
 
     window.setFramerateLimit(60);
