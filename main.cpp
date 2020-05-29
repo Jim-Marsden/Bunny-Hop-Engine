@@ -37,8 +37,8 @@ void Move_Player_Down(MT::Player & player, bool is_down){
 }
 
 void Move_Player_Jump(MT::Player & player, bool is_down){
-    if(is_down) player.AddSpeedY(-5);
-    else player.AddSpeedY(5);
+    if(is_down) player.DoJump(true);//player.AddSpeedY(-5);
+    else player.DoJump(false);//player.AddSpeedY(5);
 }
 
 std::string_view Do_Game_Update(std::string_view const & scene_File, MT::TextureManager & textureManager, sf::RenderWindow & window, MT::Player &player, MT::SystemEvent &systemEvent){
