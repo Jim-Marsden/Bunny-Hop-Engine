@@ -2,6 +2,7 @@
 #include "Print_helper.hpp"
 #include "player.hpp"
 #include "SystemEvent.hpp"
+#include "Json_Parser.hpp"
 
 #include <iostream>
 #include <boost/timer/timer.hpp>
@@ -128,7 +129,7 @@ int main() {
 
     std::cout << game_scene.Name() << '\n';
 
-    mt::player player = mt::load_player_from_file("Player/Player.json", texture_manager);
+    mt::player player = mt::json_parsers::parse_player("Player/Player.json", texture_manager);
 
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),

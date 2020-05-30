@@ -32,8 +32,6 @@ namespace mt {
         [[nodiscard]] sf::Vector2f GetPos() const;
     };
 
-    [[nodiscard]] auto
-    load_player_from_file(std::string const &File_name, mt::textureManager &Texture_manager) -> player;
 
 } // namespace mt
 

@@ -31,31 +31,37 @@
       "name": "jump",
       "speed y": -10.0,
       "speed x": 0.0,
-      "enabled": false
+      "enabled": false,
+      "has timer": false,
+      "timer": 10
     },
     {
       "name": "move left",
       "speed y": 0.0,
       "speed x": -10.0,
-      "enabled": false
+      "enabled": false,
+      "has timer": false
     },
     {
       "name": "move right",
       "speed y": 0.0,
       "speed x": 10.0,
-      "enabled": false
+      "enabled": false,
+      "has timer": false
     },
     {
       "name": "move down",
       "speed y": 10.0,
       "speed x": 0.0,
-      "enabled": false
+      "enabled": false,
+      "has timer": false
     },
     {
       "name": "gravity",
       "speed y": 5.0,
       "speed x": 0.0,
-      "enabled": true
+      "enabled": true,
+      "has timer": false
     }
   ]
 }

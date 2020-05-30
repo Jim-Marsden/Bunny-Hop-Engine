@@ -24,7 +24,7 @@ configure_file(Player/Textures/player_animation_test_002.png Player/Textures/pla
 add_executable(Moonlight_Trails main.cpp gameScene.cpp gameScene.hpp textureManager.cpp textureManager.hpp parallax.cpp
         parallax.hpp Print_helper.hpp drawable.cpp drawable.hpp entity.cpp entity.hpp player.cpp player.hpp delegate.hpp
         SystemEvent.cpp SystemEvent.hpp State_Machine.cpp State_Machine.h animationState.cpp animationState.hpp
-        movement.cpp movement.hpp)
+        movement.cpp movement.hpp Json_Parser.cpp Json_Parser.hpp)
 find_package(TGUI CONFIG REQUIRED)
 find_package(SFML CONFIG REQUIRED graphics system window network audio)
 find_package(Catch2 CONFIG REQUIRED)
@@ -40,7 +40,6 @@ if (WIN32)
     find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer)
     if (Boost_FOUND)
         include_directories(${Boost_INCLUDE_DIRS})
-        d
         target_link_libraries(Moonlight_Trails PRIVATE sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
                 OpenGL Vorbis tgui jsoncpp_lib Catch2::Catch2 ${Boost_LIBRARIES})
 
