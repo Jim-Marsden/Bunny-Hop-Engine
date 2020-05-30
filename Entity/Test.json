@@ -6,15 +6,20 @@
     "h": 64,
     "w": 64
   },
-
-  "animation" :[
+  "animation": [
     {
       "name": "idle",
       "number of frames": 5,
       "ticks per frame": 100,
       "tick offset": 0
     }
-
+  ],
+  "movement": [
+    {
+      "name": "gravity",
+      "speed y": 5.0,
+      "speed x": 0.0,
+      "enabled": true
+    }
   ]
-
 }

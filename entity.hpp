@@ -13,6 +13,8 @@
 namespace mt {
     class entity : public mt::drawable {
     public:
+
+
         struct collisionDirection {
             bool top, bottom, left, right;
 
@@ -25,32 +27,16 @@ namespace mt {
             collisionDirection &operator=(collisionDirection const &) = default;
         };
 
-        struct movementDirectionsT {
-            bool gravity;
-            bool left;
-            bool right;
-            bool jump;
-            bool climb;
-        };
-
-        enum class AiStates {
-            Default,
-            Idle,
-            Walking,
-            Attacking,
-            Falling,
-            Jumping
-        } current_state{AiStates::Default};
 
     protected:
-        collisionDirection collision_direction{};
-        stateMachine<entity::AiStates, void (*)(entity &)> state_machine;
-        long health{};
-        sf::Vector2f speed;
-        bool is_gravity_applied{};
+        collisionDirection _collision_direction{};
+        long _health{};
+        sf::Vector2f _speed;
+        bool _is_gravity_applied{};
+
+        movement _movement{};
 
     public:
-        entity() = default;
 
         explicit entity(sf::Sprite const &Sprite);
 
@@ -83,9 +69,12 @@ namespace mt {
 
         sf::Vector2f GetSpeed() const;
 
-        [[nodiscard]] decltype(health) GetHealth() const;
+        [[nodiscard]] decltype(_health) GetHealth() const;
 
         void SetHealth(int Health_in);
+
+        void AddMovement(std::string const &String_view, movement::movementDataT const &Movement_data);
+
 
         // void DoAi();
         // void SetAIState(entity::AiStates const & state);

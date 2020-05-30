@@ -13,35 +13,24 @@ namespace mt {
 
 
     public:
-        movement() = default;
 
-        movement(movement &Copy) = default;
-
-        movement(movement &&Move) = default;
 
         struct movementDataT {
             //std::string_view name;
             bool enabled{};
             float x{}, y{};
 
-            movementDataT() = default;
-
-            movementDataT(movementDataT &) = default;
-
-            movementDataT(movementDataT &&) = default;
-
-            movementDataT(const movementDataT &) = default;
-
-            movementDataT &operator=(movementDataT const &) = default;
 
         };
 
     protected:
-        std::map<std::string_view, movementDataT> movement_data;
+        std::map<std::string, movementDataT> _movement_data;
     public:
-        void AddData(std::string_view const &String_view, movementDataT const &);
+        void AddData(std::string const &String_view, movementDataT const &Movement_data);
 
-        [[nodiscard]] movementDataT GetData(std::string_view const &String_view) const;
+        void EnableValue(std::string_view const &String_view, bool State);
+
+        [[nodiscard]] movementDataT GetData(std::string const &String_view) const;
 
         [[nodiscard]] float CalculateX() const;
 

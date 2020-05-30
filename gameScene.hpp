@@ -15,13 +15,13 @@
 
 namespace mt {
     class gameScene {
-        std::string name;
+        std::string _name;
 
         //TODO parallax class
-        std::vector<parallax> parallaxes;
-        std::vector<sf::RectangleShape> geometry;
-        std::vector<mt::drawable> background_decorations;
-        std::vector<mt::drawable> foreground_decorations;
+        std::vector<parallax> _parallaxes;
+        std::vector<sf::RectangleShape> _geometry;
+        std::vector<mt::drawable> _background_decorations;
+        std::vector<mt::drawable> _foreground_decorations;
 
 
     public:
@@ -29,13 +29,13 @@ namespace mt {
 
         gameScene(std::string const &Json_file, textureManager &Texture_manager_out);
 
-        [[nodiscard]]decltype(parallaxes) const &DoParallax(sf::Vector2f const &Location);
+        [[nodiscard]]decltype(_parallaxes) const &DoParallax(sf::Vector2f const &Location);
 
-        [[nodiscard]] decltype(geometry) const &GetCollisionBoxes();
+        [[nodiscard]] decltype(_geometry) const &GetCollisionBoxes();
 
-        [[nodiscard]]decltype(foreground_decorations) const &FrontDecoration();
+        [[nodiscard]]decltype(_foreground_decorations) const &FrontDecoration();
 
-        [[nodiscard]]decltype(background_decorations) const &BackDecoration() const;
+        [[nodiscard]]decltype(_background_decorations) const &BackDecoration() const;
 
         [[nodiscard]] std::string Name() const;
 

@@ -73,6 +73,9 @@ namespace mt::helper::gamescene {
             current_entity.SetTextureRect({0, 0, entity_value["sprite size"]["h"].asInt(),
                                            entity_value["sprite size"]["w"].asInt()});
 
+            current_entity.SetOrigin(entity_value["sprite size"]["h"].asFloat() / 2.0f,
+                                     entity_value["sprite size"]["w"].asFloat() / 2.0f);
+
             uint_fast64_t val{};
 
             for (auto const &animations : entity_value["animation"]) {
@@ -82,6 +85,18 @@ namespace mt::helper::gamescene {
                          animations["number of frames"].asUInt64(),
                          animations["ticks per frame"].asUInt64(), 0,
                          animations["tick offset"].asUInt64(), ++val});
+            }
+            for (auto const &movement_element : entity_value["movement"]) {
+                std::cout << "Movement " << movement_element["name"].asString() << '\t';
+
+                std::cout << "X " << movement_element["speed x"].asFloat() << '\t';
+                std::cout << "Y " << movement_element["speed y"].asFloat() << '\t';
+                std::cout << "Y " << movement_element["enabled"].asBool() << '\n';
+
+                current_entity.AddMovement(movement_element["name"].asString(),
+                                           {movement_element["enabled"].asBool(), movement_element["speed x"].asFloat(),
+                                            movement_element["speed y"].asFloat()});
+
             }
         }
         return entities;
@@ -96,40 +111,40 @@ mt::gameScene::LoadFromJson(const std::string &Json_file,
 
     auto name = root["name"].asString();
 
-    parallaxes = mt::helper::gamescene::load_parallax(root["background"],
-                                                      Texture_manager_out);
-    geometry = mt::helper::gamescene::load_geometry(root["geometry"]);
-    foreground_decorations = mt::helper::gamescene::load_decorations(
+    _parallaxes = mt::helper::gamescene::load_parallax(root["background"],
+                                                       Texture_manager_out);
+    _geometry = mt::helper::gamescene::load_geometry(root["geometry"]);
+    _foreground_decorations = mt::helper::gamescene::load_decorations(
             root["decoration foreground"], Texture_manager_out);
-    background_decorations = mt::helper::gamescene::load_decorations(
+    _background_decorations = mt::helper::gamescene::load_decorations(
             root["decoration background"], Texture_manager_out);
 
     return mt::helper::gamescene::load_entities(root["entities"],
                                                 Texture_manager_out);
 }
 
-std::string mt::gameScene::Name() const { return name; }
+std::string mt::gameScene::Name() const { return _name; }
 
-decltype(mt::gameScene::background_decorations) const &
+decltype(mt::gameScene::_background_decorations) const &
 mt::gameScene::BackDecoration() const {
-    return background_decorations;
+    return _background_decorations;
 }
 
-decltype(mt::gameScene::foreground_decorations) const &
+decltype(mt::gameScene::_foreground_decorations) const &
 mt::gameScene::FrontDecoration() {
-    return foreground_decorations;
+    return _foreground_decorations;
 }
 
-decltype(mt::gameScene::geometry) const &mt::gameScene::GetCollisionBoxes() {
-    return geometry;
+decltype(mt::gameScene::_geometry) const &mt::gameScene::GetCollisionBoxes() {
+    return _geometry;
 }
 
-decltype(mt::gameScene::parallaxes) const &
+decltype(mt::gameScene::_parallaxes) const &
 mt::gameScene::DoParallax(const sf::Vector2f &Location) {
-    for (auto &parallax : parallaxes) {
+    for (auto &parallax : _parallaxes) {
         parallax.ApplyParallax(Location);
     }
-    return parallaxes;
+    return _parallaxes;
 }
 
 mt::gameScene::gameScene(const std::string &Json_file,

@@ -2,26 +2,21 @@
   "name": "default area",
   "background": [
     {
-
       "speed": 10,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-
       "speed": 5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-
       "speed": 2.5,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     },
     {
-
       "speed": 1,
       "texture name": "Scenes/Textures/parallax_test-bg001.png"
     }
-
   ],
   "geometry": [
     {
@@ -36,14 +31,12 @@
       "height": 100,
       "width": 100
     },
-
     {
       "top": 350,
       "left": 0,
       "height": 10,
       "width": 10000
     }
-
   ],
   "decoration foreground": [
     {
@@ -78,6 +71,5 @@
         "left": 100
       }
     }
-
   ]
 }

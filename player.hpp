@@ -6,23 +6,35 @@
 #define MOONLIGHT_TRAILS_PLAYER_HPP
 
 #include "entity.hpp"
+#include "textureManager.hpp"
+
 
 namespace mt {
     class player : public mt::entity {
     protected:
-        int jump_count{};
-        int jump_timer{};
-        int max_jump_timer{5};
-        int max_jump_count{2};
+        int _jump_count{};
+        int _jump_timer{};
+        int _max_jump_timer{5};
+        int _max_jump_count{2};
     public:
-        player() = default;
-
         explicit player(sf::Sprite const &Sprite);
 
         explicit player(sf::Texture const &Texture);
 
         void DoJump(bool const &Should_jump);
+
+        void MoveLeft(bool const &Should_jump);
+
+        void MoveRight(bool const &Should_jump);
+
+        void MoveDown(bool const &Should_jump);
+
+        [[nodiscard]] sf::Vector2f GetPos() const;
     };
+
+    [[nodiscard]] auto
+    load_player_from_file(std::string const &File_name, mt::textureManager &Texture_manager) -> player;
+
 } // namespace mt
 
 

@@ -97,71 +97,71 @@ sf::Keyboard::Key GetKey(std::string_view const &key) {
 }*/
 }
 
-std::map<sf::Keyboard::Key, mt::SystemEvent::MT_Key> Load_Controls(std::string const &json_file) {
+std::map<sf::Keyboard::Key, mt::SystemEvent::MtKey> Load_Controls(std::string const &json_file) {
     Json::Value root;   // will contain the root value after parsing.
     std::ifstream stream(json_file, std::ifstream::binary);
     stream >> root;
 
 
     return {
-            {GetKey(root["Up"].asString()),    mt::SystemEvent::MT_Key::Up},
-            {GetKey(root["Down"].asString()),  mt::SystemEvent::MT_Key::Down},
-            {GetKey(root["Left"].asString()),  mt::SystemEvent::MT_Key::Left},
-            {GetKey(root["Right"].asString()), mt::SystemEvent::MT_Key::Right},
-            {GetKey(root["Jump"].asString()),  mt::SystemEvent::MT_Key::Jump},
+            {GetKey(root["Up"].asString()),    mt::SystemEvent::MtKey::Up},
+            {GetKey(root["Down"].asString()),  mt::SystemEvent::MtKey::Down},
+            {GetKey(root["Left"].asString()),  mt::SystemEvent::MtKey::Left},
+            {GetKey(root["Right"].asString()), mt::SystemEvent::MtKey::Right},
+            {GetKey(root["Jump"].asString()),  mt::SystemEvent::MtKey::Jump},
     };
 
 
 }
 
-mt::SystemEvent::SystemEvent(sf::RenderWindow &window_in, mt::player &Player_1) : window{window_in}, player{Player_1} {
+mt::SystemEvent::SystemEvent(sf::RenderWindow &Window, mt::player &Player_1) : _window{Window}, _player{Player_1} {
     /*key_bindings[sf::Keyboard::Key::S] = MT_Key::Down;
     key_bindings[sf::Keyboard::Key::A] = MT_Key::Left;
     key_bindings[sf::Keyboard::Key::W] = MT_Key::Up;
     key_bindings[sf::Keyboard::Key::D] = MT_Key::Right;
 
     key_bindings[sf::Keyboard::Key::Space] = MT_Key::Jump;*/
-    key_bindings = Load_Controls("Settings/Controls.json");
+    _key_bindings = Load_Controls("Settings/Controls.json");
 }
 
 void mt::SystemEvent::AddMoveLeft(std::function<keyboardFunctionType> const &Callable) {
-    move_left += Callable;
+    _move_left += Callable;
 }
 
 void mt::SystemEvent::AddMoveRight(std::function<keyboardFunctionType> const &Callable) {
-    move_right += Callable;
+    _move_right += Callable;
 }
 
 void mt::SystemEvent::AddMoveUp(std::function<keyboardFunctionType> const &Callable) {
-    move_up += Callable;
+    _move_up += Callable;
 }
 
 void mt::SystemEvent::AddMoveDown(std::function<keyboardFunctionType> const &Callable) {
-    move_down += Callable;
+    _move_down += Callable;
 }
 
 void mt::SystemEvent::AddMoveJump(std::function<keyboardFunctionType> const &Callable) {
-    move_jump += Callable;
+    _move_jump += Callable;
 }
 
 void mt::SystemEvent::AddClose(std::function<void()> const &Callable) {
-    close += Callable;
+    _close += Callable;
 }
 
 void mt::SystemEvent::DoEvents() {
     sf::Event event{};
     sf::FloatRect visible_area{};
-    std::map<sf::Keyboard::Key, MT_Key>::iterator iterator;
-    while (window.pollEvent(event)) {
+    std::map<sf::Keyboard::Key, MtKey>::iterator iterator;
+    while (_window.pollEvent(event)) {
         switch (event.type) {
 
             case sf::Event::Closed:
-                close();
-                window.close();
+                _close();
+                _window.close();
                 break;
             case sf::Event::Resized:
                 visible_area = sf::FloatRect(0, 0, event.size.width, event.size.height);
-                window.setView(sf::View(visible_area));
+                _window.setView(sf::View(visible_area));
                 break;
             case sf::Event::LostFocus:
 
@@ -171,42 +171,42 @@ void mt::SystemEvent::DoEvents() {
             case sf::Event::TextEntered:
                 break;
             case sf::Event::KeyPressed:
-                if (key_bindings.find(event.key.code) == key_bindings.end()) break;
+                if (_key_bindings.find(event.key.code) == _key_bindings.end()) break;
 
 
-                if (key_bindings.at(event.key.code) == MT_Key::Up) {
-                    move_up(player, true);
+                if (_key_bindings.at(event.key.code) == MtKey::Up) {
+                    _move_up(_player, true);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Left) {
-                    move_left(player, true);
+                if (_key_bindings.at(event.key.code) == MtKey::Left) {
+                    _move_left(_player, true);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Right) {
-                    move_right(player, true);
+                if (_key_bindings.at(event.key.code) == MtKey::Right) {
+                    _move_right(_player, true);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Down) {
-                    move_down(player, true);
+                if (_key_bindings.at(event.key.code) == MtKey::Down) {
+                    _move_down(_player, true);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Jump) {
-                    move_jump(player, true);
+                if (_key_bindings.at(event.key.code) == MtKey::Jump) {
+                    _move_jump(_player, true);
                 }
                 break;
             case sf::Event::KeyReleased:
-                if (key_bindings.find(event.key.code) == key_bindings.end()) break;
+                if (_key_bindings.find(event.key.code) == _key_bindings.end()) break;
 
-                if (key_bindings.at(event.key.code) == MT_Key::Up) {
-                    move_up(player, false);
+                if (_key_bindings.at(event.key.code) == MtKey::Up) {
+                    _move_up(_player, false);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Left) {
-                    move_left(player, false);
+                if (_key_bindings.at(event.key.code) == MtKey::Left) {
+                    _move_left(_player, false);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Right) {
-                    move_right(player, false);
+                if (_key_bindings.at(event.key.code) == MtKey::Right) {
+                    _move_right(_player, false);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Down) {
-                    move_down(player, false);
+                if (_key_bindings.at(event.key.code) == MtKey::Down) {
+                    _move_down(_player, false);
                 }
-                if (key_bindings.at(event.key.code) == MT_Key::Jump) {
-                    move_jump(player, false);
+                if (_key_bindings.at(event.key.code) == MtKey::Jump) {
+                    _move_jump(_player, false);
                 }
                 break;
             case sf::Event::MouseWheelMoved:

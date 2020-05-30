@@ -1,0 +1,61 @@
+{
+  "texture name": "Player/Textures/player_animation_test_002.png",
+  "enty name": "Hikiri",
+  "health": 100,
+  "sprite size": {
+    "h": 64,
+    "w": 64
+  },
+  "animation": [
+    {
+      "name": "idle",
+      "number of frames": 5,
+      "ticks per frame": 100,
+      "tick offset": 0
+    },
+    {
+      "name": "walk ",
+      "number of frames": 5,
+      "ticks per frame": 100,
+      "tick offset": 0
+    },
+    {
+      "name": "jump",
+      "number of frames": 5,
+      "ticks per frame": 100,
+      "tick offset": 0
+    }
+  ],
+  "movement": [
+    {
+      "name": "jump",
+      "speed y": -10.0,
+      "speed x": 0.0,
+      "enabled": false
+    },
+    {
+      "name": "move left",
+      "speed y": 0.0,
+      "speed x": -10.0,
+      "enabled": false
+    },
+    {
+      "name": "move right",
+      "speed y": 0.0,
+      "speed x": 10.0,
+      "enabled": false
+    },
+    {
+      "name": "move down",
+      "speed y": 10.0,
+      "speed x": 0.0,
+      "enabled": false
+    },
+    {
+      "name": "gravity",
+      "speed y": 5.0,
+      "speed x": 0.0,
+      "enabled": true
+    }
+  ]
+}

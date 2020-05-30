@@ -14,33 +14,24 @@
 #include <chrono>
 
 void move_player_left(mt::player &Player, bool Is_down) {
-    if (Is_down)
-        Player.AddSpeedX(-5);
-    else
-        Player.AddSpeedX(5);
+    Player.MoveLeft(Is_down);
 
 
 }
 
 void move_player_right(mt::player &Player, bool Is_down) {
 
-    if (Is_down)
-        Player.AddSpeedX(5);
-    else
-        Player.AddSpeedX(-5);
+    Player.MoveRight(Is_down);
+
 }
 
 void move_player_up(mt::player &Player, bool Is_down) {
-
-    std::cout << "Down!" << Is_down << '\n';
+    //Player.MoveDown(Is_down);
 
 }
 
 void move_player_down(mt::player &Player, bool Is_down) {
-    if (Is_down)
-        Player.AddSpeedY(5);
-    else
-        Player.AddSpeedY(-5);
+    Player.MoveDown(Is_down);
 }
 
 void move_player_jump(mt::player &Player, bool Is_down) {
@@ -71,7 +62,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
 
         started = std::chrono::high_resolution_clock::now();
-        for (auto const &bg : game_scene.DoParallax(Player.GetSpeed()))
+        for (auto const &bg : game_scene.DoParallax(Player.GetPos()))
             mt::do_draw(bg, Window);
 
         for (auto const &element : game_scene.BackDecoration())
@@ -95,6 +86,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
             Player.DoGravity(!bad.bottom);
 
             Player.Move();
+            Player.DoAnimation();
             Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
                                     {static_cast<float>(Window.getSize().x),
                                      static_cast<float>(Window.getSize().y)}));
@@ -136,8 +128,7 @@ int main() {
 
     std::cout << game_scene.Name() << '\n';
 
-    mt::player player;
-    player.SetTexture(*(texture_manager += "Scenes/Textures/default.png"));
+    mt::player player = mt::load_player_from_file("Player/Player.json", texture_manager);
 
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),

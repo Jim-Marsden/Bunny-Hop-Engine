@@ -12,28 +12,30 @@ namespace mt {
 class drawable {
 
 protected:
-  sf::Sprite sprite;
-  int current_frame_time{};
+    sf::Sprite _sprite;
+    int _current_frame_time{};
 
-  std::vector<animationState> animation_information{};
-  std::size_t current_animation{0};
+    std::vector<animationState> _animation_information{};
+    std::size_t _current_animation{0};
 
 public:
-  drawable() = default;
+    drawable() = default;
 
-  explicit drawable(sf::Sprite const &Sprite);
+    explicit drawable(sf::Sprite const &Sprite);
 
-  void SetTexture(sf::Texture const &Texture);
+    void SetTexture(sf::Texture const &Texture);
 
-  void SetPosition(float Top, float Left);
+    void SetPosition(float Top, float Left);
 
-  void SetTextureRect(sf::IntRect const &Rect);
+    void SetOrigin(float Top, float Left);
 
-  explicit operator sf::Sprite const &() const;
+    void SetTextureRect(sf::IntRect const &Rect);
 
-  void DoAnimation();
+    explicit operator sf::Sprite const &() const;
 
-  void AddAnimationState(animationState const &Animation_state);
+    void DoAnimation();
+
+    void AddAnimationState(animationState const &Animation_state);
 };
 
 } // namespace mt

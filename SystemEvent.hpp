@@ -16,7 +16,7 @@ namespace mt {
 
     class SystemEvent {
     public:
-        enum class MT_Key {
+        enum class MtKey {
             None,
             Up,
             Down,
@@ -28,24 +28,24 @@ namespace mt {
         using keyboardDelegateType =
         delegate<std::function<keyboardFunctionType>>;
     protected:
-        std::map<sf::Keyboard::Key, MT_Key> key_bindings;
-        keyboardDelegateType move_left;
-        keyboardDelegateType move_right;
-        keyboardDelegateType move_up;
-        keyboardDelegateType move_down;
+        std::map<sf::Keyboard::Key, MtKey> _key_bindings;
+        keyboardDelegateType _move_left;
+        keyboardDelegateType _move_right;
+        keyboardDelegateType _move_up;
+        keyboardDelegateType _move_down;
 
 
-        keyboardDelegateType move_jump;
+        keyboardDelegateType _move_jump;
 
-        delegate<std::function<void()>> close;
+        delegate<std::function<void()>> _close;
 
-        sf::RenderWindow &window;
-        player &player;
+        sf::RenderWindow &_window;
+        player &_player;
 
     public:
         SystemEvent() = delete;
 
-        explicit SystemEvent(sf::RenderWindow &window, mt::player &Player_1);
+        explicit SystemEvent(sf::RenderWindow &Window, mt::player &Player_1);
 
         void AddMoveLeft(std::function<keyboardFunctionType> const &Callable);
 
