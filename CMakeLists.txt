@@ -32,6 +32,7 @@ if (WIN32)
 
 
     find_package(jsoncpp CONFIG REQUIRED)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHs")
 
     set(Boost_USE_STATIC_LIBS ON) # only find static libs
     set(Boost_USE_MULTITHREADED ON)
@@ -39,6 +40,7 @@ if (WIN32)
     find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer)
     if (Boost_FOUND)
         include_directories(${Boost_INCLUDE_DIRS})
+        d
         target_link_libraries(Moonlight_Trails PRIVATE sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
                 OpenGL Vorbis tgui jsoncpp_lib Catch2::Catch2 ${Boost_LIBRARIES})
 

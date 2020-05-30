@@ -7,24 +7,24 @@
 
 #include <SFML/Graphics.hpp>
 
- namespace mt {
+namespace mt {
 
     class parallax {
     protected:
-        sf::Sprite sprite;
-        float offset{0.0f};
+        sf::Sprite _sprite;
+        float _offset{0.0f};
     public:
         parallax() = default;
-        explicit parallax(sf::Texture const & Texture, float Offset_in = 1);
 
-        sf::Sprite const & GetSprite() const;
+        explicit parallax(sf::Texture const &Texture, float Offset_in = 1);
 
-        void ApplyParallax(sf::Vector2f const & Player_speed);
+        sf::Sprite const &GetSprite() const;
+
+        void ApplyParallax(sf::Vector2f const &Player_speed);
 
         explicit operator sf::Sprite const &() const;
-        explicit operator sf::Drawable const *() const;
 
-        //explicit operator sf::Sprite & () ;
+        explicit operator sf::Drawable const *() const;
 
     };
 }// namespace mt
