@@ -7,18 +7,19 @@
 
 #include <SFML/Graphics.hpp>
 
- namespace MT {
+ namespace mt {
 
-    class Parallax {
-        sf::Sprite _sprite;
+    class parallax {
+    protected:
+        sf::Sprite sprite;
         float offset{0.0f};
     public:
-        Parallax() = default;
-        explicit Parallax(sf::Texture const & texture, int offset_in = 1);
+        parallax() = default;
+        explicit parallax(sf::Texture const & Texture, float Offset_in = 1);
 
         sf::Sprite const & GetSprite() const;
 
-        void ApplyParallax(sf::Vector2f const & offset);
+        void ApplyParallax(sf::Vector2f const & Player_speed);
 
         explicit operator sf::Sprite const &() const;
         explicit operator sf::Drawable const *() const;
@@ -26,7 +27,7 @@
         //explicit operator sf::Sprite & () ;
 
     };
-}// namespace MT
+}// namespace mt
 
 
 #endif //MOONLIGHT_TRAILS_PARALLAX_HPP

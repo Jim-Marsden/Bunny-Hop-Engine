@@ -1,6 +1,6 @@
-#include "GameScene.hpp"
+#include "gameScene.hpp"
 #include "Print_helper.hpp"
-#include "Player.hpp"
+#include "player.hpp"
 #include "SystemEvent.hpp"
 
 #include <iostream>
@@ -13,148 +13,152 @@
 #include <SFML/Main.hpp>
 #include <chrono>
 
-void Move_Player_Left(MT::Player & player, bool is_down){
-    if(is_down) player.AddSpeedX(-5);
-    else player.AddSpeedX(5);
+void move_player_left(mt::player &Player, bool Is_down) {
+    if (Is_down)
+        Player.AddSpeedX(-5);
+    else
+        Player.AddSpeedX(5);
 
 
 }
-void Move_Player_Right(MT::Player & player, bool is_down){
 
-    if(is_down) player.AddSpeedX(5);
-    else player.AddSpeedX(-5);
+void move_player_right(mt::player &Player, bool Is_down) {
+
+    if (Is_down)
+        Player.AddSpeedX(5);
+    else
+        Player.AddSpeedX(-5);
 }
 
-void Move_Player_Up(MT::Player & player, bool is_down){
+void move_player_up(mt::player &Player, bool Is_down) {
 
-    std::cout << "Down!" << is_down << '\n';
+    std::cout << "Down!" << Is_down << '\n';
 
 }
 
-void Move_Player_Down(MT::Player & player, bool is_down){
-    if(is_down) player.AddSpeedY(5);
-    else player.AddSpeedY(-5);
+void move_player_down(mt::player &Player, bool Is_down) {
+    if (Is_down)
+        Player.AddSpeedY(5);
+    else
+        Player.AddSpeedY(-5);
 }
 
-void Move_Player_Jump(MT::Player & player, bool is_down){
-    if(is_down) player.DoJump(true);//player.AddSpeedY(-5);
-    else player.DoJump(false);//player.AddSpeedY(5);
+void move_player_jump(mt::player &Player, bool Is_down) {
+    Player.DoJump(Is_down);
 }
 
-std::string_view Do_Game_Update(std::string_view const & scene_File, MT::TextureManager & textureManager, sf::RenderWindow & window, MT::Player &player, MT::SystemEvent &systemEvent){
+std::string_view do_game_update(std::string_view const &Scene_file,
+                                mt::textureManager &Texture_manager, sf::RenderWindow &Window, mt::player &Player,
+                                mt::SystemEvent &System_event) {
     uint_fast64_t frame_counter{};
     auto started = std::chrono::high_resolution_clock::now();
 
+    mt::gameScene game_scene;
+
+    auto entities = game_scene.LoadFromJson("./Scenes/TestScene.json",
+                                            Texture_manager);
 
 
-    MT::GameScene gameScene;
+    std::chrono::time_point<std::chrono::steady_clock> fps_timer(std::chrono::steady_clock::now());
+    std::chrono::duration<int32_t, std::ratio<1, 60>> fps{};
 
-    auto entities = gameScene.LoadFromJson("./Scenes/TestScene.json",
-                                           textureManager);
-
-
-    std::chrono::time_point<std::chrono::steady_clock> fpsTimer(std::chrono::steady_clock::now());
-    std::chrono::duration<int32_t, std::ratio<1, 60>> FPS{};
-
-    while(gameScene.isActive() && window.isOpen()) {
+    while (game_scene.IsActive() && Window.isOpen()) {
         ++frame_counter;
 
-        systemEvent.DoEvents();
+        System_event.DoEvents();
 
-        window.clear(sf::Color(0xaa, 0xaa, 0xaa));
+        Window.clear(sf::Color(0xaa, 0xaa, 0xaa));
 
 
-        ;
         started = std::chrono::high_resolution_clock::now();
-        for (auto const &bg : gameScene.DoParallax(player.GetSpeed()))
-            MT::do_draw(bg, window);
+        for (auto const &bg : game_scene.DoParallax(Player.GetSpeed()))
+            mt::do_draw(bg, Window);
 
-        for (auto const &element : gameScene.BackDecoration())
-            MT::do_draw(element, window);
+        for (auto const &element : game_scene.BackDecoration())
+            mt::do_draw(element, Window);
 
 
-        for (auto const &element : gameScene.FrontDecoration())
-            MT::do_draw(element, window);
+        for (auto const &element : game_scene.FrontDecoration())
+            mt::do_draw(element, Window);
 
-        for (auto const &shape : gameScene.GetCollisionBoxes())
-            MT::do_draw(shape, window);
+        for (auto const &shape : game_scene.GetCollisionBoxes())
+            mt::do_draw(shape, Window);
 
         for (auto const &item : entities)
-            MT::do_draw(item, window);
+            mt::do_draw(item, Window);
 
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
-                std::chrono::steady_clock::now() - fpsTimer).count() >= 1) {
-            fpsTimer = std::chrono::steady_clock::now();
+                std::chrono::steady_clock::now() - fps_timer).count() >= 1) {
+            fps_timer = std::chrono::steady_clock::now();
 
-            auto bad = player.isColliding(gameScene.GetCollisionBoxes());
-            player.DoGravity(!bad.bottom);
+            auto bad = Player.IsColliding(game_scene.GetCollisionBoxes());
+            Player.DoGravity(!bad.bottom);
+
+            Player.Move();
+            Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
+                                    {static_cast<float>(Window.getSize().x),
+                                     static_cast<float>(Window.getSize().y)}));
 
 
-            player.Move();
-            window.setView(sf::View(static_cast<sf::Sprite>(player).getPosition(),
-                                    {static_cast<float>(window.getSize().x),
-                                     static_cast<float>(window.getSize().y)}));
-
-
-            for(auto  & entity : entities) {
+            for (auto &entity : entities) {
                 //TODO Check if player is touching monster
 
 
-                auto bad_my = entity.isColliding(gameScene.GetCollisionBoxes()).bottom;
-                //if(bad_my) MT::deal_damage(entity, 1000);
+                auto bad_my = entity.IsColliding(game_scene.GetCollisionBoxes()).bottom;
+                //if(bad_my) mt::deal_damage(entity, 1000);
 
                 entity.DoGravity(!bad_my);
                 entity.Move();
-                entity.DoAnimation(frame_counter);
+                entity.DoAnimation();
 
             }
 
         }
 
-        entities.erase( std::remove_if(entities.begin(), entities.end(),
-                [](MT::Entity const & entity){return entity.GetHealth() < 1;}), entities.end());
+        entities.erase(std::remove_if(entities.begin(), entities.end(),
+                                      [](mt::entity const &Entity) { return Entity.GetHealth() < 1; }), entities.end());
 
-         do_draw(player, window);
+        do_draw(Player, Window);
 
-        window.display();
+        Window.display();
     }
     return " ";
 
 }
 
-int main(int argc, char ** argv) {
+int main() {
     //boost::timer::auto_cpu_timer t;
 
-    MT::TextureManager textureManager;
+    mt::textureManager texture_manager;
 
-    MT::GameScene gameScene;
+    mt::gameScene game_scene;
 
 
-    std::cout << gameScene.Name() << '\n';
+    std::cout << game_scene.Name() << '\n';
 
-    MT::Player player;
-    player.setTexture(*(textureManager+="Scenes/Textures/default.png"));
+    mt::player player;
+    player.SetTexture(*(texture_manager += "Scenes/Textures/default.png"));
 
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),
             "Moonilight Trails~");
-    MT::SystemEvent systemEvent(window, player);
+    mt::SystemEvent system_event(window, player);
     window.setKeyRepeatEnabled(false);
 
     window.setFramerateLimit(60);
 
-    systemEvent.AddMoveLeft(Move_Player_Left);
-    systemEvent.AddMoveRight(Move_Player_Right);
-    systemEvent.AddMoveUp(Move_Player_Up);
-    systemEvent.AddMoveDown(Move_Player_Down);
-    systemEvent.AddMoveJump(Move_Player_Jump);
+    system_event.AddMoveLeft(move_player_left);
+    system_event.AddMoveRight(move_player_right);
+    system_event.AddMoveUp(move_player_up);
+    system_event.AddMoveDown(move_player_down);
+    system_event.AddMoveJump(move_player_jump);
 
 
     std::string_view file_path = "./Scenes/TestScene.json";
 
 
-    while(window.isOpen()){
-        file_path = Do_Game_Update(file_path, textureManager, window, player, systemEvent);
+    while (window.isOpen()) {
+        file_path = do_game_update(file_path, texture_manager, window, player, system_event);
     }
     return 0;
 }

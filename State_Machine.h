@@ -4,36 +4,38 @@
 
 #ifndef MOONLIGHT_TRAILS_STATE_MACHINE_H
 #define MOONLIGHT_TRAILS_STATE_MACHINE_H
+
 #include <utility>
 #include <array>
 
- namespace MT {
+namespace mt {
 
-    template<class Enumerator, class Function, int array_size = 0xf>
-    class StateMachine {
+    template<class Enumerator_T, class Function_T, int array_size = 0xf>
+    class stateMachine {
     public:
 
     protected:
-        std::array <std::pair<Enumerator, Function>, array_size> _states;
+        std::array<std::pair<Enumerator_T, Function_T>, array_size> states;
     public:
-        constexpr StateMachine() = default;
+        constexpr stateMachine() = default;
 
 
-        constexpr Function &operator[](Enumerator const &enumerator);
+        constexpr Function_T &operator[](Enumerator_T const &Enumerator);
 
-        constexpr Function &operator[](int index);
+        constexpr Function_T &operator[](int Index);
 
-        constexpr bool add(Enumerator const &enumerator, Function const &callable);
+        constexpr bool add(Enumerator_T const &Enumerator, Function_T const &Callable);
 
     };
 
 
-    template<class Enumerator, class Function, int array_size>
-    constexpr bool StateMachine<Enumerator, Function, array_size>::add(Enumerator const &enumerator, Function const &callable) {
-        for (auto &element: _states) {
+    template<class Enumerator_T, class Function, int array_size>
+    constexpr bool
+    stateMachine<Enumerator_T, Function, array_size>::add(Enumerator_T const &Enumerator, Function const &Callable) {
+        for (auto &element: states) {
             if (!element.second) {
-                element.first = enumerator;
-                element.second = callable;
+                element.first = Enumerator;
+                element.second = Callable;
                 return true;
             }
         }
@@ -41,23 +43,21 @@
     }
 
 
-
-    template<class Enumerator, class Function, int array_size>
-    constexpr Function & StateMachine<Enumerator, Function, array_size>::operator[](int index) {
-        if (index >= _states.size()) {
-            return _states.front();
+    template<class Enumerator_T, class Function, int array_size>
+    constexpr Function &stateMachine<Enumerator_T, Function, array_size>::operator[](int Index) {
+        if (Index >= states.size()) {
+            return states.front();
 
         }
     }
 
 
-
-    template<class Enumerator, class Function, int array_size>
-    constexpr Function & StateMachine<Enumerator, Function, array_size>::operator[](Enumerator const &enumerator) {
-        for (auto &element: _states) {
-            if (element.first == enumerator)return element.second;
+    template<class Enumerator_T, class Function, int array_size>
+    constexpr Function &stateMachine<Enumerator_T, Function, array_size>::operator[](Enumerator_T const &Enumerator) {
+        for (auto &element: states) {
+            if (element.first == Enumerator)return element.second;
         }
-        return _states.front().second;
+        return states.front().second;
     }
-} //namespace MT
+} //namespace mt
 #endif //MOONLIGHT_TRAILS_STATE_MACHINE_H

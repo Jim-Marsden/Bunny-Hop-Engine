@@ -8,18 +8,18 @@
 #include <SFML/Graphics.hpp>
 #include <type_traits>
 
-namespace MT {
+namespace mt {
     template<class Sprite_Type>
-    void do_draw(Sprite_Type const &drawable, sf::RenderWindow &window) {
-        window.draw(static_cast<sf::Sprite>(drawable));
+    void do_draw(Sprite_Type const &Drawable, sf::RenderWindow &Window) {
+        Window.draw(static_cast<sf::Sprite>(Drawable));
     }
 
     template<>
-    void do_draw<sf::RectangleShape>(sf::RectangleShape const &drawable,
-                                     sf::RenderWindow &window) {
-        window.draw(drawable);
+    void do_draw<sf::RectangleShape>(sf::RectangleShape const &Drawable,
+                                     sf::RenderWindow &Window) {
+        Window.draw(Drawable);
 
     }
-} //namespace MT
+} //namespace mt
 
 #endif //MOONLIGHT_TRAILS_PRINT_HELPER_HPP

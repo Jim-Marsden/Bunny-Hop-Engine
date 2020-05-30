@@ -5,20 +5,18 @@
 #ifndef MOONLIGHT_TRAILS_SYSTEMEVENT_HPP
 #define MOONLIGHT_TRAILS_SYSTEMEVENT_HPP
 
-
-
-#include "Delegate.hpp"
+#include "delegate.hpp"
+#include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>
-#include <SFML/Graphics.hpp>
 
-namespace MT {
+namespace mt {
 
-    class Player;
+    class player;
 
     class SystemEvent {
     public:
-        enum class MT_Key{
+        enum class MT_Key {
             None,
             Up,
             Down,
@@ -26,36 +24,40 @@ namespace MT {
             Right,
             Jump,
         };
-        using KeyboardFunctionType = void(MT::Player&, bool);
-        using KeyboardDelegateType = Delegate<std::function <KeyboardFunctionType>>;
+        using keyboardFunctionType = void(mt::player &, bool);
+        using keyboardDelegateType =
+        delegate<std::function<keyboardFunctionType>>;
     protected:
         std::map<sf::Keyboard::Key, MT_Key> key_bindings;
-        KeyboardDelegateType MoveLeft;
-        KeyboardDelegateType MoveRight;
-        KeyboardDelegateType MoveUp;
-        KeyboardDelegateType MoveDown;
+        keyboardDelegateType move_left;
+        keyboardDelegateType move_right;
+        keyboardDelegateType move_up;
+        keyboardDelegateType move_down;
 
 
-        KeyboardDelegateType MoveJump;
+        keyboardDelegateType move_jump;
 
-        Delegate<std::function<void()>> Close;
+        delegate<std::function<void()>> close;
 
         sf::RenderWindow &window;
-        Player &player;
+        player &player;
 
     public:
         SystemEvent() = delete;
-        explicit SystemEvent(sf::RenderWindow & window, Player &player);
 
-        void AddMoveLeft(std::function<KeyboardFunctionType> const & callable);
-        void AddMoveRight(std::function<KeyboardFunctionType> const & callablecallable);
+        explicit SystemEvent(sf::RenderWindow &window, mt::player &Player_1);
 
-        void AddMoveUp(std::function<KeyboardFunctionType> const & callable);
-        void AddMoveDown(std::function<KeyboardFunctionType> const & callable);
+        void AddMoveLeft(std::function<keyboardFunctionType> const &Callable);
 
-        void AddMoveJump(std::function<KeyboardFunctionType> const & callable);
+        void AddMoveRight(std::function<keyboardFunctionType> const &Callable);
 
-        void AddClose(std::function<void()>const & callable);
+        void AddMoveUp(std::function<keyboardFunctionType> const &Callable);
+
+        void AddMoveDown(std::function<keyboardFunctionType> const &Callable);
+
+        void AddMoveJump(std::function<keyboardFunctionType> const &Callable);
+
+        void AddClose(std::function<void()> const &Callable);
 
         void DoEvents();
 

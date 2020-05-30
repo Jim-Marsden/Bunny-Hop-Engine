@@ -22,7 +22,7 @@ configure_file(Settings/Controls.json Settings/Controls.json COPYONLY)
 
 
 
-add_executable(Moonlight_Trails main.cpp  GameScene.cpp GameScene.hpp TextureManager.cpp TextureManager.hpp Parallax.cpp Parallax.hpp Print_helper.hpp Drawable.cpp Drawable.hpp Entity.cpp Entity.hpp Player.cpp Player.hpp Delegate.hpp SystemEvent.cpp SystemEvent.hpp State_Machine.cpp State_Machine.h AnimationState.cpp AnimationState.hpp)
+add_executable(Moonlight_Trails main.cpp gameScene.cpp gameScene.hpp textureManager.cpp textureManager.hpp parallax.cpp parallax.hpp Print_helper.hpp drawable.cpp drawable.hpp entity.cpp entity.hpp player.cpp player.hpp delegate.hpp SystemEvent.cpp SystemEvent.hpp State_Machine.cpp State_Machine.h animationState.cpp animationState.hpp movement.cpp movement.hpp)
 find_package(TGUI CONFIG REQUIRED)
 find_package(SFML CONFIG REQUIRED graphics system window network audio)
 find_package(Catch2 CONFIG REQUIRED)
