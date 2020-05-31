@@ -7,6 +7,24 @@
 #include <json/json.h>
 #include <entities.h>
 
+namespace mt::json_parsers::helpers {
+    [[nodiscard]] auto parse_movement(Json::Value const &Root) {
+
+        struct result {
+            std::string key;
+            mt::movement::movementDataT value;
+        };
+        return result{Root["name"].asString(), {Root["enabled"].asBool(),
+                                                Root["speed x"].asFloat(),
+                                                Root["speed y"].asFloat(),
+                                                Root["has timer"].asBool(),
+                                                Root["has timer"].asBool() ? Root["timer"].asInt() : 0,
+                                                Root["has timer"].asBool() ? Root["timer"].asInt() : 0}};
+
+    }
+
+
+}
 
 auto mt::json_parsers::load(std::string const &Json_file) -> Json::Value {
     Json::Value root; // will contain the root value after parsing.
@@ -83,12 +101,8 @@ auto mt::json_parsers::parse_entity(Json::Value const &Root, mt::textureManager 
                  animations["tick offset"].asUInt64(), ++val});
     }
     for (auto const &movement_element : entity_value["movement"]) {
-
-
-        result_entity.AddMovement(movement_element["name"].asString(),
-                                  {movement_element["enabled"].asBool(), movement_element["speed x"].asFloat(),
-                                   movement_element["speed y"].asFloat()});
-
+        auto[key, value] = mt::json_parsers::helpers::parse_movement(movement_element);
+        result_entity.AddMovement(key, value);
     }
     return result_entity;
 }
@@ -129,10 +143,8 @@ mt::json_parsers::parse_player(std::string_view const &File_name, mt::textureMan
     }
 
     for (auto const &movement_element : root["movement"]) {
-        result.AddMovement(movement_element["name"].asString(),
-                           {movement_element["enabled"].asBool(), movement_element["speed x"].asFloat(),
-                            movement_element["speed y"].asFloat()});
-
+        auto[key, value] = mt::json_parsers::helpers::parse_movement(movement_element);
+        result.AddMovement(key, value);
     }
 
 

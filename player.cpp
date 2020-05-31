@@ -21,6 +21,7 @@ void mt::player::DoJump(const bool &Should_jump) {
 
 
     _movement.EnableValue("jump", should_jump);
+    _movement.ResetTimer("jump");
 
 
 }

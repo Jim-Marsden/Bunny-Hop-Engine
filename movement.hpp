@@ -19,6 +19,10 @@ namespace mt {
             //std::string_view name;
             bool enabled{};
             float x{}, y{};
+            bool enabled_timer{};
+            int timer{};
+            int max_timer{};
+            //movementDataT() = default;
 
 
         };
@@ -32,11 +36,13 @@ namespace mt {
 
         [[nodiscard]] movementDataT GetData(std::string const &String_view) const;
 
-        [[nodiscard]] float CalculateX() const;
+        [[nodiscard]] float CalculateX();
 
-        [[nodiscard]] float CalculateY() const;
+        [[nodiscard]] float CalculateY();
 
-        [[nodiscard]] movementDataT CalculateXandY() const;
+        [[nodiscard]] movementDataT CalculateXandY();
+
+        void ResetTimer(std::string_view const &Value);
 
     };
 } //namespace mt

@@ -3,14 +3,14 @@
   "enty name": "Hikiri",
   "health": 100,
   "sprite size": {
-    "h": 64,
-    "w": 64
+    "h": 65,
+    "w": 65
   },
   "animation": [
     {
       "name": "idle",
-      "number of frames": 5,
-      "ticks per frame": 100,
+      "number of frames": 8,
+      "ticks per frame": 1,
       "tick offset": 0
     },
     {
@@ -29,11 +29,11 @@
   "movement": [
     {
       "name": "jump",
-      "speed y": -10.0,
+      "speed y": -30.0,
       "speed x": 0.0,
       "enabled": false,
-      "has timer": false,
-      "timer": 10
+      "has timer": true,
+      "timer": 45
     },
     {
       "name": "move left",
@@ -51,14 +51,14 @@
     },
     {
       "name": "move down",
-      "speed y": 10.0,
+      "speed y": 5.0,
       "speed x": 0.0,
       "enabled": false,
       "has timer": false
     },
     {
       "name": "gravity",
-      "speed y": 5.0,
+      "speed y": 10.0,
       "speed x": 0.0,
       "enabled": true,
       "has timer": false
