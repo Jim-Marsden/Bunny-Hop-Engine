@@ -5,7 +5,7 @@
 #include <fstream>
 #include "Json_Parser.hpp"
 #include <json/json.h>
-#include <entities.h>
+#include "entity.hpp"
 
 namespace mt::json_parsers::helpers {
     [[nodiscard]] auto parse_movement(Json::Value const &Root) {

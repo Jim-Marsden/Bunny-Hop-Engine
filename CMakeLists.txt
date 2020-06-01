@@ -6,18 +6,16 @@ enable_language(CXX)
 option(DoUnitTests "Unit tests!" OFF)
 option(DoWarnings "Warnings!" OFF)
 
-if (DoWarnings)
-    if (MSVC)
-        # warning level 4 and all warnings as errors
-        add_compile_options(/W3)
-    else ()
-        # lots of warnings and all warnings as errors
-        add_compile_options(-Wall -Wextra -pedantic -Wshadow -pedantic-errors -Wmisleading-indentation -Wswitch-default
-                -Wswitch-enum -Wuninitialized -Wconversion
-                -Warray-bounds -Wfloat-equal)
-    endif ()
-    set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
-endif ()
+set(Moonlight_Trails_Compiler_Flags)
+
+find_package(TGUI CONFIG REQUIRED)
+find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
+find_package(Catch2 CONFIG REQUIRED)
+
+set(Boost_USE_STATIC_LIBS ON) # only find static libs
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
 
 include_directories(src)
 include_directories(src/MT)
@@ -35,27 +33,42 @@ set(Moon_LightTrails_Test_Source_Files src/tests/test_delegate.cpp)
 set(Moon_LightTrails_Main_Libs sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
         OpenGL Vorbis tgui Catch2::Catch2)
 
+if (DoWarnings)
+    if (MSVC)
+        # warning level 4 and all warnings as errors
+        set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} /W3)
+        #add_compile_options(/W3)
+    else ()
+        # lots of warnings and all warnings as errors
+        #add_compile_options
+        set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} -Wall -Wextra -pedantic -Wshadow -pedantic-errors -Wmisleading-indentation -Wswitch-default
+                -Wswitch-enum -Wuninitialized -Wconversion
+                -Warray-bounds -Wfloat-equal)
+    endif ()
+    set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+endif ()
+
+
+
 if (DoUnitTests)
     add_compile_definitions(MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS)
     set(Moon_LightTrails_Main_Source_File ${Moon_LightTrails_Main_Source_File} ${Moon_LightTrails_Test_Source_Files})
 endif ()
 
-find_package(TGUI CONFIG REQUIRED)
-find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
-find_package(Catch2 CONFIG REQUIRED)
 
-set(Boost_USE_STATIC_LIBS ON) # only find static libs
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
 
 
 if (WIN32)
+
+    find_package(jsoncpp CONFIG REQUIRED)
+    set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} /EHs)
     set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp_lib)
 elseif (UNIX)
     set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp)
 endif ()
 
+
+add_compile_options(${Moonlight_Trails_Compiler_Flags})
 add_executable(Moonlight_Trails ${Moon_LightTrails_Main_Source_File})
 
 
@@ -64,7 +77,6 @@ if (Boost_FOUND)
     target_link_libraries(Moonlight_Trails PRIVATE ${Moon_LightTrails_Main_Libs} ${Boost_LIBRARIES})
 
 endif ()
-
 
 configure_file(Scenes/TestScene.json Scenes/TestScene.json COPYONLY)
 configure_file(Scenes/Textures/tree.png Scenes/Textures/tree.png COPYONLY)
