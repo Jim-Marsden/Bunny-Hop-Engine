@@ -14,6 +14,14 @@
 #include <SFML/Main.hpp>
 #include <chrono>
 
+#ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
+#define CATCH_CONFIG_RUNNER
+
+#include <catch2/catch.hpp>
+
+#endif
+
+
 void move_player_left(mt::player &Player, bool Is_down) {
     Player.MoveLeft(Is_down);
 
@@ -119,7 +127,12 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
 }
 
-int main() {
+int main(int Argc, char **Argv) {
+    auto return_value{0};
+
+#ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
+    return_value = Catch::Session().run(Argc, Argv);
+#endif
     //boost::timer::auto_cpu_timer t;
 
     mt::textureManager texture_manager;
@@ -152,5 +165,5 @@ int main() {
     while (window.isOpen()) {
         file_path = do_game_update(file_path, texture_manager, window, player, system_event);
     }
-    return 0;
+    return return_value;
 }
