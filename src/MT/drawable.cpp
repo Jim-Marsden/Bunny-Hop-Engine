@@ -49,7 +49,7 @@ void mt::drawable::AddAnimationState(const animationState &Animation_state) {
     _animation_information.emplace_back(Animation_state);
 }
 
-void mt::drawable::SetOrigin(float Top, float Left) {
+void mt::drawable::SetOrigin(float  Top, float Left) {
     _sprite.setOrigin(Top, Left);
 
 }

@@ -3,13 +3,15 @@ project(Moonlight_Trails)
 set(CMAKE_CXX_STANDARD 17)
 enable_language(CXX)
 
-option(DoUnitTests "Unit tests!" OFF)
-option(DoWarnings "Warnings!" OFF)
+option(-DoUnitTests "unit tests" ON)
+option(-DoWarnings "warnings" OFF)
+option(-DoClangTidy "clang tidy?" OFF)
 
 set(Moonlight_Trails_Compiler_Flags)
 
-find_package(TGUI CONFIG REQUIRED)
 find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
+find_package(TGUI CONFIG REQUIRED)
+
 find_package(Catch2 CONFIG REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON) # only find static libs
@@ -20,6 +22,7 @@ find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
 include_directories(src)
 include_directories(src/MT)
 include_directories(src/tests)
+
 
 set(Moon_LightTrails_Main_Source_File src/MT/main.cpp src/MT/gameScene.cpp src/MT/gameScene.hpp
         src/MT/textureManager.cpp src/MT/textureManager.hpp src/MT/parallax.cpp src/MT/parallax.hpp
@@ -33,8 +36,9 @@ set(Moon_LightTrails_Test_Source_Files src/tests/test_delegate.cpp)
 set(Moon_LightTrails_Main_Libs sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
         OpenGL Vorbis tgui Catch2::Catch2)
 
-if (DoWarnings)
-    if (MSVC)
+if (-DoWarnings)
+    message("Doing warnings")
+    if (WIN32)
         # warning level 4 and all warnings as errors
         set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} /W3)
         #add_compile_options(/W3)
@@ -44,15 +48,26 @@ if (DoWarnings)
         set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} -Wall -Wextra -pedantic -Wshadow -pedantic-errors -Wmisleading-indentation -Wswitch-default
                 -Wswitch-enum -Wuninitialized -Wconversion
                 -Warray-bounds -Wfloat-equal)
+
     endif ()
-    set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+else()
+    message("Not doing warnings")
 endif ()
 
+if(-DoClangTidy)
+    set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+else()
+    message("Not doing clang tidy!")
+endif()
 
 
-if (DoUnitTests)
+
+if (-DoUnitTests)
+    message("Do doing unit tests")
     add_compile_definitions(MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS)
-    set(Moon_LightTrails_Main_Source_File ${Moon_LightTrails_Main_Source_File} ${Moon_LightTrails_Test_Source_Files})
+    set(Moon_LightTrails_Main_Source_File ${Moon_LightTrails_Main_Source_File} ${Moon_LightTrails_Test_Source_Files} src/tests/test_drawable.cpp)
+else()
+    message("Not doing unit tests")
 endif ()
 
 

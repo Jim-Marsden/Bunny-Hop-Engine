@@ -4,12 +4,12 @@
 
 #ifndef MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
 #define MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
+#include <SFML/Graphics.hpp>
 
 #include <string>
 #include <map>
 #include <memory>
 
-#include <SFML/Graphics.hpp>
 
 namespace mt {
     class textureManager {

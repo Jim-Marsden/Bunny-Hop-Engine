@@ -8,9 +8,11 @@
 #include <catch2/catch.hpp>
 
 
-TEST_CASE("Purrmaid::Renderer::New_Manager::Add Widgets") {
-    mt::delegate<int> del;
-
+TEST_CASE("mt::delegate += operator") {
+    mt::delegate<int(*)(int)> del;
+    REQUIRE(del.GetSize() == 0);
+    del += [](int){return 0;};
+    REQUIRE(del.GetSize() == 1);
 }
 
 

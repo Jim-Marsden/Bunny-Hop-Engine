@@ -21,6 +21,8 @@ namespace mt {
 
         template<class... Args_T>
         size_t operator()(Args_T &&... Args);
+
+        [[nodiscard]] size_t GetSize() const;
     };
 
     template<class Callable_T>
@@ -39,6 +41,11 @@ namespace mt {
     delegate<Callabl_Te>::operator+=(const Callabl_Te &Callable) {
         callables.emplace_back(Callable);
         return callables;
+    }
+
+    template<class Callable_T>
+    size_t delegate<Callable_T>::GetSize() const {
+        return callables.size();
     }
 
 } // namespace mt

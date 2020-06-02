@@ -21,13 +21,13 @@ protected:
 public:
     drawable() = default;
 
-    explicit drawable(sf::Sprite const &Sprite);
+     explicit drawable(sf::Sprite const &Sprite);
 
     void SetTexture(sf::Texture const &Texture);
 
     void SetPosition(float Top, float Left);
 
-    void SetOrigin(float Top, float Left);
+     void SetOrigin(float  Top, float   Left);
 
     void SetTextureRect(sf::IntRect const &Rect);
 
