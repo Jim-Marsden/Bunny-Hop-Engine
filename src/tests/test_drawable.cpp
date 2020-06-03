@@ -21,13 +21,25 @@ TEST_CASE("mt::drawable sprite constructor") {
 }
 
 TEST_CASE("mt::drawable::SetPosition") {
-struct drawable_Test : public mt::drawable{
+struct drawableTest : public mt::drawable{
+    auto get_pos(){return _sprite.getPosition();}
+} drawable_test;
 
-};
 
-    REQUIRE(true);
+    drawable_test.SetPosition(2.F, 3.F);
+
+
+    REQUIRE(static_cast<int>(drawable_test.get_pos().x) == 2);
+    REQUIRE(static_cast<int>(drawable_test.get_pos().y) == 3);
+
 }
 
+
+TEST_CASE("mt::drawable sprite constructor") {
+    sf::Sprite sprite;
+    mt::drawable defaultCtr(sprite);
+    REQUIRE(true);
+}
 
 
 #endif
