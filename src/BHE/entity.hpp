@@ -84,7 +84,7 @@ namespace mt {
     void deal_damage(entity &Entity, long Damage_amount);
 
     void deal_damage(entity &Entity, long Damage_amount,
-                     std::function<void(entity & )> const &At_zero);
+                     std::function<void(entity &)> const &At_zero);
 
 } // namespace mt
 

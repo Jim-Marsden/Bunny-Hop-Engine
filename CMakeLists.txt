@@ -16,20 +16,20 @@ find_package(Catch2 CONFIG REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON) # only find static libs
 set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME ON)
-find_package(Boost 1.73.0 COMPONENTS date_time filesystem system timer REQUIRED)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
 
 include_directories(src)
-include_directories(src/MT)
+include_directories(src/BHE)
 include_directories(src/tests)
 
 
-set(Moon_LightTrails_Main_Source_File src/MT/main.cpp src/MT/gameScene.cpp src/MT/gameScene.hpp
-        src/MT/textureManager.cpp src/MT/textureManager.hpp src/MT/parallax.cpp src/MT/parallax.hpp
-        src/MT/Print_helper.hpp src/MT/drawable.cpp src/MT/drawable.hpp src/MT/entity.cpp src/MT/entity.hpp
-        src/MT/player.cpp src/MT/player.hpp src/MT/delegate.hpp src/MT/SystemEvent.cpp src/MT/SystemEvent.hpp
-        src/MT/State_Machine.cpp src/MT/State_Machine.h src/MT/animationState.cpp src/MT/animationState.hpp
-        src/MT/movement.cpp src/MT/movement.hpp src/MT/Json_Parser.cpp src/MT/Json_Parser.hpp)
+set(Moon_LightTrails_Main_Source_File src/BHE/main.cpp src/BHE/gameScene.cpp src/BHE/gameScene.hpp
+        src/BHE/textureManager.cpp src/BHE/textureManager.hpp src/BHE/parallax.cpp src/BHE/parallax.hpp
+        src/BHE/Print_helper.hpp src/BHE/drawable.cpp src/BHE/drawable.hpp src/BHE/entity.cpp src/BHE/entity.hpp
+        src/BHE/player.cpp src/BHE/player.hpp src/BHE/delegate.hpp src/BHE/SystemEvent.cpp src/BHE/SystemEvent.hpp
+        src/BHE/State_Machine.cpp src/BHE/State_Machine.h src/BHE/animationState.cpp src/BHE/animationState.hpp
+        src/BHE/movement.cpp src/BHE/movement.hpp src/BHE/Json_Parser.cpp src/BHE/Json_Parser.hpp)
 
 set(Moon_LightTrails_Test_Source_Files src/tests/test_delegate.cpp)
 

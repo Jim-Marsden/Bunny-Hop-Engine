@@ -4,7 +4,7 @@
 
 #ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
 
-#include "MT/delegate.hpp"
+#include "BHE/delegate.hpp"
 #include <catch2/catch.hpp>
 
 

@@ -100,7 +100,7 @@ void mt::deal_damage(entity &Entity, long Damage_amount) {
 }
 
 void mt::deal_damage(entity &Entity, long Damage_amount,
-                     std::function<void(entity & )> const &At_zero) {
+                     std::function<void(entity &)> const &At_zero) {
     mt::deal_damage(Entity, Damage_amount);
     if (Entity.GetHealth() < 1 && At_zero)
         At_zero(Entity);
