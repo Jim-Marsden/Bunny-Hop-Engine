@@ -35,11 +35,8 @@ struct drawableTest : public mt::drawable{
 }
 
 
-TEST_CASE("mt::drawable sprite constructor") {
-    sf::Sprite sprite;
-    mt::drawable defaultCtr(sprite);
-    REQUIRE(true);
-}
+
+
 
 
 #endif

@@ -2,8 +2,8 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_DELEGATE_HPP
-#define MOONLIGHT_TRAILS_DELEGATE_HPP
+#ifndef BUNNY_HOP_ENGINE_DELEGATE_HPP
+#define BUNNY_HOP_ENGINE_DELEGATE_HPP
 
 #include <tuple>
 #include <vector>
@@ -50,4 +50,4 @@ namespace mt {
 
 } // namespace mt
 
-#endif // MOONLIGHT_TRAILS_DELEGATE_HPP
+#endif // BUNNY_HOP_ENGINE_DELEGATE_HPP

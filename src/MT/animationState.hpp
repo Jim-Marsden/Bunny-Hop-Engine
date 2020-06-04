@@ -2,8 +2,8 @@
 // Created by snizzfox on 5/23/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_ANIMATIONSTATE_HPP
-#define MOONLIGHT_TRAILS_ANIMATIONSTATE_HPP
+#ifndef BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
+#define BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
 
 #include <string>
 
@@ -20,4 +20,4 @@ namespace mt {
     };
 } // namespace mt
 
-#endif // MOONLIGHT_TRAILS_ANIMATIONSTATE_HPP
+#endif // BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP

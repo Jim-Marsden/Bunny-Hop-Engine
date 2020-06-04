@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
-project(Moonlight_Trails)
-set(CMAKE_CXX_STANDARD 17)
+project(Bunny_Hop_Engine)
+set(CMAKE_CXX_STANDARD 20)
 enable_language(CXX)
 
 option(-DoUnitTests "unit tests" ON)
 option(-DoWarnings "warnings" OFF)
 option(-DoClangTidy "clang tidy?" OFF)
 
-set(Moonlight_Trails_Compiler_Flags)
+set(Bunny_Hop_Engine_Compiler_Flags)
 
 find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
 find_package(TGUI CONFIG REQUIRED)
@@ -16,8 +16,8 @@ find_package(Catch2 CONFIG REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON) # only find static libs
 set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
+set(Boost_USE_STATIC_RUNTIME ON)
+find_package(Boost 1.73.0 COMPONENTS date_time filesystem system timer REQUIRED)
 
 include_directories(src)
 include_directories(src/MT)
@@ -40,12 +40,12 @@ if (-DoWarnings)
     message("Doing warnings")
     if (WIN32)
         # warning level 4 and all warnings as errors
-        set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} /W3)
+        set(Bunny_Hop_Engine_Compiler_Flags ${Bunny_Hop_Engine_Compiler_Flags} /W3)
         #add_compile_options(/W3)
     else ()
         # lots of warnings and all warnings as errors
         #add_compile_options
-        set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} -Wall -Wextra -pedantic -Wshadow -pedantic-errors -Wmisleading-indentation -Wswitch-default
+        set(Bunny_Hop_Engine_Compiler_Flags ${Bunny_Hop_Engine_Compiler_Flags} -Wall -Wextra -pedantic -Wshadow -pedantic-errors -Wmisleading-indentation -Wswitch-default
                 -Wswitch-enum -Wuninitialized -Wconversion
                 -Warray-bounds -Wfloat-equal)
 
@@ -76,20 +76,20 @@ endif ()
 if (WIN32)
 
     find_package(jsoncpp CONFIG REQUIRED)
-    set(Moonlight_Trails_Compiler_Flags ${Moonlight_Trails_Compiler_Flags} /EHs)
+    set(Bunny_Hop_Engine_Compiler_Flags ${Bunny_Hop_Engine_Compiler_Flags} /EHs)
     set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp_lib)
 elseif (UNIX)
     set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp)
 endif ()
 
 
-add_compile_options(${Moonlight_Trails_Compiler_Flags})
-add_executable(Moonlight_Trails ${Moon_LightTrails_Main_Source_File})
+add_compile_options(${Bunny_Hop_Engine_Compiler_Flags})
+add_executable(Bunny_Hop_Engine ${Moon_LightTrails_Main_Source_File})
 
 
 if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(Moonlight_Trails PRIVATE ${Moon_LightTrails_Main_Libs} ${Boost_LIBRARIES})
+    target_link_libraries(Bunny_Hop_Engine PRIVATE ${Moon_LightTrails_Main_Libs} ${Boost_LIBRARIES})
 
 endif ()
 

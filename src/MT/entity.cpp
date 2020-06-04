@@ -17,7 +17,7 @@ mt::entity::entity(const sf::Texture &Texture)
 
 mt::entity::collisionDirection
 mt::entity::IsColliding(const std::vector<sf::RectangleShape> &Rectangles) {
-    _collision_direction = {false, false, false, false};
+    _collision_direction.left = _collision_direction.right = _collision_direction.top = _collision_direction.bottom = false;
     for (auto const &element : Rectangles) {
         if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
             if (IsCollidingTop(element)) {
