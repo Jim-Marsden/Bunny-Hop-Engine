@@ -4,16 +4,26 @@
 
 #ifndef BUNNY_HOP_ENGINE_PIPELINE_HPP
 #define BUNNY_HOP_ENGINE_PIPELINE_HPP
-
-namespace BHE {
+#include <functional>
+namespace bhe {
     template<class Object_T>
     class pipeline {
-        Object_T &object;
     public:
         pipeline() = delete;
+        constexpr explicit pipeline(Object_T &Object) : object{Object} {}
+    protected:
+        Object_T &object;
+    public:
+        constexpr pipeline& operator|(auto function){
+            std::invoke(function, object);
+            return *this;
+        }
 
-        explicit pipeline(Object_T const &Object) = default;
+        [[nodiscard]] constexpr auto GetValue() const -> Object_T{return object;}
+
     };
+
+
 
 } // namespace BHE
 

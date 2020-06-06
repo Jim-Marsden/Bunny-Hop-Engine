@@ -3,6 +3,8 @@
 #include "player.hpp"
 #include "SystemEvent.hpp"
 #include "Json_Parser.hpp"
+#include "pipeline.hpp"
+
 
 #include <iostream>
 #include <boost/timer/timer.hpp>
@@ -58,6 +60,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
     auto entities = game_scene.LoadFromJson("./Scenes/TestScene.json",
                                             Texture_manager);
 
+    bhe::entity::collisionDirection collision_direction{};
+
 
     std::chrono::time_point<std::chrono::steady_clock> fps_timer(std::chrono::steady_clock::now());
     std::chrono::duration<int32_t, std::ratio<1, 60>> fps{};
@@ -90,28 +94,31 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
                 std::chrono::steady_clock::now() - fps_timer).count() >= 1) {
             fps_timer = std::chrono::steady_clock::now();
+            { // Explisit scope
+                bhe::pipeline<decltype(Player)> loop_pipeline(Player);
 
-            auto bad = Player.IsColliding(game_scene.GetCollisionBoxes());
-            Player.DoGravity(!bad.bottom);
+                loop_pipeline | [&collision_direction, &game_scene](bhe::player &e) {
+                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+                }
+                | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
+                | [](bhe::player &e) { e.Move(); }
+                | [](bhe::player &e) { e.DoAnimation(); };
 
-            Player.Move();
-            Player.DoAnimation();
+            }
             Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
                                     {static_cast<float>(Window.getSize().x),
                                      static_cast<float>(Window.getSize().y)}));
 
 
             for (auto &entity : entities) {
-                //TODO Check if player is touching monster
 
-
-                auto bad_my = entity.IsColliding(game_scene.GetCollisionBoxes()).bottom;
-                //if(bad_my) bhe::deal_damage(entity, 1000);
-
-                entity.DoGravity(!bad_my);
-                entity.Move();
-                entity.DoAnimation();
-
+                bhe::pipeline<decltype(entity)> loop_pipeline(entity);
+                loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
+                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+                }
+                | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
+                | [](bhe::entity &e) { e.Move(); }
+                | [](bhe::entity &e) { e.DoAnimation(); };
             }
 
         }
