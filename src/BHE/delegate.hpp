@@ -44,9 +44,10 @@ namespace bhe {
     constexpr auto delegate<Callable_T>::operator()(Args_T &&... Args) const {
         if constexpr(!std::is_void<decltype(std::invoke(_callables[0], Args ...))>::value) {
             if (!_callables.empty()) {
-                auto first_element = _callables.cbegin();
+                auto first_element = std::begin( _callables);
                 auto result = std::invoke(*first_element, Args ...);
-                for (; first_element != _callables.cend(); ++first_element)std::invoke(*first_element, Args ...);
+                for (std::next(first_element); first_element != _callables.cend(); std::next(first_element))
+                    std::invoke(*first_element, Args ...);
                 return result;
             }
         } else {

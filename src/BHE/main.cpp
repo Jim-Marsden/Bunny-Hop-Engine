@@ -10,6 +10,7 @@
 #include <boost/timer/timer.hpp>
 #include <cmath>
 #include <algorithm>
+#include <future>
 
 
 #include <SFML/Graphics.hpp>
@@ -23,21 +24,14 @@
 
 #endif
 
-
-void move_player_left(bhe::player &Player, bool Is_down) {
-    Player.MoveLeft(Is_down);
-
-
-}
-
 void move_player_right(bhe::player &Player, bool Is_down) {
 
     Player.MoveRight(Is_down);
 
 }
+void move_player_left(bhe::player &Player, bool Is_down) {
 
-void move_player_up(bhe::player &Player, bool Is_down) {
-    //Player.MoveDown(Is_down);
+    Player.MoveLeft(Is_down);
 
 }
 
@@ -67,6 +61,20 @@ std::string_view do_game_update(std::string_view const &Scene_file,
     std::chrono::duration<int32_t, std::ratio<1, 60>> fps{};
 
     while (game_scene.IsActive() && Window.isOpen()) {
+
+        std::vector<std::future<bhe::entity>> futures;
+        for(auto const & entity: entities){
+            futures.emplace_back(std::async([&entity, &collision_direction, &game_scene ](){
+                bhe::pipeline<decltype(entity)> loop_pipeline(entity);
+                loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
+                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+                }
+                | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
+                | [](bhe::entity &e) { e.Move(); }
+                | [](bhe::entity &e) { e.DoAnimation();
+                };
+            }));
+        }
         ++frame_counter;
 
         System_event.DoEvents();
@@ -162,7 +170,6 @@ int main(int Argc, char **Argv) {
 
     system_event.AddMoveLeft(move_player_left);
     system_event.AddMoveRight(move_player_right);
-    system_event.AddMoveUp(move_player_up);
     system_event.AddMoveDown(move_player_down);
     system_event.AddMoveJump(move_player_jump);
 
