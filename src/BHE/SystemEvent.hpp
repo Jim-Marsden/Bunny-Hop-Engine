@@ -6,13 +6,13 @@
 #define MOONLIGHT_TRAILS_SYSTEMEVENT_HPP
 
 #include "delegate.hpp"
+#include "BHE/player.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>
 
-namespace mt {
+namespace bhe {
 
-    class player;
 
     class SystemEvent {
     public:
@@ -24,7 +24,7 @@ namespace mt {
             Right,
             Jump,
         };
-        using keyboardFunctionType = void(mt::player &, bool);
+        using keyboardFunctionType = void(bhe::player &, bool);
         using keyboardDelegateType =
         delegate<std::function<keyboardFunctionType>>;
     protected:
@@ -45,7 +45,7 @@ namespace mt {
     public:
         SystemEvent() = delete;
 
-        explicit SystemEvent(sf::RenderWindow &Window, mt::player &Player_1);
+        explicit SystemEvent(sf::RenderWindow &Window, bhe::player &Player_1);
 
         void AddMoveLeft(std::function<keyboardFunctionType> const &Callable);
 

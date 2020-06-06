@@ -8,22 +8,22 @@
 #include <catch2/catch.hpp>
 
 
-TEST_CASE("mt::drawable default constructor") {
-    mt::drawable defaultCtr;
+TEST_CASE("bhe::drawable default constructor") {
+    bhe::drawable defaultCtr;
     REQUIRE(true);
 }
 
 
-TEST_CASE("mt::drawable sprite constructor") {
+TEST_CASE("bhe::drawable sprite constructor") {
     sf::Sprite sprite;
-    mt::drawable defaultCtr(sprite);
+    bhe::drawable defaultCtr(sprite);
     REQUIRE(true);
 }
 
-TEST_CASE("mt::drawable::SetPosition") {
-struct drawableTest : public mt::drawable{
-    auto get_pos(){return _sprite.getPosition();}
-} drawable_test;
+TEST_CASE("bhe::drawable::SetPosition") {
+    struct drawableTest : public bhe::drawable {
+        auto get_pos() { return _sprite.getPosition(); }
+    } drawable_test;
 
 
     drawable_test.SetPosition(2.F, 3.F);

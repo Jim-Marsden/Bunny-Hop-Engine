@@ -13,15 +13,15 @@
 #include <string>
 #include <vector>
 
-namespace mt {
+namespace bhe {
     class gameScene {
         std::string _name;
 
         //TODO parallax class
         std::vector<parallax> _parallaxes;
         std::vector<sf::RectangleShape> _geometry;
-        std::vector<mt::drawable> _background_decorations;
-        std::vector<mt::drawable> _foreground_decorations;
+        std::vector<bhe::drawable> _background_decorations;
+        std::vector<bhe::drawable> _foreground_decorations;
 
 
     public:
@@ -45,6 +45,6 @@ namespace mt {
     };
 
 
-} //namespace mt
+} //namespace bhe
 
 #endif //MOONLIGHT_TRAILS_GAMESCENE_HPP

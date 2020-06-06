@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <type_traits>
 
-namespace mt {
+namespace bhe {
     template<class Sprite_Type>
     void do_draw(Sprite_Type const &Drawable, sf::RenderWindow &Window) {
         Window.draw(static_cast<sf::Sprite>(Drawable));
@@ -20,6 +20,6 @@ namespace mt {
         Window.draw(Drawable);
 
     }
-} //namespace mt
+} //namespace bhe
 
 #endif //MOONLIGHT_TRAILS_PRINT_HELPER_HPP

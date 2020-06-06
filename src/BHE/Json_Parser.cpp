@@ -7,12 +7,12 @@
 #include <json/json.h>
 #include "entity.hpp"
 
-namespace mt::json_parsers::helpers {
+namespace bhe::json_parsers::helpers {
     [[nodiscard]] auto parse_movement(Json::Value const &Root) {
 
         struct result {
             std::string key;
-            mt::movement::movementDataT value;
+            bhe::movement::movementDataT value;
         };
         return result{Root["name"].asString(), {Root["enabled"].asBool(),
                                                 Root["speed x"].asFloat(),
@@ -26,16 +26,16 @@ namespace mt::json_parsers::helpers {
 
 }
 
-auto mt::json_parsers::load(std::string const &Json_file) -> Json::Value {
+auto bhe::json_parsers::load(std::string const &Json_file) -> Json::Value {
     Json::Value root; // will contain the root value after parsing.
     std::ifstream stream(Json_file, std::ifstream::binary);
     stream >> root;
     return root;
 }
 
-auto mt::json_parsers::parse_parallax(Json::Value const &Root,
-                                      mt::textureManager &Texture_manager) -> std::vector<mt::parallax> {
-    std::vector<mt::parallax> parallaxes;
+auto bhe::json_parsers::parse_parallax(Json::Value const &Root,
+                                       bhe::textureManager &Texture_manager) -> std::vector<bhe::parallax> {
+    std::vector<bhe::parallax> parallaxes;
     for (auto const &element : Root) {
         // textureManager_out.operator+=()
         parallaxes.emplace_back(
@@ -45,7 +45,7 @@ auto mt::json_parsers::parse_parallax(Json::Value const &Root,
     return parallaxes;
 }
 
-auto mt::json_parsers::parse_geometry(Json::Value const &Root) -> std::vector<sf::RectangleShape> {
+auto bhe::json_parsers::parse_geometry(Json::Value const &Root) -> std::vector<sf::RectangleShape> {
     std::vector<sf::RectangleShape> geometry;
 
     for (auto const &element : Root) {
@@ -57,9 +57,9 @@ auto mt::json_parsers::parse_geometry(Json::Value const &Root) -> std::vector<sf
     return geometry;
 }
 
-auto mt::json_parsers::load_decorations(Json::Value const &Root,
-                                        mt::textureManager &Texture_manager) -> std::vector<mt::drawable> {
-    std::vector<mt::drawable> decorations;
+auto bhe::json_parsers::load_decorations(Json::Value const &Root,
+                                         bhe::textureManager &Texture_manager) -> std::vector<bhe::drawable> {
+    std::vector<bhe::drawable> decorations;
 
     for (auto const &element : Root) {
         decorations.emplace_back(
@@ -73,12 +73,12 @@ auto mt::json_parsers::load_decorations(Json::Value const &Root,
     return decorations;
 }
 
-auto mt::json_parsers::parse_entity(Json::Value const &Root, mt::textureManager &Texture_manager) -> mt::entity {
+auto bhe::json_parsers::parse_entity(Json::Value const &Root, bhe::textureManager &Texture_manager) -> bhe::entity {
     auto entity_value = load(
             Root["file name"]
                     .asString());
 
-    mt::entity result_entity(*(Texture_manager += entity_value["texture name"].asString()));
+    bhe::entity result_entity(*(Texture_manager += entity_value["texture name"].asString()));
 
 
     result_entity.SetHealth(entity_value["health"].asInt());
@@ -101,15 +101,15 @@ auto mt::json_parsers::parse_entity(Json::Value const &Root, mt::textureManager 
                  animations["tick offset"].asUInt64(), ++val});
     }
     for (auto const &movement_element : entity_value["movement"]) {
-        auto[key, value] = mt::json_parsers::helpers::parse_movement(movement_element);
+        auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
         result_entity.AddMovement(key, value);
     }
     return result_entity;
 }
 
-auto mt::json_parsers::parse_entities(Json::Value const &Root,
-                                      mt::textureManager &Texture_manager) -> std::vector<mt::entity> {
-    std::vector<mt::entity> local_entities;
+auto bhe::json_parsers::parse_entities(Json::Value const &Root,
+                                       bhe::textureManager &Texture_manager) -> std::vector<bhe::entity> {
+    std::vector<bhe::entity> local_entities;
     for (auto const &element : Root) {
         local_entities.push_back(parse_entity(element, Texture_manager));
     }
@@ -117,12 +117,13 @@ auto mt::json_parsers::parse_entities(Json::Value const &Root,
 }
 
 auto
-mt::json_parsers::parse_player(std::string_view const &File_name, mt::textureManager &Texture_manager) -> mt::player {
+bhe::json_parsers::parse_player(std::string_view const &File_name,
+                                bhe::textureManager &Texture_manager) -> bhe::player {
 
 
-    auto root = mt::json_parsers::load(std::string(File_name));
+    auto root = bhe::json_parsers::load(std::string(File_name));
 
-    mt::player result(*(Texture_manager += root["texture name"].asString()));
+    bhe::player result(*(Texture_manager += root["texture name"].asString()));
     result.SetTextureRect({0, 0, root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()});
 
     result.SetHealth(root["health"].asInt());
@@ -143,7 +144,7 @@ mt::json_parsers::parse_player(std::string_view const &File_name, mt::textureMan
     }
 
     for (auto const &movement_element : root["movement"]) {
-        auto[key, value] = mt::json_parsers::helpers::parse_movement(movement_element);
+        auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
         result.AddMovement(key, value);
     }
 

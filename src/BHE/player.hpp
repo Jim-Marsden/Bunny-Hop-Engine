@@ -9,8 +9,8 @@
 #include "textureManager.hpp"
 
 
-namespace mt {
-    class player : public mt::entity {
+namespace bhe {
+    class player : public bhe::entity {
     protected:
         int _jump_count{};
         int _jump_timer{};
@@ -33,7 +33,7 @@ namespace mt {
     };
 
 
-} // namespace mt
+} // namespace bhe
 
 
 #endif //MOONLIGHT_TRAILS_PLAYER_HPP

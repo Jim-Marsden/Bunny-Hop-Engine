@@ -7,16 +7,16 @@
 #include <fstream>
 #include "player.hpp"
 
-mt::player::player(const sf::Sprite &Sprite) : mt::entity(Sprite) {
+bhe::player::player(const sf::Sprite &Sprite) : bhe::entity(Sprite) {
 
 }
 
-mt::player::player(const sf::Texture &Texture) : entity(Texture) {
+bhe::player::player(const sf::Texture &Texture) : entity(Texture) {
 
 
 }
 
-void mt::player::DoJump(const bool &Should_jump) {
+void bhe::player::DoJump(const bool &Should_jump) {
     auto should_jump = Should_jump;
 
 
@@ -26,24 +26,24 @@ void mt::player::DoJump(const bool &Should_jump) {
 
 }
 
-void mt::player::MoveRight(bool const &Should_jump) {
+void bhe::player::MoveRight(bool const &Should_jump) {
     _movement.EnableValue("move right", Should_jump);
 
 }
 
-void mt::player::MoveDown(bool const &Should_jump) {
+void bhe::player::MoveDown(bool const &Should_jump) {
     _movement.EnableValue("move down", Should_jump);
 
 
 }
 
-void mt::player::MoveLeft(bool const &Should_jump) {
+void bhe::player::MoveLeft(bool const &Should_jump) {
     _movement.EnableValue("move left", Should_jump);
 
 
 }
 
-sf::Vector2f mt::player::GetPos() const {
+sf::Vector2f bhe::player::GetPos() const {
     return _sprite.getPosition();
 }
 

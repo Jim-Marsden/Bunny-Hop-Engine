@@ -8,7 +8,7 @@
 #include <string_view>
 #include <map>
 
-namespace mt {
+namespace bhe {
     class movement {
 
 
@@ -45,7 +45,7 @@ namespace mt {
         void ResetTimer(std::string_view const &Value);
 
     };
-} //namespace mt
+} //namespace bhe
 
 
 #endif //MOONLIGHT_TRAILS_MOVEMENT_HPP

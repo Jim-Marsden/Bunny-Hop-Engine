@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace mt {
+namespace bhe {
 
     struct animationState {
 
@@ -18,6 +18,6 @@ namespace mt {
         uint_fast64_t current_frame_count;
         uint_fast64_t hieght_offset;
     };
-} // namespace mt
+} // namespace bhe
 
 #endif // BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP

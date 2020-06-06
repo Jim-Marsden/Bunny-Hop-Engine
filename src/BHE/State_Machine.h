@@ -8,7 +8,7 @@
 #include <utility>
 #include <array>
 
-namespace mt {
+namespace bhe {
 
     template<class Enumerator_T, class Function_T, int array_size = 0xf>
     class stateMachine {
@@ -59,5 +59,5 @@ namespace mt {
         }
         return states.front().second;
     }
-} //namespace mt
+} //namespace bhe
 #endif //MOONLIGHT_TRAILS_STATE_MACHINE_H

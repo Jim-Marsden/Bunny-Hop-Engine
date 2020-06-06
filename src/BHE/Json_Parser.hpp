@@ -13,27 +13,27 @@
 #include "player.hpp"
 
 
-namespace mt::json_parsers {
+namespace bhe::json_parsers {
 
     [[nodiscard]] auto load(const std::string &Json_file) -> Json::Value;
 
     [[nodiscard]] auto parse_parallax(Json::Value const &Root,
-                                      mt::textureManager &Texture_manager) -> std::vector<mt::parallax>;
+                                      bhe::textureManager &Texture_manager) -> std::vector<bhe::parallax>;
 
     [[nodiscard]] auto parse_geometry(Json::Value const &Root) -> std::vector<sf::RectangleShape>;
 
 
     [[nodiscard]] auto
-    load_decorations(Json::Value const &Root, mt::textureManager &Texture_manager) -> std::vector<mt::drawable>;
+    load_decorations(Json::Value const &Root, bhe::textureManager &Texture_manager) -> std::vector<bhe::drawable>;
 
     [[nodiscard]] auto parse_entities(Json::Value const &Root,
-                                      mt::textureManager &Texture_manager) -> std::vector<mt::entity>;
+                                      bhe::textureManager &Texture_manager) -> std::vector<bhe::entity>;
 
     [[nodiscard]] auto
-    parse_entity(Json::Value const &Root, mt::textureManager &Texture_manager) -> mt::entity;
+    parse_entity(Json::Value const &Root, bhe::textureManager &Texture_manager) -> bhe::entity;
 
     [[nodiscard]] auto
-    parse_player(std::string_view const &Root, mt::textureManager &Texture_manager) -> mt::player;
+    parse_player(std::string_view const &Root, bhe::textureManager &Texture_manager) -> bhe::player;
 
 }
 

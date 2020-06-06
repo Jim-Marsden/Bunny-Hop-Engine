@@ -1,0 +1,8 @@
+//
+// Created by snizzfox on 6/5/20.
+//
+
+#ifndef BUNNY_HOP_ENGINE_PIPELINE_HPP
+#define BUNNY_HOP_ENGINE_PIPELINE_HPP
+
+#endif //BUNNY_HOP_ENGINE_PIPELINE_HPP

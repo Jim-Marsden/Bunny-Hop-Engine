@@ -8,10 +8,10 @@
 #include <catch2/catch.hpp>
 
 
-TEST_CASE("mt::delegate += operator") {
-    mt::delegate<int(*)(int)> del;
+TEST_CASE("bhe::delegate += operator") {
+    bhe::delegate<int (*)(int)> del;
     REQUIRE(del.GetSize() == 0);
-    del += [](int){return 0;};
+    del += [](int) { return 0; };
     REQUIRE(del.GetSize() == 1);
 }
 

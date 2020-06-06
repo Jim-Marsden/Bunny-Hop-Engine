@@ -11,7 +11,7 @@
 #include <memory>
 
 
-namespace mt {
+namespace bhe {
     class textureManager {
         std::map<std::string, std::shared_ptr<sf::Texture>> textures;
         //std::vector<std::shared_ptr<sf::Texture>> textures;
@@ -37,7 +37,7 @@ namespace mt {
 
 
     };
-} //namespace mt
+} //namespace bhe
 
 
 #endif //MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP

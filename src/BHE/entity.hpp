@@ -10,8 +10,8 @@
 #include "State_Machine.h"
 #include <functional>
 
-namespace mt {
-    class entity : public mt::drawable {
+namespace bhe {
+    class entity : public bhe::drawable {
     public:
 
 
@@ -86,6 +86,6 @@ namespace mt {
     void deal_damage(entity &Entity, long Damage_amount,
                      std::function<void(entity &)> const &At_zero);
 
-} // namespace mt
+} // namespace bhe
 
 #endif // MOONLIGHT_TRAILS_ENTITY_HPP

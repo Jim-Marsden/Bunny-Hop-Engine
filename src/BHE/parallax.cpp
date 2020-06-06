@@ -4,17 +4,17 @@
 
 #include "parallax.hpp"
 
-mt::parallax::parallax(const sf::Texture &Texture, float Offset_in) {
+bhe::parallax::parallax(const sf::Texture &Texture, float Offset_in) {
     _sprite.setTexture(Texture);
     _offset = Offset_in;
 
 }
 
-sf::Sprite const &mt::parallax::GetSprite() const {
+sf::Sprite const &bhe::parallax::GetSprite() const {
     return _sprite;
 }
 
-void mt::parallax::ApplyParallax(const sf::Vector2f &Player_speed) {
+void bhe::parallax::ApplyParallax(const sf::Vector2f &Player_speed) {
 
 
     _sprite.setPosition(Player_speed.x / _offset,
@@ -23,11 +23,11 @@ void mt::parallax::ApplyParallax(const sf::Vector2f &Player_speed) {
 
 }
 
-mt::parallax::operator sf::Sprite const &() const {
+bhe::parallax::operator sf::Sprite const &() const {
     return _sprite;
 }
 
-mt::parallax::operator sf::Drawable const *() const {
+bhe::parallax::operator sf::Drawable const *() const {
     return &_sprite;
 }
 

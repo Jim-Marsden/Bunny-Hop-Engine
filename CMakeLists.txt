@@ -3,7 +3,7 @@ project(Bunny_Hop_Engine)
 set(CMAKE_CXX_STANDARD 20)
 enable_language(CXX)
 
-option(-DoUnitTests "unit tests" ON)
+option(-DoUnitTests "unit tests" OFF)
 option(-DoWarnings "warnings" OFF)
 option(-DoClangTidy "clang tidy?" OFF)
 
@@ -29,7 +29,7 @@ set(Moon_LightTrails_Main_Source_File src/BHE/main.cpp src/BHE/gameScene.cpp src
         src/BHE/Print_helper.hpp src/BHE/drawable.cpp src/BHE/drawable.hpp src/BHE/entity.cpp src/BHE/entity.hpp
         src/BHE/player.cpp src/BHE/player.hpp src/BHE/delegate.hpp src/BHE/SystemEvent.cpp src/BHE/SystemEvent.hpp
         src/BHE/State_Machine.cpp src/BHE/State_Machine.h src/BHE/animationState.cpp src/BHE/animationState.hpp
-        src/BHE/movement.cpp src/BHE/movement.hpp src/BHE/Json_Parser.cpp src/BHE/Json_Parser.hpp)
+        src/BHE/movement.cpp src/BHE/movement.hpp src/BHE/Json_Parser.cpp src/BHE/Json_Parser.hpp src/BHE/pipeline.hpp)
 
 set(Moon_LightTrails_Test_Source_Files src/tests/test_delegate.cpp)
 

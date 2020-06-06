@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-namespace mt {
+namespace bhe {
     class drawable {
 
     protected:
@@ -39,6 +39,6 @@ namespace mt {
         void AddAnimationState(animationState const &Animation_state);
     };
 
-} // namespace mt
+} // namespace bhe
 
 #endif // BUNNY_HOP_ENGINE_DRAWABLE_HPP

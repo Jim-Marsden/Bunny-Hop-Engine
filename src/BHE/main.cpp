@@ -22,38 +22,38 @@
 #endif
 
 
-void move_player_left(mt::player &Player, bool Is_down) {
+void move_player_left(bhe::player &Player, bool Is_down) {
     Player.MoveLeft(Is_down);
 
 
 }
 
-void move_player_right(mt::player &Player, bool Is_down) {
+void move_player_right(bhe::player &Player, bool Is_down) {
 
     Player.MoveRight(Is_down);
 
 }
 
-void move_player_up(mt::player &Player, bool Is_down) {
+void move_player_up(bhe::player &Player, bool Is_down) {
     //Player.MoveDown(Is_down);
 
 }
 
-void move_player_down(mt::player &Player, bool Is_down) {
+void move_player_down(bhe::player &Player, bool Is_down) {
     Player.MoveDown(Is_down);
 }
 
-void move_player_jump(mt::player &Player, bool Is_down) {
+void move_player_jump(bhe::player &Player, bool Is_down) {
     Player.DoJump(Is_down);
 }
 
 std::string_view do_game_update(std::string_view const &Scene_file,
-                                mt::textureManager &Texture_manager, sf::RenderWindow &Window, mt::player &Player,
-                                mt::SystemEvent &System_event) {
+                                bhe::textureManager &Texture_manager, sf::RenderWindow &Window, bhe::player &Player,
+                                bhe::SystemEvent &System_event) {
     uint_fast64_t frame_counter{};
     auto started = std::chrono::high_resolution_clock::now();
 
-    mt::gameScene game_scene;
+    bhe::gameScene game_scene;
 
     auto entities = game_scene.LoadFromJson("./Scenes/TestScene.json",
                                             Texture_manager);
@@ -72,20 +72,20 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
         started = std::chrono::high_resolution_clock::now();
         for (auto const &bg : game_scene.DoParallax(Player.GetPos()))
-            mt::do_draw(bg, Window);
+            bhe::do_draw(bg, Window);
 
         for (auto const &element : game_scene.BackDecoration())
-            mt::do_draw(element, Window);
+            bhe::do_draw(element, Window);
 
 
         for (auto const &element : game_scene.FrontDecoration())
-            mt::do_draw(element, Window);
+            bhe::do_draw(element, Window);
 
         for (auto const &shape : game_scene.GetCollisionBoxes())
-            mt::do_draw(shape, Window);
+            bhe::do_draw(shape, Window);
 
         for (auto const &item : entities)
-            mt::do_draw(item, Window);
+            bhe::do_draw(item, Window);
 
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
                 std::chrono::steady_clock::now() - fps_timer).count() >= 1) {
@@ -106,7 +106,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
 
                 auto bad_my = entity.IsColliding(game_scene.GetCollisionBoxes()).bottom;
-                //if(bad_my) mt::deal_damage(entity, 1000);
+                //if(bad_my) bhe::deal_damage(entity, 1000);
 
                 entity.DoGravity(!bad_my);
                 entity.Move();
@@ -117,7 +117,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         }
 
         entities.erase(std::remove_if(entities.begin(), entities.end(),
-                                      [](mt::entity const &Entity) { return Entity.GetHealth() < 1; }), entities.end());
+                                      [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
+                       entities.end());
 
         do_draw(Player, Window);
 
@@ -135,19 +136,19 @@ int main(int Argc, char **Argv) {
 #endif
     //boost::timer::auto_cpu_timer t;
 
-    mt::textureManager texture_manager;
+    bhe::textureManager texture_manager;
 
-    mt::gameScene game_scene;
+    bhe::gameScene game_scene;
 
 
     std::cout << game_scene.Name() << '\n';
 
-    mt::player player = mt::json_parsers::parse_player("Player/Player.json", texture_manager);
+    bhe::player player = bhe::json_parsers::parse_player("Player/Player.json", texture_manager);
 
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),
             "Moonilight Trails~");
-    mt::SystemEvent system_event(window, player);
+    bhe::SystemEvent system_event(window, player);
     window.setKeyRepeatEnabled(false);
 
     window.setFramerateLimit(60);

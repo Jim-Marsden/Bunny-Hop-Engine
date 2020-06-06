@@ -7,12 +7,14 @@
 
 #include <tuple>
 #include <vector>
+#include <functional>
+#include <ranges>
 
-namespace mt {
+namespace bhe {
 
     template<class Callable_T>
     class delegate {
-        std::vector<Callable_T> callables;
+        std::vector<Callable_T> _callables;
 
     public:
         delegate() = default;
@@ -20,34 +22,41 @@ namespace mt {
         std::vector<Callable_T> const &operator+=(Callable_T const &Callable);
 
         template<class... Args_T>
-        size_t operator()(Args_T &&... Args);
+        constexpr auto operator()(Args_T &&... Args) const;
 
         [[nodiscard]] size_t GetSize() const;
     };
 
-    template<class Callable_T>
-    template<class... Args_T>
-    size_t delegate<Callable_T>::operator()(Args_T &&... Args) {
-        size_t result{};
-        for (auto const &element : callables) {
-            element(Args...);
-            ++result;
-        }
-        return result;
-    }
 
     template<class Callabl_Te>
     const std::vector<Callabl_Te> &
     delegate<Callabl_Te>::operator+=(const Callabl_Te &Callable) {
-        callables.emplace_back(Callable);
-        return callables;
+        _callables.emplace_back(Callable);
+        return _callables;
     }
 
     template<class Callable_T>
     size_t delegate<Callable_T>::GetSize() const {
-        return callables.size();
+        return _callables.size();
     }
 
-} // namespace mt
+    template<class Callable_T>
+    template<class... Args_T>
+    constexpr auto delegate<Callable_T>::operator()(Args_T &&... Args) const {
+        if constexpr(!std::is_void<decltype(std::invoke(_callables[0], Args ...))>::value) {
+            if (!_callables.empty()) {
+                auto first_element = _callables.cbegin();
+                auto result = std::invoke(*first_element, Args ...);
+                for (; first_element != _callables.cend(); ++first_element)std::invoke(*first_element, Args ...);
+                return result;
+            }
+        } else {
+            for (auto const &element : _callables) {
+                std::invoke(element, Args...);
+            }
+        }
+    }
+
+} // namespace bhe
 
 #endif // BUNNY_HOP_ENGINE_DELEGATE_HPP

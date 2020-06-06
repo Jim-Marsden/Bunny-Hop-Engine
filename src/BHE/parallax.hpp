@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace mt {
+namespace bhe {
 
     class parallax {
     protected:
@@ -27,7 +27,7 @@ namespace mt {
         explicit operator sf::Drawable const *() const;
 
     };
-}// namespace mt
+}// namespace bhe
 
 
 #endif //MOONLIGHT_TRAILS_PARALLAX_HPP
