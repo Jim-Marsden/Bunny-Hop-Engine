@@ -79,7 +79,8 @@ if (WIN32)
     set(Bunny_Hop_Engine_Compiler_Flags ${Bunny_Hop_Engine_Compiler_Flags} /EHs)
     set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp_lib)
 elseif (UNIX)
-    set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp)
+    set(Moon_LightTrails_Main_Libs ${Moon_LightTrails_Main_Libs} jsoncpp pthread)
+
 endif ()
 
 

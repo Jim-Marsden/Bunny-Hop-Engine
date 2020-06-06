@@ -29,6 +29,7 @@ void move_player_right(bhe::player &Player, bool Is_down) {
     Player.MoveRight(Is_down);
 
 }
+
 void move_player_left(bhe::player &Player, bool Is_down) {
 
     Player.MoveLeft(Is_down);
@@ -63,16 +64,16 @@ std::string_view do_game_update(std::string_view const &Scene_file,
     while (game_scene.IsActive() && Window.isOpen()) {
 
         std::vector<std::future<bhe::entity>> futures;
-        for(auto const & entity: entities){
-            futures.emplace_back(std::async([&entity, &collision_direction, &game_scene ](){
-                bhe::pipeline<decltype(entity)> loop_pipeline(entity);
-                loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
-                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
-                }
-                | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
-                | [](bhe::entity &e) { e.Move(); }
-                | [](bhe::entity &e) { e.DoAnimation();
-                };
+        for (auto &entity: entities) {
+            futures.push_back(std::async([&entity, &collision_direction, &game_scene]() {
+                collision_direction = entity.IsColliding(game_scene.GetCollisionBoxes());
+
+                entity.DoGravity(collision_direction.bottom);
+                entity.Move();
+                entity.DoAnimation();
+
+                return entity;
+
             }));
         }
         ++frame_counter;
@@ -96,8 +97,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         for (auto const &shape : game_scene.GetCollisionBoxes())
             bhe::do_draw(shape, Window);
 
-        for (auto const &item : entities)
-            bhe::do_draw(item, Window);
+        //for (auto const &item : entities)
+        //bhe::do_draw(item, Window);
 
         if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
                 std::chrono::steady_clock::now() - fps_timer).count() >= 1) {
@@ -118,7 +119,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                      static_cast<float>(Window.getSize().y)}));
 
 
-            for (auto &entity : entities) {
+            /*for (auto &entity : entities) {
 
                 bhe::pipeline<decltype(entity)> loop_pipeline(entity);
                 loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
@@ -127,7 +128,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
                 | [](bhe::entity &e) { e.Move(); }
                 | [](bhe::entity &e) { e.DoAnimation(); };
-            }
+            }*/
 
         }
 
@@ -135,6 +136,10 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                       [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
                        entities.end());
 
+
+        for (auto &entity : futures) {
+            do_draw(entity.get(), Window);
+        }
         do_draw(Player, Window);
 
         Window.display();
