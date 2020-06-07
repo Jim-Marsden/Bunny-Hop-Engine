@@ -10,7 +10,7 @@
 #include <boost/timer/timer.hpp>
 #include <cmath>
 #include <algorithm>
-#include <future>
+
 
 
 #include <SFML/Graphics.hpp>
@@ -63,19 +63,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
     while (game_scene.IsActive() && Window.isOpen()) {
 
-        std::vector<std::future<bhe::entity>> futures;
-        for (auto &entity: entities) {
-            futures.push_back(std::async([&entity, &collision_direction, &game_scene]() {
-                collision_direction = entity.IsColliding(game_scene.GetCollisionBoxes());
 
-                entity.DoGravity(collision_direction.bottom);
-                entity.Move();
-                entity.DoAnimation();
-
-                return entity;
-
-            }));
-        }
         ++frame_counter;
 
         System_event.DoEvents();
@@ -119,7 +107,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                      static_cast<float>(Window.getSize().y)}));
 
 
-            /*for (auto &entity : entities) {
+            for (auto &entity : entities) {
 
                 bhe::pipeline<decltype(entity)> loop_pipeline(entity);
                 loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
@@ -128,7 +116,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
                 | [](bhe::entity &e) { e.Move(); }
                 | [](bhe::entity &e) { e.DoAnimation(); };
-            }*/
+            }
 
         }
 
@@ -137,8 +125,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                        entities.end());
 
 
-        for (auto &entity : futures) {
-            do_draw(entity.get(), Window);
+        for (auto &entity : entities) {
+            do_draw(entity, Window);
         }
         do_draw(Player, Window);
 
