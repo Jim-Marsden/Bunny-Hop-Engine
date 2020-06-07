@@ -1,9 +1,9 @@
-#include "gameScene.hpp"
-#include "Print_helper.hpp"
-#include "player.hpp"
-#include "SystemEvent.hpp"
-#include "Json_Parser.hpp"
-#include "pipeline.hpp"
+#include "bhe_core/gameScene.hpp"
+#include "bhe_core/Print_helper.hpp"
+#include "bhe_core/player.hpp"
+#include "bhe_core/SystemEvent.hpp"
+#include "bhe_core/Json_Parser.hpp"
+#include "bhe_core/pipeline.hpp"
 
 
 #include <iostream>

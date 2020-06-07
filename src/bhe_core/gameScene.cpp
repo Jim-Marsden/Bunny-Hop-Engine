@@ -2,7 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#include "gameScene.hpp"
+#include "bhe_core/gameScene.hpp"
 #include <json/json.h>
 
 #include <fstream>

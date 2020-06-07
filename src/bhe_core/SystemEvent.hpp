@@ -6,7 +6,7 @@
 #define MOONLIGHT_TRAILS_SYSTEMEVENT_HPP
 
 #include "delegate.hpp"
-#include "BHE/player.hpp"
+#include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>

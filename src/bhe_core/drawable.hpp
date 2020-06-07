@@ -5,7 +5,7 @@
 #ifndef BUNNY_HOP_ENGINE_DRAWABLE_HPP
 #define BUNNY_HOP_ENGINE_DRAWABLE_HPP
 
-#include "BHE/animationState.hpp"
+#include "animationState.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 

@@ -2,9 +2,9 @@
 // Created by snizzfox on 6/1/20.
 //
 
-#ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
 
-#include "BHE/delegate.hpp"
+#include "bhe_core/delegate.hpp"
+
 #include <catch2/catch.hpp>
 
 
@@ -15,5 +15,3 @@ TEST_CASE("bhe::delegate += operator") {
     REQUIRE(del.GetSize() == 1);
 }
 
-
-#endif

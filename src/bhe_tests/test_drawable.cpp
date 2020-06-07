@@ -2,9 +2,9 @@
 // Created by james on 6/1/2020.
 //
 
-#ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
 
-#include "BHE/drawable.hpp"
+#include "bhe_core/drawable.hpp"
+
 #include <catch2/catch.hpp>
 
 
@@ -34,9 +34,3 @@ TEST_CASE("bhe::drawable::SetPosition") {
 
 }
 
-
-
-
-
-
-#endif
