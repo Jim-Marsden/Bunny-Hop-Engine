@@ -10,6 +10,8 @@
 #include "State_Machine.h"
 #include <functional>
 
+#include <chrono>
+
 namespace bhe {
     class entity : public bhe::drawable {
     public:
@@ -59,7 +61,9 @@ namespace bhe {
 
         void DoGravity(bool Doit);
 
-        void Move();
+        [[deprecated]] void Move();
+
+        void Move(std::chrono::duration<double> const & time);
 
         void AddSpeed(sf::Vector2f const &Speed_in);
 

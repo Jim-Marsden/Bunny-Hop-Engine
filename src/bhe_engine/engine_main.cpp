@@ -63,6 +63,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
     while (game_scene.IsActive() && Window.isOpen()) {
 
+        auto time_start_loop = std::chrono::system_clock::now();
+
 
         ++frame_counter;
 
@@ -88,20 +90,17 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         //for (auto const &item : entities)
         //bhe::do_draw(item, Window);
 
-        if (std::chrono::duration_cast<std::chrono::duration<int32_t, std::ratio<1, 60>>>(
-                std::chrono::steady_clock::now() - fps_timer).count() >= 1) {
-            fps_timer = std::chrono::steady_clock::now();
-            { // Explisit scope
+        auto movement_time_point = std::chrono::system_clock::now();
+
                 bhe::pipeline<decltype(Player)> loop_pipeline(Player);
 
                 loop_pipeline | [&collision_direction, &game_scene](bhe::player &e) {
                     collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
                 }
                 | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
-                | [](bhe::player &e) { e.Move(); }
+                | [&movement_time_point, &time_start_loop](bhe::player &e) { e.Move(movement_time_point - time_start_loop); }
                 | [](bhe::player &e) { e.DoAnimation(); };
 
-            }
             Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
                                     {static_cast<float>(Window.getSize().x),
                                      static_cast<float>(Window.getSize().y)}));
@@ -114,11 +113,11 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                     collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
                 }
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
-                | [](bhe::entity &e) { e.Move(); }
+                | [&movement_time_point, &time_start_loop](bhe::entity &e) { e.Move(movement_time_point - time_start_loop); }
                 | [](bhe::entity &e) { e.DoAnimation(); };
             }
 
-        }
+
 
         entities.erase(std::remove_if(entities.begin(), entities.end(),
                                       [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),

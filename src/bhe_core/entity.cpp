@@ -79,6 +79,15 @@ void bhe::entity::Move() {
     _sprite.move(_movement.CalculateX(), _movement.CalculateY());
 }
 
+void bhe::entity::Move(std::chrono::duration<double> const &time){
+    auto calculate_directions = [](auto const & speed, std::chrono::duration<double> const & time_local){
+        return (time_local.count() + 1) * speed;
+    };
+
+   _sprite.move(calculate_directions(_movement.CalculateX(), time), calculate_directions(_movement.CalculateY(), time));
+    return;
+}
+
 void bhe::entity::AddSpeed(const sf::Vector2f &Speed_in) { _speed += Speed_in; }
 
 void bhe::entity::AddSpeedY(float Y) { _speed.y += Y; }
