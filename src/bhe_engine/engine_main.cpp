@@ -123,6 +123,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                       [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
                        entities.end());
 
+            //TODO base game time on last loop so everything will be more even.
+
 
         for (auto &entity : entities) {
             do_draw(entity, Window);

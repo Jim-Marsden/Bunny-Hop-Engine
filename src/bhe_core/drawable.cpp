@@ -44,11 +44,13 @@ void bhe::drawable::DoAnimation() {
 void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
 {
     if (!_animation_information.empty()) {
+
+
         if (_animation_information.size() > _current_animation) {
             auto &frame_data = _animation_information[_current_animation];
             if (frame_data.frames_per_animation_frame >=
                 frame_data.current_frame_count) {
-                frame_data.current_frame_count += time.count();
+                ++frame_data.current_frame_count;
             } else {
                 ++frame_data.sprite_index;
                 frame_data.current_frame_count = 0;

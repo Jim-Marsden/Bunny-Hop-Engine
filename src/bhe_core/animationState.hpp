@@ -7,6 +7,8 @@
 
 #include <string>
 
+
+//TODO redo animation state, where it supports floating points and not based on a solid game tick
 namespace bhe {
 
     struct animationState {
