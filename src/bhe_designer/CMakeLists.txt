@@ -1,6 +1,7 @@
 project(Bunny_Hop_Designer)
 
 cmake_minimum_required(VERSION 3.16)
+set(EXECUTABLE_OUTPUT_PATH "../..")
 
 
 add_executable(Bunny_Hop_Designer ${Bunny_Hop_Core_Files} designer_main.cpp)

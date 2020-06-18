@@ -41,6 +41,29 @@ void bhe::drawable::DoAnimation() {
     }
 }
 
+void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
+{
+    if (!_animation_information.empty()) {
+        if (_animation_information.size() > _current_animation) {
+            auto &frame_data = _animation_information[_current_animation];
+            if (frame_data.frames_per_animation_frame >=
+                frame_data.current_frame_count) {
+                frame_data.current_frame_count += time.count();
+            } else {
+                ++frame_data.sprite_index;
+                frame_data.current_frame_count = 0;
+                if (frame_data.sprite_index >= frame_data.number_of_frames)
+                    frame_data.sprite_index = 0;
+            }
+            _sprite.setTextureRect({(static_cast<int>(frame_data.sprite_index)) *
+                                    _sprite.getTextureRect().width,
+                                    0, _sprite.getTextureRect().height,
+                                    _sprite.getTextureRect().width});
+        }
+
+    }
+}
+
 void bhe::drawable::SetTextureRect(const sf::IntRect &Rect) {
     _sprite.setTextureRect(Rect);
 }

@@ -99,7 +99,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                 }
                 | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
                 | [&movement_time_point, &time_start_loop](bhe::player &e) { e.Move(movement_time_point - time_start_loop); }
-                | [](bhe::player &e) { e.DoAnimation(); };
+                | [&movement_time_point, &time_start_loop](bhe::player &e) { e.DoAnimation(movement_time_point - time_start_loop); };
 
             Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
                                     {static_cast<float>(Window.getSize().x),
@@ -114,7 +114,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                 }
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
                 | [&movement_time_point, &time_start_loop](bhe::entity &e) { e.Move(movement_time_point - time_start_loop); }
-                | [](bhe::entity &e) { e.DoAnimation(); };
+                | [&movement_time_point, &time_start_loop](bhe::entity &e) { e.DoAnimation(movement_time_point - time_start_loop); };
             }
 
 

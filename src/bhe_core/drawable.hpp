@@ -8,13 +8,15 @@
 #include "animationState.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <chrono>
+
 
 namespace bhe {
     class drawable {
 
     protected:
         sf::Sprite _sprite;
-        int _current_frame_time{};
+        float _current_frame_time{0.0F};
 
         std::vector<animationState> _animation_information{};
         std::size_t _current_animation{0};
@@ -34,7 +36,9 @@ namespace bhe {
 
         explicit operator sf::Sprite const &() const;
 
-        void DoAnimation();
+        [[deprecated]] void DoAnimation();
+
+        void DoAnimation(std::chrono::duration<float> const & time);
 
         void AddAnimationState(animationState const &Animation_state);
     };
