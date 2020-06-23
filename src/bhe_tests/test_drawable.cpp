@@ -27,8 +27,6 @@ TEST_CASE("bhe::drawable::SetPosition") {
 
 
     drawable_test.SetPosition(2.F, 3.F);
-
-
     REQUIRE(static_cast<int>(drawable_test.get_pos().x) == 2);
     REQUIRE(static_cast<int>(drawable_test.get_pos().y) == 3);
 

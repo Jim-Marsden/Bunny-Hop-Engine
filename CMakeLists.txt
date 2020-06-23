@@ -54,6 +54,22 @@ add_subdirectory(src/bhe_designer)
 add_subdirectory(src/bhe_tests)
 
 
+configure_file(Scenes/TestScene.json Scenes/TestScene.json COPYONLY)
+configure_file(Scenes/Textures/tree.png Scenes/Textures/tree.png COPYONLY)
+configure_file(Scenes/Textures/parallax_test-bg001.png
+        Scenes/Textures/parallax_test-bg001.png COPYONLY)
+
+configure_file(Entity/Texture/animation_tests.png Entity/Texture/animation_tests.png COPYONLY)
+
+configure_file(Entity/Test.json Entity/Test.json COPYONLY)
+configure_file(Entity/Texture/default.png Entity/Texture/default.png COPYONLY)
+
+configure_file(Settings/Controls.json Settings/Controls.json COPYONLY)
+
+configure_file(Player/Player.json Player/Player.json COPYONLY)
+configure_file(Player/Textures/player_animation_test_002.png Player/Textures/player_animation_test_002.png COPYONLY)
+
+
 #[[
 option(-DoUnitTests "unit tests" ON)
 option(-DoWarnings "warnings" OFF)

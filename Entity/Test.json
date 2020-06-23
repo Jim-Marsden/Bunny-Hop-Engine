@@ -15,12 +15,9 @@
     {
       "name": "idle",
       "number of frames": 5,
-
       "animation offset": 0,
-      "time per frame": 100,
+      "time per frame": 2,
       "test": 3
-
-
     }
   ],
   "movement": [

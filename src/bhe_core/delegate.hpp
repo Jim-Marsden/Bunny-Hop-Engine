@@ -43,17 +43,28 @@ namespace bhe {
     template<class... Args_T>
     constexpr auto delegate<Callable_T>::operator()(Args_T &&... Args) const {
         if constexpr(!std::is_void<decltype(std::invoke(_callables[0], Args ...))>::value) {
+            using result_t = decltype(std::invoke(_callables[0], Args ...));
+
             if (!_callables.empty()) {
-                auto first_element = std::begin( _callables);
-                auto result = std::invoke(*first_element, Args ...);
-                for (std::next(first_element); first_element != _callables.cend(); std::next(first_element))
-                    std::invoke(*first_element, Args ...);
+
+                result_t result;
+                bool skip_first = true;
+
+                for (auto const &function : _callables) {
+                    if (skip_first) {
+                        skip_first = false;
+                        result = std::invoke(function, Args ...);
+                    }
+                    std::invoke(function, Args ...);
+                }
                 return result;
             }
+            return decltype(std::invoke(_callables[0], Args ...)){};
         } else {
             for (auto const &element : _callables) {
                 std::invoke(element, Args...);
             }
+            return;
         }
     }
 

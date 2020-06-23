@@ -126,7 +126,8 @@ bhe::json_parsers::load_entity(std::string const & File_Name, bhe::textureManage
     uint_fast64_t val{};
 
     for (auto const &animations : entity_value["animation"]) {
-        std::cout << animations["time per frame"].asInt()<< ' ' << animations["a"].asDouble() << animations["test"].asInt() << '\n';
+        std::cout << animations << '\n';
+        std::cout << animations["time per frame"].asFloat() << '\n';
 
         result_entity.AddAnimationState({animations["name"].asString(),
                                          animations["number of frames"].asUInt64(),
