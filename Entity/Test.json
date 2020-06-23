@@ -1,6 +1,11 @@
 {
   "texture name": "Entity/Texture/animation_tests.png",
-  "enty name": "test entity",
+  "entity name": "test entity",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
   "health": 100,
   "sprite size": {
     "h": 64,
@@ -10,8 +15,12 @@
     {
       "name": "idle",
       "number of frames": 5,
-      "ticks per frame": 100,
-      "tick offset": 0
+
+      "animation offset": 0,
+      "time per frame": 100,
+      "test": 3
+
+
     }
   ],
   "movement": [

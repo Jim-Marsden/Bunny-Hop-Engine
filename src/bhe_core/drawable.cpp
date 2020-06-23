@@ -17,36 +17,30 @@ bhe::drawable::operator sf::Sprite const &() const { return _sprite; }
 
 bhe::drawable::drawable(const sf::Sprite &Sprite) { _sprite = Sprite; }
 
-void bhe::drawable::DoAnimation() {
-    if (!_animation_information.empty()) {
-        if (_animation_information.size() > _current_animation) {
-            auto &frame_data = _animation_information[_current_animation];
-            if (frame_data.frames_per_animation_frame >=
-                frame_data.current_frame_count) {
-                ++frame_data.current_frame_count;
-            } else {
-                ++frame_data.sprite_index;
-                frame_data.current_frame_count = 0;
-                if (frame_data.sprite_index >= frame_data.number_of_frames)
-                    frame_data.sprite_index = 0;
-            }
-            _sprite.setTextureRect({(static_cast<int>(frame_data.sprite_index)) *
-                                    _sprite.getTextureRect().width,
-                                    0, _sprite.getTextureRect().height,
-                                    _sprite.getTextureRect().width});
-        }
-
-    } else {
-        std::cout << "is empty\n";
-    }
-}
-
 void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
 {
     if (!_animation_information.empty()) {
 
-
         if (_animation_information.size() > _current_animation) {
+            auto &frame_data = _animation_information[_current_animation];
+            frame_data.current_time = time.count() - frame_data.time_per_frame;
+            if (frame_data.current_time <= 0){
+                frame_data.current_time = frame_data.time_per_frame;
+                ++frame_data.current_frame_index;
+                if(frame_data.current_frame_index > frame_data.number_of_frames)
+                    frame_data.current_frame_index = 0;
+            }
+
+            //std::cout << frame_data.current_time << ' ' << frame_data.time_per_frame << '\n';
+
+            _sprite.setTextureRect({(static_cast<int>(frame_data.current_frame_index)) *
+                                    _sprite.getTextureRect().width,
+                                    0, _sprite.getTextureRect().height,
+                                    _sprite.getTextureRect().width});
+
+        }
+
+        /*if (_animation_information.size() > _current_animation) {
             auto &frame_data = _animation_information[_current_animation];
             if (frame_data.frames_per_animation_frame >=
                 frame_data.current_frame_count) {
@@ -61,7 +55,7 @@ void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
                                     _sprite.getTextureRect().width,
                                     0, _sprite.getTextureRect().height,
                                     _sprite.getTextureRect().width});
-        }
+        }*/
 
     }
 }

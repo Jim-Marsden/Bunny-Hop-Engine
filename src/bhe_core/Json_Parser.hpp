@@ -24,13 +24,16 @@ namespace bhe::json_parsers {
 
 
     [[nodiscard]] auto
-    load_decorations(Json::Value const &Root, bhe::textureManager &Texture_manager) -> std::vector<bhe::drawable>;
+    parse_decorations(Json::Value const &Root, bhe::textureManager &Texture_manager) -> std::vector<bhe::drawable>;
 
     [[nodiscard]] auto parse_entities(Json::Value const &Root,
                                       bhe::textureManager &Texture_manager) -> std::vector<bhe::entity>;
 
-    [[nodiscard]] auto
+    [[deprecated]] [[nodiscard]] auto
     parse_entity(Json::Value const &Root, bhe::textureManager &Texture_manager) -> bhe::entity;
+
+    [[nodiscard]] auto
+    load_entity(std::string const & File_Name, bhe::textureManager &Texture_manager) -> bhe::entity;
 
     [[nodiscard]] auto
     parse_player(std::string_view const &Root, bhe::textureManager &Texture_manager) -> bhe::player;
