@@ -6,6 +6,8 @@
 #include <bhe_core/Json_Parser.hpp>
 #include <json/json.h>
 #include <iostream>
+#include <chrono>
+
 #include "entity.hpp"
 
 namespace bhe::json_parsers::helpers {
@@ -127,10 +129,17 @@ bhe::json_parsers::load_entity(std::string const & File_Name, bhe::textureManage
 
     for (auto const &animations : entity_value["animation"]) {
 
+        std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
+
+
+        long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
+        std::cout << grumpy << '\n';
+
+
         result_entity.AddAnimationState({animations["name"].asString(),
                                          animations["number of frames"].asUInt64(),
                                          animations["animation offset"].asUInt64(),
-                                         animations["time per frame"].asInt()});
+                                         grumpy});
     }
     for (auto const &movement_element : entity_value["movement"]) {
         auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
@@ -174,8 +183,20 @@ bhe::json_parsers::parse_player(std::string_view const &File_name,
 
     for (auto const &animations : root["animation"]) {
 
-        result.AddAnimationState({animations["name"].asString(), animations["number of frames"].asUInt64(), animations["animation offset"].asUInt64(),
-                                         animations["time per frame"].asFloat()});
+        std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
+
+
+        long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
+        std::cout << grumpy << '\n';
+
+
+        result.AddAnimationState({animations["name"].asString(),
+                                  animations["number of frames"].asUInt64(),
+                                  animations["animation offset"].asUInt64(),
+                                  grumpy});
+
+        //result.AddAnimationState({animations["name"].asString(), animations["number of frames"].asUInt64(), animations["animation offset"].asUInt64(),
+        // animations["time per frame"].asFloat()});
     }
 
     for (auto const &movement_element : root["movement"]) {

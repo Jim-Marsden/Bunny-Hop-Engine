@@ -9,9 +9,9 @@
   "animation": [
     {
       "name": "idle",
-      "number of frames": 8,
-      "ticks per frame": 1,
-      "tick offset": 0
+      "number of frames": 5,
+      "animation offset": 0,
+      "time per frame": 0.5
     },
     {
       "name": "walk ",

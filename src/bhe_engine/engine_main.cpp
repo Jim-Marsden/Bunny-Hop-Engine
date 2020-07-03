@@ -61,9 +61,16 @@ std::string_view do_game_update(std::string_view const &Scene_file,
     std::chrono::time_point<std::chrono::steady_clock> fps_timer(std::chrono::steady_clock::now());
     std::chrono::duration<int32_t, std::ratio<1, 60>> fps{};
 
-    while (game_scene.IsActive() && Window.isOpen()) {
+    auto time_start_loop = std::chrono::steady_clock::now();
+    auto movement_time_point = std::chrono::steady_clock::now();
 
-        auto time_start_loop = std::chrono::system_clock::now();
+    std::chrono::duration<double> time_check = time_start_loop - movement_time_point;
+
+
+    while (game_scene.IsActive() && Window.isOpen()) {
+        time_start_loop = std::chrono::steady_clock::now();
+
+        //std::cout << std::chrono::duration_cast<std::chrono::microseconds >(time_check).count() << '\n';
 
 
         ++frame_counter;
@@ -90,16 +97,17 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         //for (auto const &item : entities)
         //bhe::do_draw(item, Window);
 
-        auto movement_time_point = std::chrono::system_clock::now();
 
                 bhe::pipeline<decltype(Player)> loop_pipeline(Player);
 
-                loop_pipeline | [&collision_direction, &game_scene](bhe::player &e) {
-                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
-                }
-                | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
-                | [&movement_time_point, &time_start_loop](bhe::player &e) { e.Move(movement_time_point - time_start_loop); }
-                | [&movement_time_point, &time_start_loop](bhe::player &e) { e.DoAnimation(movement_time_point - time_start_loop); };
+        loop_pipeline | [&collision_direction, &game_scene](bhe::player &e) {
+            collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+        }
+        | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
+        | [time_check](bhe::player &e) { e.Move(time_check); }
+        | [time_check](bhe::player &e) {
+            e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
+        };
 
             Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
                                     {static_cast<float>(Window.getSize().x),
@@ -113,11 +121,11 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                     collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
                 }
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
-                | [&movement_time_point, &time_start_loop](bhe::entity &e) {
-                    e.Move(movement_time_point - time_start_loop);
+                | [time_check](bhe::entity &e) {
+                    e.Move(time_check);
                 }
-                | [&movement_time_point, &time_start_loop](bhe::entity &e) {
-                    e.DoAnimation(movement_time_point - time_start_loop);
+                | [time_check](bhe::entity &e) {
+                    e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
                 };
             }
 
@@ -127,7 +135,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                       [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
                        entities.end());
 
-            //TODO base game time on last loop so everything will be more even.
+        //TODO base game time on last loop so everything will be more even.
 
 
         for (auto &entity : entities) {
@@ -136,6 +144,9 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         do_draw(Player, Window);
 
         Window.display();
+        time_check = std::chrono::steady_clock::now() - time_start_loop;
+        //movement_time_point = std::chrono::steady_clock::now();//time_start_loop;
+        //time_start_loop = std::chrono::system_clock::now();
     }
     return " ";
 

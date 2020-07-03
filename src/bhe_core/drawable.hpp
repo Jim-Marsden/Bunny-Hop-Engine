@@ -47,7 +47,7 @@ namespace bhe {
 
         explicit operator sf::Sprite const &() const;
 
-        void DoAnimation(std::chrono::duration<float> const & time);
+        void DoAnimation(std::chrono::microseconds const &time);
 
         void AddAnimationState(animationState const &Animation_state);
     };

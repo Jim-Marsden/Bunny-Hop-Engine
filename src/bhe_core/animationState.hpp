@@ -27,7 +27,7 @@ namespace bhe {
                        unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 
         [[nodiscard]] auto isReadForNextFrame() -> bool; //
-        [[nodiscard]] auto countNextFrame(std::chrono::microseconds time_span) -> void;
+        auto countNextFrame(std::chrono::microseconds time_span) -> void;
 
         [[nodiscard]] auto getCurrentFameIndex() const -> decltype(current_time);
 

@@ -21,9 +21,10 @@ auto bhe::animationState::isReadForNextFrame() -> bool {
 
 auto bhe::animationState::countNextFrame(std::chrono::microseconds time_span) -> void {
 
-    current_time = time_span.count() - current_time;
-    if (current_time < 0) {
-        current_time = this->time_per_frame;
+    current_time += time_span.count();
+    //std::cout << current_time << ':' <<  time_per_frame << '\n';
+    if (current_time > time_per_frame) {
+        current_time = 0;
         current_frame_index++;
         if (current_frame_index > this->number_of_frames)
             current_frame_index = 0;

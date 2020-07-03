@@ -17,14 +17,13 @@ bhe::drawable::operator sf::Sprite const &() const { return _sprite; }
 
 bhe::drawable::drawable(const sf::Sprite &Sprite) { _sprite = Sprite; }
 
-void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
-{
+void bhe::drawable::DoAnimation(std::chrono::microseconds const &time) {
     if (!_animation_information.empty()) {
 
         if (_animation_information.size() > _current_animation) {
             auto &frame_data = _animation_information[_current_animation];
 
-            frame_data.countNextFrame(std::chrono::duration_cast<std::chrono::microseconds>(time));
+            frame_data.countNextFrame(time);
 
             /*    frame_data.current_time += (time.count() * 100);// - frame_data.current_time;
                 if (frame_data.current_time > frame_data.time_per_frame) {
