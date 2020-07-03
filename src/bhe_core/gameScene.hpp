@@ -27,6 +27,16 @@ namespace bhe {
     public:
         gameScene() = default;
 
+        ~gameScene() = default;
+
+        gameScene(gameScene const &) = default;
+
+        gameScene(gameScene &&) = default;
+
+        gameScene &operator=(gameScene &&) = default;
+
+        gameScene &operator=(gameScene const &) = default;
+
         gameScene(std::string const &Json_file, textureManager &Texture_manager_out);
 
         [[nodiscard]]decltype(_parallaxes) const &DoParallax(sf::Vector2f const &Location);

@@ -24,6 +24,17 @@ namespace bhe {
     public:
         drawable() = default;
 
+        drawable(drawable const &) = default;
+
+        drawable(drawable &&) = default;
+
+        ~drawable() = default;
+
+        drawable &operator=(drawable &&) = default;
+
+        drawable &operator=(drawable const &) = default;
+
+
         explicit drawable(sf::Sprite const &Sprite);
 
         void SetTexture(sf::Texture const &Texture);

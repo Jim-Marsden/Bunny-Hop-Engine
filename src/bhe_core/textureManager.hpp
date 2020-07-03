@@ -20,6 +20,15 @@ namespace bhe {
 
         ~textureManager() = default;
 
+        textureManager(textureManager &&) = delete;
+
+        textureManager(textureManager const &) = delete;
+
+        textureManager &operator=(textureManager const &) = delete;
+
+        textureManager &operator=(textureManager &&) = delete;
+
+
         size_t AddTexture(std::string const &Texture_name);
 
         void Clear();

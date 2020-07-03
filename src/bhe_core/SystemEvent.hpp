@@ -45,6 +45,16 @@ namespace bhe {
     public:
         SystemEvent() = delete;
 
+        SystemEvent(SystemEvent const &) = default;
+
+        SystemEvent(SystemEvent &&) = default;
+
+        ~SystemEvent() = default;
+
+        SystemEvent &operator=(SystemEvent &&) = default;
+
+        SystemEvent &operator=(SystemEvent const &) = default;
+
         explicit SystemEvent(sf::RenderWindow &Window, bhe::player &Player_1);
 
         void AddMoveLeft(std::function<keyboardFunctionType> const &Callable);

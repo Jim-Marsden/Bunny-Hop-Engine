@@ -19,6 +19,16 @@ namespace bhe {
     public:
         constexpr stateMachine() = default;
 
+        constexpr ~stateMachine() = default;
+
+        constexpr stateMachine(stateMachine const &) = default;
+
+        constexpr stateMachine(stateMachine &&) = default;
+
+        constexpr stateMachine &operator=(stateMachine &&) = default;
+
+        constexpr stateMachine &operator=(stateMachine const &) = default;
+
 
         constexpr Function_T &operator[](Enumerator_T const &Enumerator);
 

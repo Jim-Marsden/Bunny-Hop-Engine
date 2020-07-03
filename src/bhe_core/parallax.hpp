@@ -16,6 +16,16 @@ namespace bhe {
     public:
         parallax() = default;
 
+        ~parallax() = default;
+
+        parallax(parallax &&) = default;
+
+        parallax(parallax const &) = default;
+
+        parallax &operator=(parallax &&) = default;
+
+        parallax &operator=(parallax const &) = default;
+
         explicit parallax(sf::Texture const &Texture, float Offset_in = 1);
 
         sf::Sprite const &GetSprite() const;

@@ -24,14 +24,16 @@ void bhe::drawable::DoAnimation(const std::chrono::duration<float> &time)
         if (_animation_information.size() > _current_animation) {
             auto &frame_data = _animation_information[_current_animation];
 
-            frame_data.current_time += (time.count() * 100);// - frame_data.current_time;
-            if (frame_data.current_time > frame_data.time_per_frame) {
-                frame_data.current_time = 0;//frame_data.time_per_frame;
-                ++frame_data.current_frame_index;
-                if (frame_data.current_frame_index > frame_data.number_of_frames)
-                    frame_data.current_frame_index = 0;
-            }
-            _sprite.setTextureRect({(static_cast<int>(frame_data.current_frame_index)) *
+            frame_data.countNextFrame(std::chrono::duration_cast<std::chrono::microseconds>(time));
+
+            /*    frame_data.current_time += (time.count() * 100);// - frame_data.current_time;
+                if (frame_data.current_time > frame_data.time_per_frame) {
+                    frame_data.current_time = 0;//frame_data.time_per_frame;
+                    ++frame_data.current_frame_index;
+                    if (frame_data.current_frame_index > frame_data.number_of_frames)
+                        frame_data.current_frame_index = 0;
+                }*/
+            _sprite.setTextureRect({static_cast<int>(frame_data.getCurrentFameIndex()) *
                                     _sprite.getTextureRect().width,
                                     0, _sprite.getTextureRect().height,
                                     _sprite.getTextureRect().width});

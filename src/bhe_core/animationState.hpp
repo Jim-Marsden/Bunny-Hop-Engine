@@ -6,25 +6,37 @@
 #define BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
 
 #include <string>
+#include <chrono>
 
 
 //TODO redo animation state, where it supports floating points and not based on a solid game tick
 namespace bhe {
 
 
-    struct animationState{
+    struct animationState {
 
         const std::string name; //Animation name
 
         unsigned long long current_frame_index; // where it is on the left/right
-        float current_time; //the timer
-        const unsigned long long  number_of_frames; // total number of offsets on the left/right
-        const unsigned long long  animation_offset; // where the index is on the top/bottom
-        const float time_per_frame; // how long on each frame state
+        long current_time; //the timer as microseconds
+        const unsigned long long number_of_frames; // total number of offsets on the left/right
+        const unsigned long long animation_offset; // where the index is on the top/bottom
+        const long time_per_frame; // how long on each frame state
 
         animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
-                       unsigned long long const &Animation_Offset, float const &Time_Per_Frame);
+                       unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 
+        [[nodiscard]] auto isReadForNextFrame() -> bool; //
+        [[nodiscard]] auto countNextFrame(std::chrono::microseconds time_span) -> void;
+
+        [[nodiscard]] auto getCurrentFameIndex() const -> decltype(current_time);
+
+        /*animationState() = default;
+        animationState(animationState const &) = default;
+        animationState(animationState &&) = default;
+        ~animationState() = default;
+        animationState &operator=(animationState const &) = default;
+        animationState &operator=(animationState &&) = default;*/
 
     };
     struct animationStateOld {

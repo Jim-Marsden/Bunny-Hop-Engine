@@ -26,7 +26,13 @@ namespace bhe {
 
             collisionDirection(collisionDirection &Copy) = default;
 
+            ~collisionDirection() = default;
+
+
             collisionDirection &operator=(collisionDirection const &) = default;
+
+            collisionDirection &operator=(collisionDirection &&) = default;
+
         };
 
 
