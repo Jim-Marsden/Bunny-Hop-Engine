@@ -45,15 +45,15 @@ namespace bhe {
     public:
         SystemEvent() = delete;
 
-        SystemEvent(SystemEvent const &) = default;
+        SystemEvent(SystemEvent const &) = delete;
 
-        SystemEvent(SystemEvent &&) = default;
+        SystemEvent(SystemEvent &&) = delete;
 
         ~SystemEvent() = default;
 
-        SystemEvent &operator=(SystemEvent &&) = default;
+        SystemEvent &operator=(SystemEvent &&) = delete;
 
-        SystemEvent &operator=(SystemEvent const &) = default;
+        SystemEvent &operator=(SystemEvent const &) = delete;
 
         explicit SystemEvent(sf::RenderWindow &Window, bhe::player &Player_1);
 

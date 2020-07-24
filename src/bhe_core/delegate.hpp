@@ -45,6 +45,7 @@ namespace bhe {
         if constexpr(!std::is_void<decltype(std::invoke(_callables[0], Args ...))>::value) {
             using result_t = decltype(std::invoke(_callables[0], Args ...));
 
+
             if (!_callables.empty()) {
 
                 result_t result;

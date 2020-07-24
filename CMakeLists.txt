@@ -23,7 +23,8 @@ set(Bunny_Hop_Core_Files ../bhe_core/gameScene.cpp ../bhe_core/gameScene.hpp
         ../bhe_core/Print_helper.hpp ../bhe_core/drawable.cpp ../bhe_core/drawable.hpp ../bhe_core/entity.cpp ../bhe_core/entity.hpp
         ../bhe_core/player.cpp ../bhe_core/player.hpp ../bhe_core/delegate.hpp ../bhe_core/SystemEvent.cpp ../bhe_core/SystemEvent.hpp
         ../bhe_core/State_Machine.cpp ../bhe_core/State_Machine.h ../bhe_core/animationState.cpp ../bhe_core/animationState.hpp
-        ../bhe_core/movement.cpp ../bhe_core/movement.hpp ../bhe_core/Json_Parser.cpp ../bhe_core/Json_Parser.hpp ../bhe_core/pipeline.hpp)
+        ../bhe_core/movement.cpp ../bhe_core/movement.hpp ../bhe_core/Json_Parser.cpp ../bhe_core/Json_Parser.hpp ../bhe_core/pipeline.hpp
+        ../bhe_core/Return_Status.hpp)
 
 set(Bunny_Hop_Lib sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
         OpenGL Vorbis tgui Catch2::Catch2)

@@ -80,7 +80,11 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         Window.clear(sf::Color(0xaa, 0xaa, 0xaa));
 
 
-        started = std::chrono::high_resolution_clock::now();
+
+        //started = std::chrono::high_resolution_clock::now();
+        Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
+                                {static_cast<float>(Window.getSize().x),
+                                 static_cast<float>(Window.getSize().y)}));
         for (auto const &bg : game_scene.DoParallax(Player.GetPos()))
             bhe::do_draw(bg, Window);
 
@@ -109,12 +113,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
             e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
         };
 
-            Window.setView(sf::View(static_cast<sf::Sprite>(Player).getPosition(),
-                                    {static_cast<float>(Window.getSize().x),
-                                     static_cast<float>(Window.getSize().y)}));
 
-
-            for (auto &entity : entities) {
+        for (auto &entity : entities) {
 
                 bhe::pipeline<decltype(entity)> loop_pipeline(entity);
                 loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
@@ -134,6 +134,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
         entities.erase(std::remove_if(entities.begin(), entities.end(),
                                       [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
                        entities.end());
+
 
         //TODO base game time on last loop so everything will be more even.
 

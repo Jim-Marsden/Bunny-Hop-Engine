@@ -16,14 +16,14 @@
     {
       "name": "walk ",
       "number of frames": 5,
-      "ticks per frame": 100,
-      "tick offset": 0
+      "animation offset": 1,
+      "time per frame": 0.5
     },
     {
       "name": "jump",
       "number of frames": 5,
-      "ticks per frame": 100,
-      "tick offset": 0
+      "animation offset": 2,
+      "time per frame": 0.5
     }
   ],
   "movement": [
