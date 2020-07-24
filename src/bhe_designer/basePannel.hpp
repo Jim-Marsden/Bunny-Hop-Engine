@@ -21,7 +21,6 @@ public:
     basePanel &operator=(basePanel &&) = default;
 
 protected:
-    virtual
 
 
 };

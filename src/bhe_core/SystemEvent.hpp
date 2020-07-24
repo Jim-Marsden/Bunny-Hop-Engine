@@ -24,7 +24,7 @@ namespace bhe {
             Right,
             Jump,
         };
-        using keyboardFunctionType = void(bhe::player &, bool);
+        using keyboardFunctionType = void(bool);
         using keyboardDelegateType =
         delegate<std::function<keyboardFunctionType>>;
     protected:
@@ -40,7 +40,7 @@ namespace bhe {
         delegate<std::function<void()>> _close;
 
         sf::RenderWindow &_window;
-        player &_player;
+        //player &_player;
 
     public:
         SystemEvent() = delete;
@@ -55,7 +55,7 @@ namespace bhe {
 
         SystemEvent &operator=(SystemEvent const &) = delete;
 
-        explicit SystemEvent(sf::RenderWindow &Window, bhe::player &Player_1);
+        explicit SystemEvent(sf::RenderWindow &Window);
 
         void AddMoveLeft(std::function<keyboardFunctionType> const &Callable);
 

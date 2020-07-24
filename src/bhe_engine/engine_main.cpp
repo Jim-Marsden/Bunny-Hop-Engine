@@ -24,29 +24,12 @@
 
 #endif
 
-void move_player_right(bhe::player &Player, bool Is_down) {
-
-    Player.MoveRight(Is_down);
-
-}
-
-void move_player_left(bhe::player &Player, bool Is_down) {
-
-    Player.MoveLeft(Is_down);
-
-}
-
-void move_player_down(bhe::player &Player, bool Is_down) {
-    Player.MoveDown(Is_down);
-}
-
-void move_player_jump(bhe::player &Player, bool Is_down) {
-    Player.DoJump(Is_down);
-}
 
 std::string_view do_game_update(std::string_view const &Scene_file,
                                 bhe::textureManager &Texture_manager, sf::RenderWindow &Window, bhe::player &Player,
                                 bhe::SystemEvent &System_event) {
+
+
     uint_fast64_t frame_counter{};
     auto started = std::chrono::high_resolution_clock::now();
 
@@ -154,6 +137,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 }
 
 int main(int Argc, char **Argv) {
+
     auto return_value{0};
 
 #ifdef MOON_LIGHTTRAILS_CMAKE_OPTION_DO_TESTS
@@ -170,10 +154,31 @@ int main(int Argc, char **Argv) {
 
     bhe::player player = bhe::json_parsers::parse_player("Player/Player.json", texture_manager);
 
+
+    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_right = [&player](bool Is_down) {
+        player.MoveRight(Is_down);
+
+    };
+
+    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_left = [&player](bool Is_down) {
+
+        player.MoveLeft(Is_down);
+
+    };
+
+    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_down = [&player](bool Is_down) {
+        player.MoveDown(Is_down);
+    };
+
+    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_jump = [&player](bool Is_down) {
+        player.DoJump(Is_down);
+    };
+
+
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),
             "Moonilight Trails~");
-    bhe::SystemEvent system_event(window, player);
+    bhe::SystemEvent system_event(window);
     window.setKeyRepeatEnabled(false);
 
     window.setFramerateLimit(60);

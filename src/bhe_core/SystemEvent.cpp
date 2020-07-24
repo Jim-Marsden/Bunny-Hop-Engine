@@ -114,7 +114,7 @@ std::map<sf::Keyboard::Key, bhe::SystemEvent::MtKey> Load_Controls(std::string c
 
 }
 
-bhe::SystemEvent::SystemEvent(sf::RenderWindow &Window, bhe::player &Player_1) : _window{Window}, _player{Player_1} {
+bhe::SystemEvent::SystemEvent(sf::RenderWindow &Window) : _window{Window} {
     /*key_bindings[sf::Keyboard::Key::S] = MT_Key::Down;
     key_bindings[sf::Keyboard::Key::A] = MT_Key::Left;
     key_bindings[sf::Keyboard::Key::W] = MT_Key::Up;
@@ -175,38 +175,38 @@ void bhe::SystemEvent::DoEvents() {
 
 
                 if (_key_bindings.at(event.key.code) == MtKey::Up) {
-                    _move_up(_player, true);
+                    _move_up(true);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Left) {
-                    _move_left(_player, true);
+                    _move_left(true);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Right) {
-                    _move_right(_player, true);
+                    _move_right(true);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Down) {
-                    _move_down(_player, true);
+                    _move_down(true);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Jump) {
-                    _move_jump(_player, true);
+                    _move_jump(true);
                 }
                 break;
             case sf::Event::KeyReleased:
                 if (_key_bindings.find(event.key.code) == _key_bindings.end()) break;
 
                 if (_key_bindings.at(event.key.code) == MtKey::Up) {
-                    _move_up(_player, false);
+                    _move_up(false);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Left) {
-                    _move_left(_player, false);
+                    _move_left(false);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Right) {
-                    _move_right(_player, false);
+                    _move_right(false);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Down) {
-                    _move_down(_player, false);
+                    _move_down(false);
                 }
                 if (_key_bindings.at(event.key.code) == MtKey::Jump) {
-                    _move_jump(_player, false);
+                    _move_jump(false);
                 }
                 break;
             case sf::Event::MouseWheelMoved:
