@@ -9,7 +9,16 @@
 auto windowManager::Run() -> bhe::returnStatus<void> {
     if (!_has_iniliziazed)InitilalizeElements();
 
-    return {true, "Hello"};
+    window.create(sf::VideoMode(800, 800), "I'm the designer!");
+
+    while (window.isOpen()) {
+        event.DoEvents();
+        window.clear(sf::Color(0xa, 0xa, 0xa));
+        window.display();
+
+    }
+
+    return {true, bhe::returnStatusCode::Normal};
 }
 
 windowManager::~windowManager() {
@@ -20,6 +29,7 @@ windowManager::~windowManager() {
 }
 
 auto windowManager::InitilalizeElements() -> bhe::returnStatus<int> {
+    if (_has_iniliziazed) return {0, false, bhe::returnStatusCode::SingleRunFunctionReran};
     int result{};
     _has_iniliziazed = true;
 
@@ -28,11 +38,11 @@ auto windowManager::InitilalizeElements() -> bhe::returnStatus<int> {
         if (auto[status, message] = element.InitWindow(); status) {
             result++;
         } else {
-            std::cerr << "Error failed to initialize with message: " << message;
+            std::cerr << "Error failed to initialize with message: " << static_cast<int>( message);
         }
 
     }
 
-    return {result, false, "Not implemented"};
+    return {result, true, bhe::returnStatusCode::Normal};
 }
 

@@ -7,6 +7,6 @@
 int main() {
     windowManager window_manager;
     auto[result, message] = window_manager.Run();
-    std::cout << "result: " << (result ? "true" : "false") << "\tmessage: " << message << '\n';
+    std::cout << "result: " << (result ? "true" : "false") << "\tmessage: " << static_cast<int>(message) << '\n';
     return 0;
 }

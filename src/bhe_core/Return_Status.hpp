@@ -8,17 +8,33 @@
 #include <string>
 
 namespace bhe {
-    template<typename T>
-    struct returnStatus {
-        T value;
-        bool exit_normal;
-        std::string message;
+    enum class returnStatusCode {
+        Unknown = -1,
+        Normal = 0,
+        NotImplemented,
+        Error,
+        SingleRunFunctionReran
     };
 
+    template<typename T, typename Code_T = returnStatusCode>
+    struct returnStatus {
+        T value{};
+        bool exit_normal{};
+        Code_T code{};
+    };
+
+
+    template<typename Code_T>
+    struct returnStatus<void, Code_T> {
+        bool exit_normal{};
+        Code_T code{};
+    };
+
+
     template<>
-    struct returnStatus<void> {
-        bool exit_normal;
-        std::string message;
+    struct returnStatus<void, returnStatusCode> {
+        bool exit_normal{};
+        returnStatusCode code{};
     };
 
 }
