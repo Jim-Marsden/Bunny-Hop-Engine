@@ -32,7 +32,7 @@ void bhe::drawable::DoAnimation(std::chrono::microseconds const &time) {
                     if (frame_data.current_frame_index > frame_data.number_of_frames)
                         frame_data.current_frame_index = 0;
                 }*/
-            _sprite.setTextureRect({static_cast<int>(frame_data.getCurrentFameIndex()) *
+            _sprite.setTextureRect({static_cast<int>(frame_data.getCurrentFameIndex().value) *
                                     _sprite.getTextureRect().width,
                                     0, _sprite.getTextureRect().height,
                                     _sprite.getTextureRect().width});

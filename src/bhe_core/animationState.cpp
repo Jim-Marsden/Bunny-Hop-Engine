@@ -13,13 +13,13 @@ bhe::animationState::animationState(const std::string &Name, unsigned long long 
 
 }
 
-auto bhe::animationState::isReadForNextFrame() -> bool {
+auto bhe::animationState::isReadForNextFrame() -> returnStatus<bool> {
 
 
-    return false;
+    return {false};
 }
 
-auto bhe::animationState::countNextFrame(std::chrono::microseconds time_span) -> void {
+auto bhe::animationState::countNextFrame(std::chrono::microseconds time_span) -> returnStatus<void> {
 
     current_time += time_span.count();
     //std::cout << current_time << ':' <<  time_per_frame << '\n';
@@ -29,9 +29,10 @@ auto bhe::animationState::countNextFrame(std::chrono::microseconds time_span) ->
         if (current_frame_index > this->number_of_frames)
             current_frame_index = 0;
     }
+    return {};
 
 }
 
-auto bhe::animationState::getCurrentFameIndex() const -> decltype(current_time) {
-    return current_frame_index;
+auto bhe::animationState::getCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)> {
+    return {current_frame_index};
 }

@@ -8,6 +8,8 @@
 #include <string>
 #include <chrono>
 
+#include <bhe_core/Return_Status.hpp>
+
 
 //TODO redo animation state, where it supports floating points and not based on a solid game tick
 namespace bhe {
@@ -26,10 +28,10 @@ namespace bhe {
         animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
                        unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 
-        [[nodiscard]] auto isReadForNextFrame() -> bool; //
-        auto countNextFrame(std::chrono::microseconds time_span) -> void;
+        [[nodiscard]] auto isReadForNextFrame() -> returnStatus<bool>; //
+        auto countNextFrame(std::chrono::microseconds time_span) -> returnStatus<void>;
 
-        [[nodiscard]] auto getCurrentFameIndex() const -> decltype(current_time);
+        [[nodiscard]] auto getCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)>;
 
         /*animationState() = default;
         animationState(animationState const &) = default;

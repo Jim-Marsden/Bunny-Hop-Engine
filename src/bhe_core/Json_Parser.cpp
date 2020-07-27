@@ -101,7 +101,7 @@ auto bhe::json_parsers::parse_entity(Json::Value const &Root, bhe::textureManage
         result_entity.AddAnimationState({animations["name"].asString(),
                                          animations["number of frames"].asUInt64(),
                                          animations["animation offset"].asUInt64(),
-        animations["time per frame"].asFloat()});
+        animations["time per frame"].asInt()});
     }
     for (auto const &movement_element : entity_value["movement"]) {
         auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);

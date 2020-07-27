@@ -18,23 +18,23 @@ namespace bhe {
 
     template<typename T, typename Code_T = returnStatusCode>
     struct returnStatus {
-        T value{};
-        bool exit_normal{};
-        Code_T code{};
+        T value{true};
+        bool exit_normal{true};
+        Code_T code{returnStatusCode::Normal};
     };
 
 
     template<typename Code_T>
     struct returnStatus<void, Code_T> {
-        bool exit_normal{};
+        bool exit_normal{true};
         Code_T code{};
     };
 
 
     template<>
     struct returnStatus<void, returnStatusCode> {
-        bool exit_normal{};
-        returnStatusCode code{};
+        bool exit_normal{true};
+        returnStatusCode code{returnStatusCode::Normal};
     };
 
 }
