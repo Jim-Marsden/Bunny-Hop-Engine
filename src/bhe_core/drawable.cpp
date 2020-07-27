@@ -5,52 +5,55 @@
 #include "drawable.hpp"
 #include <iostream>
 
-void bhe::drawable::SetTexture(sf::Texture const &Texture) {
+auto bhe::drawable::SetTexture(sf::Texture const &Texture) -> bhe::returnStatus<void> {
     _sprite.setTexture(Texture);
+    return {};
 }
 
-void bhe::drawable::SetPosition(float Top, float Left) {
+auto bhe::drawable::SetPosition(float Top, float Left) -> bhe::returnStatus<void>{
     _sprite.setPosition(Top, Left);
+    return {};
 }
 
 bhe::drawable::operator sf::Sprite const &() const { return _sprite; }
 
 bhe::drawable::drawable(const sf::Sprite &Sprite) { _sprite = Sprite; }
 
-void bhe::drawable::DoAnimation(std::chrono::microseconds const &time) {
+auto bhe::drawable::DoAnimation(std::chrono::microseconds const &time) -> bhe::returnStatus<void>{
     if (!_animation_information.empty()) {
 
         if (_animation_information.size() > _current_animation) {
             auto &frame_data = _animation_information[_current_animation];
 
             frame_data.countNextFrame(time);
-
-            /*    frame_data.current_time += (time.count() * 100);// - frame_data.current_time;
-                if (frame_data.current_time > frame_data.time_per_frame) {
-                    frame_data.current_time = 0;//frame_data.time_per_frame;
-                    ++frame_data.current_frame_index;
-                    if (frame_data.current_frame_index > frame_data.number_of_frames)
-                        frame_data.current_frame_index = 0;
-                }*/
             _sprite.setTextureRect({static_cast<int>(frame_data.getCurrentFameIndex().value) *
                                     _sprite.getTextureRect().width,
                                     0, _sprite.getTextureRect().height,
                                     _sprite.getTextureRect().width});
 
+            return {};
         }
+        return{false, bhe::returnStatusCode::Error};
 
     }
+    return{false, bhe::returnStatusCode::Error};
+
 }
 
-void bhe::drawable::SetTextureRect(const sf::IntRect &Rect) {
+auto bhe::drawable::SetTextureRect(const sf::IntRect &Rect) -> bhe::returnStatus<void> {
     _sprite.setTextureRect(Rect);
+    return {};
+
 }
 
-void bhe::drawable::AddAnimationState(const animationState &Animation_state) {
+auto bhe::drawable::AddAnimationState(const animationState &Animation_state) -> bhe::returnStatus<void>{
     _animation_information.emplace_back(Animation_state);
+    return {};
+
 }
 
-void bhe::drawable::SetOrigin(float Top, float Left) {
+auto bhe::drawable::SetOrigin(float Top, float Left) -> bhe::returnStatus<void>{
     _sprite.setOrigin(Top, Left);
+    return {};
 
 }

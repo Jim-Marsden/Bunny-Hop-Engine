@@ -15,7 +15,7 @@ TEST_CASE("bhe::delegate += operator") {
     REQUIRE(del.GetSize() == 1);
 }
 
-TEST_CASE("bhe::deleage inc variable") {
+TEST_CASE("bhe::delegate inc variable") {
     bhe::delegate<int (*)(int &)> del;
     del += [](int &val) {
         val = 1;
@@ -26,7 +26,7 @@ TEST_CASE("bhe::deleage inc variable") {
     REQUIRE(x == 1);
 }
 
-TEST_CASE("bhe::deleage return results") {
+TEST_CASE("bhe::delegate return results") {
     bhe::delegate<int (*)(int &)> del;
     del += [](int &val) {
         val = 1;

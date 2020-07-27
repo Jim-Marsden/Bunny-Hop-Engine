@@ -5,7 +5,8 @@
 #ifndef BUNNY_HOP_ENGINE_DRAWABLE_HPP
 #define BUNNY_HOP_ENGINE_DRAWABLE_HPP
 
-#include "animationState.hpp"
+#include <bhe_core/animationState.hpp>
+#include <bhe_core/Return_Status.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <chrono>
@@ -33,23 +34,24 @@ namespace bhe {
         drawable &operator=(drawable &&) = default;
 
         drawable &operator=(drawable const &) = default;
+        explicit operator sf::Sprite const &() const;
+
 
 
         explicit drawable(sf::Sprite const &Sprite);
 
-        void SetTexture(sf::Texture const &Texture);
+        auto SetTexture(sf::Texture const &Texture) ->  bhe::returnStatus<void>;
 
-        void SetPosition(float Top, float Left);
+        auto SetPosition(float Top, float Left)  -> returnStatus<void>;
 
-        void SetOrigin(float Top, float Left);
+        auto SetOrigin(float Top, float Left) -> returnStatus<void>;
 
-        void SetTextureRect(sf::IntRect const &Rect);
+        auto SetTextureRect(sf::IntRect const &Rect) -> returnStatus<void>;
 
-        explicit operator sf::Sprite const &() const;
 
-        void DoAnimation(std::chrono::microseconds const &time);
+        auto DoAnimation(std::chrono::microseconds const &time) -> returnStatus<void>;
 
-        void AddAnimationState(animationState const &Animation_state);
+        auto AddAnimationState(animationState const &Animation_state) -> returnStatus<void>;
     };
 
 } // namespace bhe
