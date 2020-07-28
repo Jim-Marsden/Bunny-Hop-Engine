@@ -13,7 +13,8 @@ namespace bhe {
         Normal = 0,
         NotImplemented,
         Error,
-        SingleRunFunctionReran
+        SingleRunFunctionReran,
+        OutOfRange,
     };
 
     template<typename T, typename Code_T = returnStatusCode>

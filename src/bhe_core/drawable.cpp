@@ -33,7 +33,7 @@ auto bhe::drawable::DoAnimation(std::chrono::microseconds const &time) -> bhe::r
 
             return {};
         }
-        return{false, bhe::returnStatusCode::Error};
+        return{false, bhe::returnStatusCode::OutOfRange};
 
     }
     return{false, bhe::returnStatusCode::Error};
