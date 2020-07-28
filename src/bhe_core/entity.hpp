@@ -11,6 +11,7 @@
 #include <functional>
 
 #include <chrono>
+#include <bhe_core/Return_Status.hpp>
 
 namespace bhe {
     class entity : public bhe::drawable {
@@ -51,39 +52,37 @@ namespace bhe {
         explicit entity(sf::Texture const &Texture);
 
         // TODO replace these with a single function for single faster checks
-        [[nodiscard]] collisionDirection
+        [[nodiscard]] returnStatus<collisionDirection>
         IsColliding(std::vector<sf::RectangleShape> const &Rectangles);
 
-        [[nodiscard]] bool
+        [[nodiscard]] returnStatus<bool>
         IsCollidingDown(sf::RectangleShape const &Rectangles) const;
 
-        [[nodiscard]] bool
+        [[nodiscard]] returnStatus<bool>
         IsCollidingRight(sf::RectangleShape const &Rectangles) const;
 
-        [[nodiscard]] bool
+        [[nodiscard]] returnStatus<bool>
         IsCollidingLeft(sf::RectangleShape const &Rectangles) const;
 
-        [[nodiscard]] bool IsCollidingTop(sf::RectangleShape const &Rectangles) const;
+        [[nodiscard]] returnStatus<bool> IsCollidingTop(sf::RectangleShape const &Rectangles) const;
 
-        void DoGravity(bool Doit);
+        returnStatus<void> DoGravity(bool Doit);
 
-        [[deprecated]] void Move();
+        returnStatus<void> Move(std::chrono::duration<double> const & time);
 
-        void Move(std::chrono::duration<double> const & time);
+        returnStatus<void> AddSpeed(sf::Vector2f const &Speed_in);
 
-        void AddSpeed(sf::Vector2f const &Speed_in);
+        returnStatus<void> AddSpeedY(float Y);
 
-        void AddSpeedY(float Y);
+        returnStatus<void> AddSpeedX(float X);
 
-        void AddSpeedX(float X);
+        returnStatus<sf::Vector2f> GetSpeed() const;
 
-        sf::Vector2f GetSpeed() const;
+        [[nodiscard]] returnStatus<decltype(_health)> GetHealth() const;
 
-        [[nodiscard]] decltype(_health) GetHealth() const;
+        returnStatus<void> SetHealth(int Health_in);
 
-        void SetHealth(int Health_in);
-
-        void AddMovement(std::string const &String_view, movement::movementDataT const &Movement_data);
+        returnStatus<void> AddMovement(std::string const &String_view, movement::movementDataT const &Movement_data);
 
 
         // void DoAi();
@@ -91,9 +90,9 @@ namespace bhe {
         //[[nodiscard]] entity::AiStates GetState() const;
     };
 
-    void deal_damage(entity &Entity, long Damage_amount);
+    returnStatus<void> deal_damage(entity &Entity, long Damage_amount);
 
-    void deal_damage(entity &Entity, long Damage_amount,
+    returnStatus<void> deal_damage(entity &Entity, long Damage_amount,
                      std::function<void(entity &)> const &At_zero);
 
 } // namespace bhe

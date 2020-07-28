@@ -88,7 +88,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                 bhe::pipeline<decltype(Player)> loop_pipeline(Player);
 
         loop_pipeline | [&collision_direction, &game_scene](bhe::player &e) {
-            collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+            collision_direction = e.IsColliding(game_scene.GetCollisionBoxes()).value;
         }
         | [&collision_direction](bhe::player &e) { e.DoGravity(collision_direction.bottom); }
         | [time_check](bhe::player &e) { e.Move(time_check); }
@@ -101,7 +101,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
                 bhe::pipeline<decltype(entity)> loop_pipeline(entity);
                 loop_pipeline | [&collision_direction, &game_scene](bhe::entity &e) {
-                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes());
+                    collision_direction = e.IsColliding(game_scene.GetCollisionBoxes()).value;
                 }
                 | [&collision_direction](bhe::entity &e) { e.DoGravity(collision_direction.bottom); }
                 | [time_check](bhe::entity &e) {
@@ -115,7 +115,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
 
         entities.erase(std::remove_if(entities.begin(), entities.end(),
-                                      [](bhe::entity const &Entity) { return Entity.GetHealth() < 1; }),
+                                      [](bhe::entity const &Entity) { return Entity.GetHealth().value < 1; }),
                        entities.end());
 
 
