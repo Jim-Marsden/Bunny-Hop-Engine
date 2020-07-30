@@ -21,8 +21,8 @@ include_directories(src/tests)
 set(Bunny_Hop_Core_Files ../bhe_core/gameScene.cpp ../bhe_core/gameScene.hpp
         ../bhe_core/textureManager.cpp ../bhe_core/textureManager.hpp ../bhe_core/parallax.cpp ../bhe_core/parallax.hpp
         ../bhe_core/Print_helper.hpp ../bhe_core/drawable.cpp ../bhe_core/drawable.hpp ../bhe_core/entity.cpp ../bhe_core/entity.hpp
-        ../bhe_core/player.cpp ../bhe_core/player.hpp ../bhe_core/delegate.hpp ../bhe_core/SystemEvent.cpp ../bhe_core/SystemEvent.hpp
-        ../bhe_core/State_Machine.cpp ../bhe_core/State_Machine.h ../bhe_core/animationState.cpp ../bhe_core/animationState.hpp
+        ../bhe_core/player.cpp ../bhe_core/player.hpp ../bhe_core/delegate.hpp ../bhe_core/systemEvent.cpp ../bhe_core/systemEvent.hpp
+        ../bhe_core/State_Machine.cpp ../bhe_core/State_Machine.hpp ../bhe_core/animationState.cpp ../bhe_core/animationState.hpp
         ../bhe_core/movement.cpp ../bhe_core/movement.hpp ../bhe_core/Json_Parser.cpp ../bhe_core/Json_Parser.hpp ../bhe_core/pipeline.hpp
         ../bhe_core/Return_Status.hpp)
 
@@ -98,7 +98,7 @@ add_subdirectory(src/bhe_engine)
 set(Bunny_Hop_Core_Files src/BHE/main.cpp src/BHE/gameScene.cpp src/BHE/gameScene.hpp
         src/BHE/textureManager.cpp src/BHE/textureManager.hpp src/BHE/parallax.cpp src/BHE/parallax.hpp
         src/BHE/Print_helper.hpp src/BHE/drawable.cpp src/BHE/drawable.hpp src/BHE/entity.cpp src/BHE/entity.hpp
-        src/BHE/player.cpp src/BHE/player.hpp src/BHE/delegate.hpp src/BHE/SystemEvent.cpp src/BHE/SystemEvent.hpp
+        src/BHE/player.cpp src/BHE/player.hpp src/BHE/delegate.hpp src/BHE/systemEvent.cpp src/BHE/systemEvent.hpp
         src/BHE/State_Machine.cpp src/BHE/State_Machine.h src/BHE/animationState.cpp src/BHE/animationState.hpp
         src/BHE/movement.cpp src/BHE/movement.hpp src/BHE/Json_Parser.cpp src/BHE/Json_Parser.hpp src/BHE/pipeline.hpp)
 

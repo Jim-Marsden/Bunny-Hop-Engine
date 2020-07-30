@@ -10,53 +10,53 @@
 #include <iostream>
 
 std::vector<bhe::entity>
-bhe::gameScene::LoadFromJson(const std::string &Json_file,
-                             textureManager &Texture_manager_out) {
-    auto root = bhe::json_parsers::load(Json_file);
+bhe::gameScene::LoadFromJson(const std::string &Json_File,
+                             textureManager &Texture_Manager_Out) {
+    auto root = bhe::json_parsers::Load(Json_File);
 
     auto name = root["name"].asString();
 
-    _parallaxes = bhe::json_parsers::parse_parallax(root["background"],
-                                                        Texture_manager_out);
-    _geometry = bhe::json_parsers::parse_geometry(root["geometry"]);
-    _foreground_decorations = bhe::json_parsers::parse_decorations(
-            root["decoration foreground"], Texture_manager_out);
-    _background_decorations = bhe::json_parsers::parse_decorations(
-            root["decoration background"], Texture_manager_out);
+  parallaxes_ = bhe::json_parsers::ParseParallax(root["background"],
+                                                 Texture_Manager_Out);
+  geometry_ = bhe::json_parsers::ParseGeometry(root["geometry"]);
+  foreground_decorations_ = bhe::json_parsers::ParseDecorations(
+      root["decoration foreground"], Texture_Manager_Out);
+  background_decorations_ = bhe::json_parsers::ParseDecorations(
+      root["decoration background"], Texture_Manager_Out);
 
-    return bhe::json_parsers::parse_entities(root["entities"],
-            Texture_manager_out);
+    return bhe::json_parsers::ParseEntities(root["entities"],
+                                            Texture_Manager_Out);
 
 
 }
 
-std::string bhe::gameScene::Name() const { return _name; }
+std::string bhe::gameScene::Name() const { return name_; }
 
-decltype(bhe::gameScene::_background_decorations) const &
+decltype(bhe::gameScene::background_decorations_) const &
 bhe::gameScene::BackDecoration() const {
-    return _background_decorations;
+    return background_decorations_;
 }
 
-decltype(bhe::gameScene::_foreground_decorations) const &
+decltype(bhe::gameScene::foreground_decorations_) const &
 bhe::gameScene::FrontDecoration() {
-    return _foreground_decorations;
+    return foreground_decorations_;
 }
 
-decltype(bhe::gameScene::_geometry) const &bhe::gameScene::GetCollisionBoxes() {
-    return _geometry;
+decltype(bhe::gameScene::geometry_) const &bhe::gameScene::GetCollisionBoxes() {
+    return geometry_;
 }
 
-decltype(bhe::gameScene::_parallaxes) const &
+decltype(bhe::gameScene::parallaxes_) const &
 bhe::gameScene::DoParallax(const sf::Vector2f &Location) {
-    for (auto &parallax : _parallaxes) {
+    for (auto &parallax : parallaxes_) {
         parallax.ApplyParallax(Location);
     }
-    return _parallaxes;
+    return parallaxes_;
 }
 
-bhe::gameScene::gameScene(const std::string &Json_file,
-                          textureManager &Texture_manager_out) {
-    LoadFromJson(Json_file, Texture_manager_out);
+bhe::gameScene::gameScene(const std::string &Json_File,
+                          textureManager &Texture_Manager_Out) {
+  LoadFromJson(Json_File, Texture_Manager_Out);
 }
 
 bool bhe::gameScene::IsActive() {

@@ -2,42 +2,42 @@
 // Created by snizzfox on 5/30/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_JSON_PARSER_HPP
-#define MOONLIGHT_TRAILS_JSON_PARSER_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP
 
 #include <json/value.h>
-#include "parallax.hpp"
-#include "textureManager.hpp"
-#include "drawable.hpp"
-#include "entity.hpp"
-#include "player.hpp"
+#include <bhe_core/parallax.hpp>
+#include <bhe_core/textureManager.hpp>
+#include <bhe_core/drawable.hpp>
+#include <bhe_core/entity.hpp>
+#include <bhe_core/player.hpp>
 
 
 namespace bhe::json_parsers {
 
-    [[nodiscard]] auto load(const std::string &Json_file) -> Json::Value;
+    [[nodiscard]] auto Load(const std::string &Json_File) -> Json::Value;
 
-    [[nodiscard]] auto parse_parallax(Json::Value const &Root,
-                                      bhe::textureManager &Texture_manager) -> std::vector<bhe::parallax>;
+    [[nodiscard]] auto ParseParallax(Json::Value const &Root,
+                                     bhe::textureManager &Texture_Manager) -> std::vector<bhe::parallax>;
 
-    [[nodiscard]] auto parse_geometry(Json::Value const &Root) -> std::vector<sf::RectangleShape>;
+    [[nodiscard]] auto ParseGeometry(Json::Value const &Root) -> std::vector<sf::RectangleShape>;
 
 
     [[nodiscard]] auto
-    parse_decorations(Json::Value const &Root, bhe::textureManager &Texture_manager) -> std::vector<bhe::drawable>;
+    ParseDecorations(Json::Value const &Root, bhe::textureManager &Texture_Manager) -> std::vector<bhe::drawable>;
 
-    [[nodiscard]] auto parse_entities(Json::Value const &Root,
-                                      bhe::textureManager &Texture_manager) -> std::vector<bhe::entity>;
+    [[nodiscard]] auto ParseEntities(Json::Value const &Root,
+                                     bhe::textureManager &Texture_Manager) -> std::vector<bhe::entity>;
 
     [[deprecated]] [[nodiscard]] auto
-    parse_entity(Json::Value const &Root, bhe::textureManager &Texture_manager) -> bhe::entity;
+    ParseEntity(Json::Value const &Root, bhe::textureManager &Texture_Manager) -> bhe::entity;
 
     [[nodiscard]] auto
-    load_entity(std::string const & File_Name, bhe::textureManager &Texture_manager) -> bhe::entity;
+    LoadEntity(std::string const & File_Name, bhe::textureManager &Texture_Manager) -> bhe::entity;
 
     [[nodiscard]] auto
-    parse_player(std::string_view const &Root, bhe::textureManager &Texture_manager) -> bhe::player;
+    ParsePlayer(std::string_view const &File_Name, bhe::textureManager &Texture_Manager) -> bhe::player;
 
 }
 
-#endif //MOONLIGHT_TRAILS_JSON_PARSER_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP

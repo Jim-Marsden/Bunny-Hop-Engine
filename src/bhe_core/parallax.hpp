@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_PARALLAX_HPP
-#define MOONLIGHT_TRAILS_PARALLAX_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -11,8 +11,8 @@ namespace bhe {
 
     class parallax {
     protected:
-        sf::Sprite _sprite;
-        float _offset{0.0f};
+        sf::Sprite sprite_;
+        float offset_{0.0f};
     public:
         parallax() = default;
 
@@ -26,11 +26,11 @@ namespace bhe {
 
         parallax &operator=(parallax const &) = default;
 
-        explicit parallax(sf::Texture const &Texture, float Offset_in = 1);
+        explicit parallax(sf::Texture const &Texture, float Offset_In = 1);
 
         sf::Sprite const &GetSprite() const;
 
-        void ApplyParallax(sf::Vector2f const &Player_speed);
+        void ApplyParallax(sf::Vector2f const &Player_Speed);
 
         explicit operator sf::Sprite const &() const;
 
@@ -40,4 +40,4 @@ namespace bhe {
 }// namespace bhe
 
 
-#endif //MOONLIGHT_TRAILS_PARALLAX_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP

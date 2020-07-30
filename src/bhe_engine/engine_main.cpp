@@ -1,7 +1,7 @@
 #include "bhe_core/gameScene.hpp"
 #include "bhe_core/Print_helper.hpp"
 #include "bhe_core/player.hpp"
-#include "bhe_core/SystemEvent.hpp"
+#include "bhe_core/systemEvent.hpp"
 #include "bhe_core/Json_Parser.hpp"
 #include "bhe_core/pipeline.hpp"
 
@@ -27,7 +27,7 @@
 
 std::string_view do_game_update(std::string_view const &Scene_file,
                                 bhe::textureManager &Texture_manager, sf::RenderWindow &Window, bhe::player &Player,
-                                bhe::SystemEvent &System_event) {
+                                bhe::systemEvent &System_event) {
 
 
     uint_fast64_t frame_counter{};
@@ -69,20 +69,20 @@ std::string_view do_game_update(std::string_view const &Scene_file,
                                 {static_cast<float>(Window.getSize().x),
                                  static_cast<float>(Window.getSize().y)}));
         for (auto const &bg : game_scene.DoParallax(Player.GetPos()))
-            bhe::do_draw(bg, Window);
+          bhe::DoDraw(bg, Window);
 
         for (auto const &element : game_scene.BackDecoration())
-            bhe::do_draw(element, Window);
+          bhe::DoDraw(element, Window);
 
 
         for (auto const &element : game_scene.FrontDecoration())
-            bhe::do_draw(element, Window);
+          bhe::DoDraw(element, Window);
 
         for (auto const &shape : game_scene.GetCollisionBoxes())
-            bhe::do_draw(shape, Window);
+          bhe::DoDraw(shape, Window);
 
         //for (auto const &item : entities)
-        //bhe::do_draw(item, Window);
+        //bhe::DoDraw(item, Window);
 
 
                 bhe::pipeline<decltype(Player)> loop_pipeline(Player);
@@ -123,9 +123,9 @@ std::string_view do_game_update(std::string_view const &Scene_file,
 
 
         for (auto &entity : entities) {
-            do_draw(entity, Window);
+          DoDraw(entity, Window);
         }
-        do_draw(Player, Window);
+      DoDraw(Player, Window);
 
         Window.display();
         time_check = std::chrono::steady_clock::now() - time_start_loop;
@@ -152,25 +152,25 @@ int main(int Argc, char **Argv) {
 
     std::cout << game_scene.Name() << '\n';
 
-    bhe::player player = bhe::json_parsers::parse_player("Player/Player.json", texture_manager);
+    bhe::player player = bhe::json_parsers::ParsePlayer("Player/Player.json", texture_manager);
 
 
-    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_right = [&player](bool Is_down) {
+    std::function<bhe::systemEvent::KeyboardFunctionType> move_player_right = [&player](bool Is_down) {
         player.MoveRight(Is_down);
 
     };
 
-    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_left = [&player](bool Is_down) {
+    std::function<bhe::systemEvent::KeyboardFunctionType> move_player_left = [&player](bool Is_down) {
 
         player.MoveLeft(Is_down);
 
     };
 
-    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_down = [&player](bool Is_down) {
+    std::function<bhe::systemEvent::KeyboardFunctionType> move_player_down = [&player](bool Is_down) {
         player.MoveDown(Is_down);
     };
 
-    std::function<bhe::SystemEvent::keyboardFunctionType> move_player_jump = [&player](bool Is_down) {
+    std::function<bhe::systemEvent::KeyboardFunctionType> move_player_jump = [&player](bool Is_down) {
         player.DoJump(Is_down);
     };
 
@@ -178,7 +178,7 @@ int main(int Argc, char **Argv) {
     sf::RenderWindow window(
             sf::VideoMode(1900, 900),
             "Moonilight Trails~");
-    bhe::SystemEvent system_event(window);
+    bhe::systemEvent system_event(window);
     window.setKeyRepeatEnabled(false);
 
     window.setFramerateLimit(60);

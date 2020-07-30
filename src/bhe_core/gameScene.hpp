@@ -2,26 +2,26 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_GAMESCENE_HPP
-#define MOONLIGHT_TRAILS_GAMESCENE_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP
 
-#include "textureManager.hpp"
-#include "parallax.hpp"
-#include "drawable.hpp"
-#include "entity.hpp"
+#include <bhe_core/textureManager.hpp>
+#include <bhe_core/parallax.hpp>
+#include <bhe_core/drawable.hpp>
+#include <bhe_core/entity.hpp>
 
 #include <string>
 #include <vector>
 
 namespace bhe {
     class gameScene {
-        std::string _name;
+        std::string name_;
 
         //TODO parallax class
-        std::vector<parallax> _parallaxes;
-        std::vector<sf::RectangleShape> _geometry;
-        std::vector<bhe::drawable> _background_decorations;
-        std::vector<bhe::drawable> _foreground_decorations;
+        std::vector<parallax> parallaxes_;
+        std::vector<sf::RectangleShape> geometry_;
+        std::vector<bhe::drawable> background_decorations_;
+        std::vector<bhe::drawable> foreground_decorations_;
 
 
     public:
@@ -37,19 +37,19 @@ namespace bhe {
 
         gameScene &operator=(gameScene const &) = default;
 
-        gameScene(std::string const &Json_file, textureManager &Texture_manager_out);
+        gameScene(std::string const &Json_File, textureManager &Texture_Manager_Out);
 
-        [[nodiscard]]decltype(_parallaxes) const &DoParallax(sf::Vector2f const &Location);
+        [[nodiscard]]decltype(parallaxes_) const &DoParallax(sf::Vector2f const &Location);
 
-        [[nodiscard]] decltype(_geometry) const &GetCollisionBoxes();
+        [[nodiscard]] decltype(geometry_) const &GetCollisionBoxes();
 
-        [[nodiscard]]decltype(_foreground_decorations) const &FrontDecoration();
+        [[nodiscard]]decltype(foreground_decorations_) const &FrontDecoration();
 
-        [[nodiscard]]decltype(_background_decorations) const &BackDecoration() const;
+        [[nodiscard]]decltype(background_decorations_) const &BackDecoration() const;
 
         [[nodiscard]] std::string Name() const;
 
-        std::vector<entity> LoadFromJson(std::string const &Json_file, textureManager &Texture_manager_out);
+        std::vector<entity> LoadFromJson(std::string const &Json_File, textureManager &Texture_Manager_Out);
 
         bool IsActive();
     };
@@ -57,4 +57,4 @@ namespace bhe {
 
 } //namespace bhe
 
-#endif //MOONLIGHT_TRAILS_GAMESCENE_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP

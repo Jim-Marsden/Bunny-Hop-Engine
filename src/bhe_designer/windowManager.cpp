@@ -18,7 +18,7 @@ auto windowManager::Run() -> bhe::returnStatus<void> {
 
     }
 
-    return {true, bhe::returnStatusCode::Normal};
+    return {true, bhe::ReturnStatusCode::Normal};
 }
 
 windowManager::~windowManager() {
@@ -29,7 +29,7 @@ windowManager::~windowManager() {
 }
 
 auto windowManager::InitilalizeElements() -> bhe::returnStatus<int> {
-    if (_has_iniliziazed) return {0, false, bhe::returnStatusCode::SingleRunFunctionReran};
+    if (_has_iniliziazed) return {0, false, bhe::ReturnStatusCode::SingleRunFunctionReran};
     int result{};
     _has_iniliziazed = true;
 
@@ -43,6 +43,6 @@ auto windowManager::InitilalizeElements() -> bhe::returnStatus<int> {
 
     }
 
-    return {result, true, bhe::returnStatusCode::Normal};
+    return {result, true, bhe::ReturnStatusCode::Normal};
 }
 

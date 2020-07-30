@@ -3,57 +3,56 @@
 //
 
 #include "drawable.hpp"
-#include <iostream>
 
-auto bhe::drawable::SetTexture(sf::Texture const &Texture) -> bhe::returnStatus<void> {
-    _sprite.setTexture(Texture);
+[[maybe_unused]] auto bhe::drawable::SetTexture(sf::Texture const &Texture) -> bhe::returnStatus<void> {
+    sprite_.setTexture(Texture);
     return {};
 }
 
 auto bhe::drawable::SetPosition(float Top, float Left) -> bhe::returnStatus<void>{
-    _sprite.setPosition(Top, Left);
+    sprite_.setPosition(Top, Left);
     return {};
 }
 
-bhe::drawable::operator sf::Sprite const &() const { return _sprite; }
+bhe::drawable::operator sf::Sprite const &() const { return sprite_; }
 
-bhe::drawable::drawable(const sf::Sprite &Sprite) { _sprite = Sprite; }
+bhe::drawable::drawable(const sf::Sprite &Sprite) { sprite_ = Sprite; }
 
-auto bhe::drawable::DoAnimation(std::chrono::microseconds const &time) -> bhe::returnStatus<void>{
-    if (!_animation_information.empty()) {
+auto bhe::drawable::DoAnimation(std::chrono::microseconds const &Time) -> bhe::returnStatus<void>{
+    if (!animation_information_.empty()) {
 
-        if (_animation_information.size() > _current_animation) {
-            auto &frame_data = _animation_information[_current_animation];
+        if (animation_information_.size() > current_animation_) {
+            auto &frame_data = animation_information_[current_animation_];
 
-            frame_data.countNextFrame(time);
-            _sprite.setTextureRect({static_cast<int>(frame_data.getCurrentFameIndex().value) *
-                                    _sprite.getTextureRect().width,
-                                    0, _sprite.getTextureRect().height,
-                                    _sprite.getTextureRect().width});
+          frame_data.CountNextFrame(Time);
+            sprite_.setTextureRect({static_cast<int>(frame_data.GetCurrentFameIndex().value) *
+                                    sprite_.getTextureRect().width,
+                                    0, sprite_.getTextureRect().height,
+                                    sprite_.getTextureRect().width});
 
             return {};
         }
-        return{false, bhe::returnStatusCode::OutOfRange};
+        return{false, bhe::ReturnStatusCode::OutOfRange};
 
     }
-    return{false, bhe::returnStatusCode::Error};
+    return{false, bhe::ReturnStatusCode::Error};
 
 }
 
 auto bhe::drawable::SetTextureRect(const sf::IntRect &Rect) -> bhe::returnStatus<void> {
-    _sprite.setTextureRect(Rect);
+    sprite_.setTextureRect(Rect);
     return {};
 
 }
 
-auto bhe::drawable::AddAnimationState(const animationState &Animation_state) -> bhe::returnStatus<void>{
-    _animation_information.emplace_back(Animation_state);
+auto bhe::drawable::AddAnimationState(const animationState &Animation_State) -> bhe::returnStatus<void>{
+    animation_information_.emplace_back(Animation_State);
     return {};
 
 }
 
 auto bhe::drawable::SetOrigin(float Top, float Left) -> bhe::returnStatus<void>{
-    _sprite.setOrigin(Top, Left);
+    sprite_.setOrigin(Top, Left);
     return {};
 
 }

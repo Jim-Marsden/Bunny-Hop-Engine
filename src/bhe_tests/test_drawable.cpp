@@ -22,7 +22,7 @@ TEST_CASE("bhe::drawable sprite constructor") {
 
 TEST_CASE("bhe::drawable::SetPosition") {
     struct drawableTest : public bhe::drawable {
-        auto get_pos() { return _sprite.getPosition(); }
+        auto get_pos() { return sprite_.getPosition(); }
     } drawable_test;
 
 

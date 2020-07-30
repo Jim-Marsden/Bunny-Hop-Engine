@@ -6,116 +6,116 @@
 #include <iostream>
 
 bhe::entity::entity(const sf::Sprite &Sprite)
-    : drawable(Sprite), _speed{} {}
+    : drawable(Sprite), speed_{} {}
 
 bhe::entity::entity(const sf::Texture &Texture)
-    : _speed{} {
-    _sprite.setTexture(Texture);
+    : speed_{} {
+    sprite_.setTexture(Texture);
 }
 
 //TODO: Helper functions
 
 bhe::returnStatus<bhe::entity::collisionDirection>
 bhe::entity::IsColliding(const std::vector<sf::RectangleShape> &Rectangles) {
-    _collision_direction.left = _collision_direction.right = _collision_direction.top = _collision_direction.bottom = false;
+  collision_direction_.left = collision_direction_.right = collision_direction_.top = collision_direction_.bottom = false;
     for (auto const &element : Rectangles) {
-        if (_sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
+        if (sprite_.getGlobalBounds().intersects(element.getGlobalBounds())) {
             if (IsCollidingTop(element).value) {
-                _sprite.setPosition(_sprite.getPosition().x, element.getGlobalBounds().top - _sprite.getOrigin().y);
-                _collision_direction.top = true;
+                sprite_.setPosition(sprite_.getPosition().x, element.getGlobalBounds().top - sprite_.getOrigin().y);
+              collision_direction_.top = true;
             }
             if (IsCollidingDown(element).value) {
-                _collision_direction.bottom = true;
+              collision_direction_.bottom = true;
             }
             if (IsCollidingLeft(element).value) {
-                _collision_direction.left = true;
+              collision_direction_.left = true;
             }
             if (IsCollidingRight(element).value) {
-                _collision_direction.right = true;
+              collision_direction_.right = true;
             }
         }
     }
-    return {_collision_direction};
+    return {collision_direction_};
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingDown(sf::RectangleShape const &Rectangles) const {
-    return {(_sprite.getGlobalBounds().top < Rectangles.getGlobalBounds().top)};
+    return {(sprite_.getGlobalBounds().top < Rectangles.getGlobalBounds().top)};
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingRight(sf::RectangleShape const &Rectangles) const {
-    return {(_sprite.getGlobalBounds().left < Rectangles.getGlobalBounds().left)};
+    return {(sprite_.getGlobalBounds().left < Rectangles.getGlobalBounds().left)};
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingLeft(sf::RectangleShape const &Rectangles) const {
-    return {(_sprite.getGlobalBounds().left <
+    return {(sprite_.getGlobalBounds().left <
              Rectangles.getGlobalBounds().left + Rectangles.getGlobalBounds().width)};
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingTop(const sf::RectangleShape &Rectangles) const {
-    return {(_sprite.getGlobalBounds().top <
+    return {(sprite_.getGlobalBounds().top <
              Rectangles.getGlobalBounds().top + Rectangles.getGlobalBounds().height)};
 }
 
 bhe::returnStatus<void> bhe::entity::DoGravity(bool Doit) {
     if (Doit) {
-        if (!_is_gravity_applied) {
-            _speed.y += 2;
-            _is_gravity_applied = true;
+        if (!is_gravity_applied_) {
+          speed_.y += 2;
+          is_gravity_applied_ = true;
         }
     } else {
-        if (_is_gravity_applied) {
-            _speed.y -= 2;
-            _is_gravity_applied = false;
+        if (is_gravity_applied_) {
+          speed_.y -= 2;
+          is_gravity_applied_ = false;
         }
     }
     return {};
 }
 
-bhe::returnStatus<decltype(bhe::entity::_health)> bhe::entity::GetHealth() const { return {_health}; }
+bhe::returnStatus<decltype(bhe::entity::health_)> bhe::entity::GetHealth() const { return {health_}; }
 
-bhe::returnStatus<void> bhe::entity::SetHealth(int Health_in) {
-    _health = Health_in;
+bhe::returnStatus<void> bhe::entity::SetHealth(int Health_In) {
+  health_ = Health_In;
     return {};
 }
 
 
-bhe::returnStatus<void> bhe::entity::Move(std::chrono::duration<double> const &time) {
-    auto calculate_directions = [](auto const &speed, std::chrono::duration<double> const &time_local) {
-        return (time_local.count() + 1) * speed;
+bhe::returnStatus<void> bhe::entity::Move(std::chrono::duration<double> const &Time) {
+    auto calculate_directions = [](auto const &Speed, std::chrono::duration<double> const &Time_Local) {
+        return (Time_Local.count() + 1) * Speed;
     };
 
-    _sprite.move(calculate_directions(_movement.CalculateX(), time), calculate_directions(_movement.CalculateY(), time));
+    sprite_.move(calculate_directions(movement_.CalculateX(), Time), calculate_directions(movement_.CalculateY(), Time));
     return{};
 }
 
-bhe::returnStatus<void> bhe::entity::AddSpeed(const sf::Vector2f &Speed_in) {
-    _speed += Speed_in;
+bhe::returnStatus<void> bhe::entity::AddSpeed(const sf::Vector2f &Speed_In) {
+  speed_ += Speed_In;
     return {};
 }
 
 bhe::returnStatus<void> bhe::entity::AddSpeedY(float Y) {
-    _speed.y += Y;
+  speed_.y += Y;
     return {};
 }
 
 bhe::returnStatus<void> bhe::entity::AddSpeedX(float X) {
-    _speed.x += X;
+  speed_.x += X;
     return {};
 }
 
 bhe::returnStatus<sf::Vector2f> bhe::entity::GetSpeed() const {
-    return {_speed};
+    return {speed_};
 }
 
-bhe::returnStatus<void> bhe::entity::AddMovement(std::string const &String_view, bhe::movement::movementDataT const &Movement_data) {
-    _movement.AddData(String_view, Movement_data);
+bhe::returnStatus<void> bhe::entity::AddMovement(std::string const &String_View, bhe::movement::movementDataT const &Movement_Data) {
+    movement_.AddData(String_View, Movement_Data);
     return {};
 }
 
 
-bhe::returnStatus<void> bhe::deal_damage(entity &Entity, long Damage_amount) {
+bhe::returnStatus<void> bhe::DealDamage(entity &Entity, long Damage_Amount) {
     if(auto [health, normal, code] = Entity.GetHealth(); normal) {
-        auto amount{health - Damage_amount};
+        auto amount{health - Damage_Amount};
         Entity.SetHealth(amount);
         if (Entity.GetHealth().value < 1)
             Entity.SetHealth(0);
@@ -127,11 +127,11 @@ bhe::returnStatus<void> bhe::deal_damage(entity &Entity, long Damage_amount) {
     }
 }
 
-bhe::returnStatus<void> bhe::deal_damage(entity &Entity, long Damage_amount,
-                                         std::function<void(entity &)> const &At_zero) {
-    bhe::deal_damage(Entity, Damage_amount);
-    if (Entity.GetHealth().value < 1 && At_zero)
-        At_zero(Entity);
+bhe::returnStatus<void> bhe::DealDamage(entity &Entity, long Damage_Amount,
+                                        std::function<void(entity &)> const &At_Zero) {
+  bhe::DealDamage(Entity, Damage_Amount);
+    if (Entity.GetHealth().value < 1 && At_Zero)
+        At_Zero(Entity);
 
     return {};
 }

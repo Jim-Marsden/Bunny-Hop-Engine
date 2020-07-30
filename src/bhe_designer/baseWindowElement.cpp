@@ -5,9 +5,9 @@
 #include "baseWindowElement.hpp"
 
 bhe::returnStatus<void> baseWindowElement::InitWindow() {
-    return bhe::returnStatus<void>{false, bhe::returnStatusCode::NotImplemented};
+    return bhe::returnStatus<void>{false, bhe::ReturnStatusCode::NotImplemented};
 }
 
 auto baseWindowElement::Close() -> bhe::returnStatus<void> {
-    return bhe::returnStatus<void>{false, bhe::returnStatusCode::NotImplemented};
+    return bhe::returnStatus<void>{false, bhe::ReturnStatusCode::NotImplemented};
 }

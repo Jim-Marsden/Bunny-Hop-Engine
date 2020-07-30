@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
-#define MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -13,8 +13,8 @@
 
 namespace bhe {
     class textureManager {
-        std::map<std::string, std::shared_ptr<sf::Texture>> textures;
-        //std::vector<std::shared_ptr<sf::Texture>> textures;
+        std::map<std::string, std::shared_ptr<sf::Texture>> textures_;
+        //std::vector<std::shared_ptr<sf::Texture>> textures_;
     public:
         textureManager() = default;
 
@@ -29,7 +29,7 @@ namespace bhe {
         textureManager &operator=(textureManager &&) = delete;
 
 
-        size_t AddTexture(std::string const &Texture_name);
+        size_t AddTexture(std::string const &Texture_Name);
 
         void Clear();
 
@@ -38,15 +38,15 @@ namespace bhe {
         [[nodiscard]] std::shared_ptr<sf::Texture> CGetTexture(std::string const &String) const;
 
 
-        [[nodiscard]] bool CheckTexture(std::string const &Texture_name) const;
+        [[nodiscard]] bool CheckTexture(std::string const &Texture_Name) const;
 
-        std::shared_ptr<sf::Texture> operator+=(std::string const &Texture_name);
+        std::shared_ptr<sf::Texture> operator+=(std::string const &Texture_Name);
 
-        std::shared_ptr<sf::Texture> operator=(std::string const &Texture_name);
+        std::shared_ptr<sf::Texture> operator=(std::string const &Texture_Name);
 
 
     };
 } //namespace bhe
 
 
-#endif //MOONLIGHT_TRAILS_TEXTUREMANAGER_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP

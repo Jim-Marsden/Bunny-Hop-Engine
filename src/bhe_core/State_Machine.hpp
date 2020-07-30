@@ -2,8 +2,8 @@
 // Created by snizzfos on 5/22/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_STATE_MACHINE_H
-#define MOONLIGHT_TRAILS_STATE_MACHINE_H
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_STATE_MACHINE_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_STATE_MACHINE_HPP
 
 #include <utility>
 #include <array>
@@ -15,7 +15,7 @@ namespace bhe {
     public:
 
     protected:
-        std::array<std::pair<Enumerator_T, Function_T>, array_size> states;
+        std::array<std::pair<Enumerator_T, Function_T>, array_size> states_;
     public:
         constexpr stateMachine() = default;
 
@@ -23,9 +23,9 @@ namespace bhe {
 
         constexpr stateMachine(stateMachine const &) = default;
 
-        constexpr stateMachine(stateMachine &&) = default;
+        constexpr stateMachine(stateMachine &&)  noexcept = default;
 
-        constexpr stateMachine &operator=(stateMachine &&) = default;
+        constexpr stateMachine &operator=(stateMachine &&)  noexcept = default;
 
         constexpr stateMachine &operator=(stateMachine const &) = default;
 
@@ -34,15 +34,15 @@ namespace bhe {
 
         constexpr Function_T &operator[](int Index);
 
-        constexpr bool add(Enumerator_T const &Enumerator, Function_T const &Callable);
+        constexpr bool Add(Enumerator_T const &Enumerator, Function_T const &Callable);
 
     };
 
 
     template<class Enumerator_T, class Function, int array_size>
     constexpr bool
-    stateMachine<Enumerator_T, Function, array_size>::add(Enumerator_T const &Enumerator, Function const &Callable) {
-        for (auto &element: states) {
+    stateMachine<Enumerator_T, Function, array_size>::Add(Enumerator_T const &Enumerator, Function const &Callable) {
+        for (auto &element: states_) {
             if (!element.second) {
                 element.first = Enumerator;
                 element.second = Callable;
@@ -55,8 +55,8 @@ namespace bhe {
 
     template<class Enumerator_T, class Function, int array_size>
     constexpr Function &stateMachine<Enumerator_T, Function, array_size>::operator[](int Index) {
-        if (Index >= states.size()) {
-            return states.front();
+        if (Index >= states_.size()) {
+            return states_.front();
 
         }
     }
@@ -64,10 +64,10 @@ namespace bhe {
 
     template<class Enumerator_T, class Function, int array_size>
     constexpr Function &stateMachine<Enumerator_T, Function, array_size>::operator[](Enumerator_T const &Enumerator) {
-        for (auto &element: states) {
+        for (auto &element: states_) {
             if (element.first == Enumerator)return element.second;
         }
-        return states.front().second;
+        return states_.front().second;
     }
 } //namespace bhe
-#endif //MOONLIGHT_TRAILS_STATE_MACHINE_H
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_STATE_MACHINE_HPP

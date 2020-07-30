@@ -2,8 +2,8 @@
 // Created by snizzfox on 5/23/20.
 //
 
-#ifndef BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
-#define BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP
 
 #include <string>
 #include <chrono>
@@ -28,10 +28,10 @@ namespace bhe {
         animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
                        unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 
-        [[nodiscard]] auto isReadForNextFrame() -> returnStatus<bool>; //
-        auto countNextFrame(std::chrono::microseconds time_span) -> returnStatus<void>;
+        [[nodiscard]] auto IsReadForNextFrame() -> returnStatus<bool>; //
+        auto CountNextFrame(std::chrono::microseconds Time_Span) -> returnStatus<void>;
 
-        [[nodiscard]] auto getCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)>;
+        [[nodiscard]] auto GetCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)>;
 
         /*animationState() = default;
         animationState(animationState const &) = default;
@@ -41,16 +41,7 @@ namespace bhe {
         animationState &operator=(animationState &&) = default;*/
 
     };
-    struct animationStateOld {
-        [[deprecated]] animationStateOld() = default;
 
-        std::string name;
-        unsigned long long  number_of_frames;
-        unsigned long long  frames_per_animation_frame;
-        unsigned long long  sprite_index;
-        unsigned long long  current_frame_count;
-        unsigned long long  hieght_offset;
-    };
 } // namespace bhe
 
-#endif // BUNNY_HOP_ENGINE_ANIMATIONSTATE_HPP
+#endif // BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP

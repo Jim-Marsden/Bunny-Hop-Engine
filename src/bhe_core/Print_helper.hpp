@@ -2,24 +2,24 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_PRINT_HELPER_HPP
-#define MOONLIGHT_TRAILS_PRINT_HELPER_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP
 
 #include <SFML/Graphics.hpp>
 #include <type_traits>
 
 namespace bhe {
     template<class Sprite_Type>
-    void do_draw(Sprite_Type const &Drawable, sf::RenderWindow &Window) {
+    void DoDraw(Sprite_Type const &Drawable, sf::RenderWindow &Window) {
         Window.draw(static_cast<sf::Sprite>(Drawable));
     }
 
     template<>
-    void do_draw<sf::RectangleShape>(sf::RectangleShape const &Drawable,
-                                     sf::RenderWindow &Window) {
+    void DoDraw<sf::RectangleShape>(sf::RectangleShape const &Drawable,
+                                    sf::RenderWindow &Window) {
         Window.draw(Drawable);
 
     }
 } //namespace bhe
 
-#endif //MOONLIGHT_TRAILS_PRINT_HELPER_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP

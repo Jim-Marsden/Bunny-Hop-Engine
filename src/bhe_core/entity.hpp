@@ -2,16 +2,17 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef MOONLIGHT_TRAILS_ENTITY_HPP
-#define MOONLIGHT_TRAILS_ENTITY_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_ENTITY_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_ENTITY_HPP
 
-#include "drawable.hpp"
-#include "movement.hpp"
-#include "State_Machine.h"
+#include <bhe_core/drawable.hpp>
+#include <bhe_core/movement.hpp>
+#include <bhe_core/State_Machine.hpp>
+#include <bhe_core/Return_Status.hpp>
+
 #include <functional>
 
 #include <chrono>
-#include <bhe_core/Return_Status.hpp>
 
 namespace bhe {
     class entity : public bhe::drawable {
@@ -38,12 +39,12 @@ namespace bhe {
 
 
     protected:
-        collisionDirection _collision_direction{};
-        long _health{};
-        sf::Vector2f _speed;
-        bool _is_gravity_applied{};
+        collisionDirection collision_direction_{};
+        long health_{};
+        sf::Vector2f speed_;
+        bool is_gravity_applied_{};
 
-        movement _movement{};
+        movement movement_{};
 
     public:
 
@@ -68,9 +69,9 @@ namespace bhe {
 
         returnStatus<void> DoGravity(bool Doit);
 
-        returnStatus<void> Move(std::chrono::duration<double> const & time);
+        returnStatus<void> Move(std::chrono::duration<double> const & Speed);
 
-        returnStatus<void> AddSpeed(sf::Vector2f const &Speed_in);
+        returnStatus<void> AddSpeed(sf::Vector2f const &Speed_In);
 
         returnStatus<void> AddSpeedY(float Y);
 
@@ -78,11 +79,11 @@ namespace bhe {
 
         returnStatus<sf::Vector2f> GetSpeed() const;
 
-        [[nodiscard]] returnStatus<decltype(_health)> GetHealth() const;
+        [[nodiscard]] returnStatus<decltype(health_)> GetHealth() const;
 
-        returnStatus<void> SetHealth(int Health_in);
+        returnStatus<void> SetHealth(int Health_In);
 
-        returnStatus<void> AddMovement(std::string const &String_view, movement::movementDataT const &Movement_data);
+        returnStatus<void> AddMovement(std::string const &String_View, movement::movementDataT const &Movement_Data);
 
 
         // void DoAi();
@@ -90,11 +91,11 @@ namespace bhe {
         //[[nodiscard]] entity::AiStates GetState() const;
     };
 
-    returnStatus<void> deal_damage(entity &Entity, long Damage_amount);
+    returnStatus<void> DealDamage(entity &Entity, long Damage_Amount);
 
-    returnStatus<void> deal_damage(entity &Entity, long Damage_amount,
-                     std::function<void(entity &)> const &At_zero);
+    returnStatus<void> DealDamage(entity &Entity, long Damage_Amount,
+                                  std::function<void(entity &)> const &At_Zero);
 
 } // namespace bhe
 
-#endif // MOONLIGHT_TRAILS_ENTITY_HPP
+#endif // BUNNY_HOP_CORE_SRC_BHE_CORE_ENTITY_HPP

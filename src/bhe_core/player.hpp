@@ -2,32 +2,31 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_PLAYER_HPP
-#define MOONLIGHT_TRAILS_PLAYER_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP
 
-#include "entity.hpp"
-#include "textureManager.hpp"
-
+#include <bhe_core/entity.hpp>
+#include <bhe_core/textureManager.hpp>
 
 namespace bhe {
     class player : public bhe::entity {
     protected:
-        int _jump_count{};
-        int _jump_timer{};
-        int _max_jump_timer{5};
-        int _max_jump_count{2};
+        int jump_count_{};
+        int jump_timer_{};
+        int max_jump_timer_{5};
+        int max_jump_count_{2};
     public:
         explicit player(sf::Sprite const &Sprite);
 
         explicit player(sf::Texture const &Texture);
 
-        void DoJump(bool const &Should_jump);
+        void DoJump(bool const &Should_Jump);
 
-        void MoveLeft(bool const &Should_jump);
+        void MoveLeft(bool const &Should_Jump);
 
-        void MoveRight(bool const &Should_jump);
+        void MoveRight(bool const &Should_Jump);
 
-        void MoveDown(bool const &Should_jump);
+        void MoveDown(bool const &Should_Jump);
 
         [[nodiscard]] sf::Vector2f GetPos() const;
     };
@@ -36,4 +35,4 @@ namespace bhe {
 } // namespace bhe
 
 
-#endif //MOONLIGHT_TRAILS_PLAYER_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP

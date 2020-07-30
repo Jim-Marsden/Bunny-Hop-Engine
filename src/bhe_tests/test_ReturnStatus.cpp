@@ -10,54 +10,54 @@
 TEST_CASE("bhe::returnStatus void") {
 
     {
-        auto lambda_test = []() -> bhe::returnStatus<void> { return {}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void> { return {}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code == bhe::returnStatusCode::Normal);
+        REQUIRE(code == bhe::ReturnStatusCode::Normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<void> { return {false}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void> { return {false}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(!valid);
-        REQUIRE(code == bhe::returnStatusCode::Normal);
+        REQUIRE(code == bhe::ReturnStatusCode::Normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<void> { return {true, bhe::returnStatusCode::Error}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void> { return {true, bhe::ReturnStatusCode::Error}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code != bhe::returnStatusCode::Normal);
+        REQUIRE(code != bhe::ReturnStatusCode::Normal);
     }
 }
 
 TEST_CASE("bhe::returnStatus void custom enum") {
-    enum class local_enum_test{
-        Normal = 0,
-        Error,
+    enum class localEnumTest {
+        normal = 0,
+        error,
     };
 
     {
-        auto lambda_test = []() -> bhe::returnStatus<void, local_enum_test> { return {}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void, localEnumTest> { return {}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code == local_enum_test::Normal);
+        REQUIRE(code == localEnumTest::normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<void, local_enum_test> { return {false}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void, localEnumTest> { return {false}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(!valid);
-        REQUIRE(code == local_enum_test::Normal);
+        REQUIRE(code == localEnumTest::normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<void, local_enum_test> { return {true, local_enum_test::Error}; };
-        auto [valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<void, localEnumTest> { return {true, localEnumTest::error}; };
+        auto [valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code != local_enum_test::Normal);
+        REQUIRE(code != localEnumTest::normal);
     }
 }
 
@@ -65,26 +65,25 @@ TEST_CASE("bhe::returnStatus void custom enum") {
 TEST_CASE("bhe::returnStatus value") {
 
     {
-        auto lambda_test = []() -> bhe::returnStatus<int> { return {}; };
-        auto [value, valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<int> { return {}; };
+        auto [value, valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code == bhe::returnStatusCode::Normal);
+        REQUIRE(code == bhe::ReturnStatusCode::Normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<int> { return {0, false}; };
+        auto lambdaTest = []() -> bhe::returnStatus<int> { return {0, false}; };
 
-        //        auto lambda_test = []() -> bhe::returnStatus<void> { return {false}; };
-        auto [value, valid, code] = lambda_test();
+        auto [value, valid, code] = lambdaTest();
 
         REQUIRE(!valid);
-        REQUIRE(code == bhe::returnStatusCode::Normal);
+        REQUIRE(code == bhe::ReturnStatusCode::Normal);
     }
     {
-        auto lambda_test = []() -> bhe::returnStatus<int> { return {0, true, bhe::returnStatusCode::Error}; };
-        auto [value, valid, code] = lambda_test();
+        auto lambdaTest = []() -> bhe::returnStatus<int> { return {0, true, bhe::ReturnStatusCode::Error}; };
+        auto [value, valid, code] = lambdaTest();
 
         REQUIRE(valid);
-        REQUIRE(code != bhe::returnStatusCode::Normal);
+        REQUIRE(code != bhe::ReturnStatusCode::Normal);
     }
 }

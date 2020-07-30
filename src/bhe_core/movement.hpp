@@ -2,8 +2,8 @@
 // Created by snizzfox on 5/29/20.
 //
 
-#ifndef MOONLIGHT_TRAILS_MOVEMENT_HPP
-#define MOONLIGHT_TRAILS_MOVEMENT_HPP
+#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP
+#define BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP
 
 #include <string_view>
 #include <map>
@@ -28,13 +28,13 @@ namespace bhe {
         };
 
     protected:
-        std::map<std::string, movementDataT> _movement_data;
+        std::map<std::string, movementDataT> movement_data_;
     public:
-        void AddData(std::string const &String_view, movementDataT const &Movement_data);
+        void AddData(std::string const &String_View, movementDataT const &Movement_Data);
 
-        void EnableValue(std::string_view const &String_view, bool State);
+        void EnableValue(std::string_view const &String_View, bool State);
 
-        [[nodiscard]] movementDataT GetData(std::string const &String_view) const;
+        [[nodiscard]] movementDataT GetData(std::string const &String_View) const;
 
         [[nodiscard]] float CalculateX();
 
@@ -48,4 +48,4 @@ namespace bhe {
 } //namespace bhe
 
 
-#endif //MOONLIGHT_TRAILS_MOVEMENT_HPP
+#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP

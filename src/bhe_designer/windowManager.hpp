@@ -7,7 +7,7 @@
 
 #include <bhe_core/Return_Status.hpp>
 #include <bhe_designer/baseWindowElement.hpp>
-#include <bhe_core/SystemEvent.hpp>
+#include <bhe_core/systemEvent.hpp>
 #include <TGUI/TGUI.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -17,7 +17,7 @@ protected:
     sf::RenderWindow window;
     std::vector<baseWindowElement> elements;
 
-    bhe::SystemEvent event{window};
+    bhe::systemEvent event{window};
 
 
     bool _has_iniliziazed;
