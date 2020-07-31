@@ -6,7 +6,6 @@
 
 #include "bhe_core/pipeline.hpp"
 
-#define CATCH_CONFIG_MAIN
 
 #include <catch2/catch.hpp>
 
