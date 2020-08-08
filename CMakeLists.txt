@@ -24,7 +24,7 @@ set(Bunny_Hop_Core_Files ../bhe_core/gameScene.cpp ../bhe_core/gameScene.hpp
         ../bhe_core/player.cpp ../bhe_core/player.hpp ../bhe_core/delegate.hpp ../bhe_core/systemEvent.cpp ../bhe_core/systemEvent.hpp
         ../bhe_core/State_Machine.cpp ../bhe_core/State_Machine.hpp ../bhe_core/animationState.cpp ../bhe_core/animationState.hpp
         ../bhe_core/movement.cpp ../bhe_core/movement.hpp ../bhe_core/Json_Parser.cpp ../bhe_core/Json_Parser.hpp ../bhe_core/pipeline.hpp
-        ../bhe_core/Return_Status.hpp)
+        ../bhe_core/Return_Status.hpp ../bhe_core/Functional_Events.h)
 
 set(Bunny_Hop_Lib sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
         OpenGL Vorbis tgui Catch2::Catch2)
@@ -69,6 +69,9 @@ configure_file(Settings/Controls.json Settings/Controls.json COPYONLY)
 
 configure_file(Player/Player.json Player/Player.json COPYONLY)
 configure_file(Player/Textures/player_animation_test_002.png Player/Textures/player_animation_test_002.png COPYONLY)
+
+
+configure_file(.Test/images/test.png .Test/images/test.png COPYONLY)
 
 
 #[[

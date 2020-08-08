@@ -21,10 +21,14 @@ bhe::entity::IsColliding(const std::vector<sf::RectangleShape> &Rectangles) {
     for (auto const &element : Rectangles) {
         if (sprite_.getGlobalBounds().intersects(element.getGlobalBounds())) {
             if (IsCollidingTop(element).value) {
-                sprite_.setPosition(sprite_.getPosition().x, element.getGlobalBounds().top - sprite_.getOrigin().y);
+                //sprite_.setPosition(sprite_.getPosition().x, element.getGlobalBounds().top - sprite_.getOrigin().y);
+              auto move_amount_test = ((sprite_.getGlobalBounds().height + sprite_.getGlobalBounds().top)) -(( element.getGlobalBounds().height + element.getGlobalBounds().top));
+              //sprite_.move(0, move_amount_test);//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
+
               collision_direction_.top = true;
             }
             if (IsCollidingDown(element).value) {
+              sprite_.move(0, element.getGlobalBounds().top - (sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().height));//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
               collision_direction_.bottom = true;
             }
             if (IsCollidingLeft(element).value) {
@@ -39,7 +43,9 @@ bhe::entity::IsColliding(const std::vector<sf::RectangleShape> &Rectangles) {
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingDown(sf::RectangleShape const &Rectangles) const {
-    return {(sprite_.getGlobalBounds().top < Rectangles.getGlobalBounds().top)};
+  return{true};//{(sprite_.getGlobalBounds().height + sprite_.getGlobalBounds().top) / 2 <= (Rectangles.getGlobalBounds().height + Rectangles.getGlobalBounds().top) /2};
+
+  //return {(sprite_.getGlobalBounds().top < Rectangles.getGlobalBounds().top)};
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingRight(sf::RectangleShape const &Rectangles) const {
@@ -52,19 +58,21 @@ bhe::returnStatus<bool> bhe::entity::IsCollidingLeft(sf::RectangleShape const &R
 }
 
 bhe::returnStatus<bool> bhe::entity::IsCollidingTop(const sf::RectangleShape &Rectangles) const {
-    return {(sprite_.getGlobalBounds().top <
-             Rectangles.getGlobalBounds().top + Rectangles.getGlobalBounds().height)};
+  return{(sprite_.getGlobalBounds().height + sprite_.getGlobalBounds().top) / 2 >= (Rectangles.getGlobalBounds().height + Rectangles.getGlobalBounds().top) /2};
+
+  //return {(sprite_.getGlobalBounds().top <
+    //         Rectangles.getGlobalBounds().top + Rectangles.getGlobalBounds().height)};
 }
 
 bhe::returnStatus<void> bhe::entity::DoGravity(bool Doit) {
     if (Doit) {
         if (!is_gravity_applied_) {
-          speed_.y += 2;
+          //speed_.y += 2;
           is_gravity_applied_ = true;
         }
     } else {
         if (is_gravity_applied_) {
-          speed_.y -= 2;
+          //speed_.y -= 2;
           is_gravity_applied_ = false;
         }
     }
