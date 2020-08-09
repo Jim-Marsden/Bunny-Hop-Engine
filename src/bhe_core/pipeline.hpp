@@ -14,7 +14,8 @@ namespace bhe {
     protected:
         Object_T &object_;
     public:
-        constexpr pipeline& operator|(auto function){
+        template<class Fucntion_T>
+        constexpr pipeline& operator|(Fucntion_T function){
             std::invoke(function, object_);
             return *this;
         }

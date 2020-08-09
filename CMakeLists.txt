@@ -6,6 +6,7 @@ enable_language(CXX)
 add_subdirectory(SFML)
 add_subdirectory(TGUI)
 add_subdirectory(vorbis)
+add_subdirectory(jsoncpp)
 
 #add_subdirectory(boost/libs)
 add_subdirectory(Catch2)
@@ -40,7 +41,7 @@ set(Bunny_Hop_Lib sfml-graphics sfml-system sfml-window sfml-window sfml-audio F
 
 if (WIN32)
 
-    find_package(jsoncpp CONFIG REQUIRED)
+    #find_package(jsoncpp CONFIG REQUIRED)
     set(Bunny_Hop_Engine_Compiler_Flags ${Bunny_Hop_Engine_Compiler_Flags} /EHs)
     set(Bunny_Hop_Lib ${Bunny_Hop_Lib} jsoncpp_lib)
 elseif (UNIX)
@@ -89,10 +90,16 @@ option(-DoClangTidy "clang tidy?" OFF)
 
 set(Bunny_Hop_Engine_Compiler_Flags)
 
-find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
-find_package(TGUI CONFIG REQUIRED)
+add_subdirectory(SFML)
+add_subdirectory(vorbis)
+add_subdirectory(SFML)
+add_subdirectory(SFML)
 
-find_package(Catch2 CONFIG REQUIRED)
+
+#find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
+#find_package(TGUI CONFIG REQUIRED)
+
+#find_package(Catch2 CONFIG REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON) # only find static libs
 set(Boost_USE_MULTITHREADED ON)

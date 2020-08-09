@@ -16,16 +16,16 @@ concept Render_Surface_Concept = requires(Render_Surface_T RS) {
 };
 
 
-template <class iterator_type>
-constexpr auto draw( std::input_iterator auto begin, std::input_iterator auto end, Render_Surface_Concept auto const &Render_Surface) {
-  std::for_each(begin, end, [&Render_Surface](auto const &element) {
+template <class iterator_type, class Render_Surface_T>
+auto draw( iterator_type begin, iterator_type end, Render_Surface_T const &Render_Surface) {
+  std::for_each(begin, end, [&Render_Surface](decltype(*begin) const &element) {
     Render_Surface.draw(element);
   });
 
 }
 
-
-constexpr auto entity_update(std::input_iterator auto begin, std::input_iterator auto end, auto Function){
+    template <class iterator_type, class Function_T>
+auto entity_update(iterator_type begin, iterator_type  end, iterator_type Function){
   std::for_each(begin, end, Function);
   }
 } // namespace bhe

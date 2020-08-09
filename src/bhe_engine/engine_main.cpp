@@ -7,7 +7,6 @@
 #include <bhe_core/Functional_Events.h>
 
 #include <iostream>
-#include <boost/timer/timer.hpp>
 #include <cmath>
 #include <algorithm>
 
@@ -68,27 +67,19 @@ std::string_view do_game_update(std::string_view const &Scene_file,
     for (auto const &shape : game_scene.GetCollisionBoxes())
       bhe::DoDraw(shape, Window);
 
-    bhe::functional::entity_update(entities.begin(), entities.end(), [&game_scene, &time_check](bhe::entity &e) {
+    auto update_lambda = [&game_scene, &time_check](bhe::entity &e) {
 
       if (auto const &[collision_direction, exit_code, exit_status] = e.IsColliding(game_scene.GetCollisionBoxes());
-          exit_code && exit_status == bhe::ReturnStatusCode::Normal) {
-        e.DoGravity(collision_direction.bottom);
-        e.Move(time_check);
-        e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
+              exit_code && exit_status == bhe::ReturnStatusCode::Normal) {
+          e.DoGravity(collision_direction.bottom);
+          e.Move(time_check);
+          e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
 
       }
-    });
+    };
+      std::for_each(entities.begin(), entities.end(), update_lambda);
 
-    [&game_scene, &time_check](bhe::player &e) {
-
-      if (auto const &[collision_direction, exit_code, exit_status] = e.IsColliding(game_scene.GetCollisionBoxes());
-          exit_code && exit_status == bhe::ReturnStatusCode::Normal) {
-        e.DoGravity(collision_direction.bottom);
-        e.Move(time_check);
-        e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
-
-      }
-    }(Player);
+    update_lambda(Player);
 
     entities.erase(std::remove_if(entities.begin(), entities.end(),
                                   [](bhe::entity const &Entity) { return Entity.GetHealth().value < 1; }),

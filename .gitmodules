@@ -10,3 +10,6 @@
 [submodule "vorbis"]
 	path = vorbis
 	url = https://github.com/xiph/vorbis.git
+[submodule "jsoncpp"]
+	path = jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git

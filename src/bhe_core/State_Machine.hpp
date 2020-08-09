@@ -19,7 +19,7 @@ namespace bhe {
     public:
         constexpr stateMachine() = default;
 
-        constexpr ~stateMachine() = default;
+        ~stateMachine() = default;
 
         constexpr stateMachine(stateMachine const &) = default;
 
