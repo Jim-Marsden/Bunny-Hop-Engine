@@ -3,15 +3,23 @@ project(Bunny_Hop_Core)
 set(CMAKE_CXX_STANDARD 20)
 enable_language(CXX)
 
-find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
-find_package(TGUI CONFIG REQUIRED)
+add_subdirectory(SFML)
+add_subdirectory(TGUI)
+add_subdirectory(vorbis)
 
-find_package(Catch2 CONFIG REQUIRED)
+#add_subdirectory(boost/libs)
+add_subdirectory(Catch2)
+
+
+#find_package(SFML CONFIG REQUIRED graphics system window network audio REQUIRED)
+#find_package(TGUI CONFIG REQUIRED)
+
+#find_package(Catch2 CONFIG REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON) # only find static libs
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
+#find_package(Boost 1.72.0 COMPONENTS date_time filesystem system timer REQUIRED)
 
 
 include_directories(src)
@@ -27,7 +35,7 @@ set(Bunny_Hop_Core_Files ../bhe_core/gameScene.cpp ../bhe_core/gameScene.hpp
         ../bhe_core/Return_Status.hpp ../bhe_core/Functional_Events.h)
 
 set(Bunny_Hop_Lib sfml-graphics sfml-system sfml-window sfml-window sfml-audio FLAC OpenAL
-        OpenGL Vorbis tgui Catch2::Catch2)
+        OpenGL vorbis tgui Catch2::Catch2)
 
 
 if (WIN32)
