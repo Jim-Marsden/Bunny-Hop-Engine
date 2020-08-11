@@ -34,18 +34,29 @@ namespace bhe {
 
         constexpr Function_T &operator[](int Index);
 
-        constexpr bool Add(Enumerator_T const &Enumerator, Function_T const &Callable);
+        constexpr auto get_size() noexcept;
+
+        constexpr bool add(Enumerator_T const &Enumerator, Function_T const &Callable);
+
+        constexpr auto begin() noexcept;
+
+        constexpr auto end()noexcept;
+
+        constexpr auto cbegin()noexcept;
+        constexpr auto cend()noexcept;
+
+
 
     };
 
 
     template<class Enumerator_T, class Function, int array_size>
     constexpr bool
-    stateMachine<Enumerator_T, Function, array_size>::Add(Enumerator_T const &Enumerator, Function const &Callable) {
-        for (auto &element: states_) {
-            if (!element.second) {
-                element.first = Enumerator;
-                element.second = Callable;
+    stateMachine<Enumerator_T, Function, array_size>::add(Enumerator_T const &Enumerator, Function const &Callable) {
+        for (auto &[key, value]: states_) {
+            if (!value) {
+                key = Enumerator;
+                value = Callable;
                 return true;
             }
         }
@@ -69,5 +80,27 @@ namespace bhe {
         }
         return states_.front().second;
     }
+    template<class Enumerator_T, class Function_T, int array_size>
+    constexpr auto stateMachine<Enumerator_T, Function_T, array_size>::begin() noexcept {
+        return states_.begin();
+    }
+    template<class Enumerator_T, class Function_T, int array_size>
+    constexpr auto stateMachine<Enumerator_T, Function_T, array_size>::end() noexcept {
+        return states_.end();
+    }
+    template<class Enumerator_T, class Function_T, int array_size>
+    constexpr auto stateMachine<Enumerator_T, Function_T, array_size>::cbegin() noexcept {
+        return states_.cbegin();
+    }
+    template<class Enumerator_T, class Function_T, int array_size>
+    constexpr auto stateMachine<Enumerator_T, Function_T, array_size>::cend() noexcept {
+        return states_.cend();
+    }
+    template<class Enumerator_T, class Function_T, int array_size>
+    constexpr auto stateMachine<Enumerator_T, Function_T, array_size>::get_size() noexcept {
+        return array_size;
+    }
+
+
 } //namespace bhe
 #endif //BUNNY_HOP_CORE_SRC_BHE_CORE_STATE_MACHINE_HPP
