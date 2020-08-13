@@ -13,6 +13,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
 #include <chrono>
+#include <boost/timer/timer.hpp>
+
 
 std::string_view do_game_update(std::string_view const &Scene_file,
                                 bhe::textureManager &Texture_manager, sf::RenderWindow &Window, bhe::player &Player,
@@ -37,6 +39,8 @@ std::string_view do_game_update(std::string_view const &Scene_file,
   std::chrono::duration<double> time_check = time_start_loop - movement_time_point;
 
   while (game_scene.IsActive() && Window.isOpen()) {
+    //boost::timer::auto_cpu_timer timer;
+
     time_start_loop = std::chrono::steady_clock::now();
 
     //std::cout << std::chrono::duration_cast<std::chrono::microseconds >(time_check).count() << '\n';
@@ -72,7 +76,7 @@ std::string_view do_game_update(std::string_view const &Scene_file,
       if (auto const &[collision_direction, exit_code, exit_status] = e.IsColliding(game_scene.GetCollisionBoxes());
               exit_code && exit_status == bhe::ReturnStatusCode::Normal) {
           e.DoGravity(collision_direction.bottom);
-          e.Move(time_check);
+          e.Move(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
           e.DoAnimation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
 
       }
@@ -140,7 +144,7 @@ int main(int Argc, char **Argv) {
   bhe::systemEvent system_event(window);
   window.setKeyRepeatEnabled(false);
 
-  window.setFramerateLimit(60);
+  //window.setFramerateLimit(60);
 
   system_event.AddMoveLeft(move_player_left);
   system_event.AddMoveRight(move_player_right);

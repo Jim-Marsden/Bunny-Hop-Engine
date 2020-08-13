@@ -69,7 +69,9 @@ namespace bhe {
 
         returnStatus<void> DoGravity(bool Doit);
 
-        returnStatus<void> Move(std::chrono::duration<double> const & Speed);
+        [[deprecated]] returnStatus<void> Move(std::chrono::duration<double> const & Speed);
+
+        returnStatus<void> Move(std::chrono::microseconds const &Time);
 
         returnStatus<void> AddSpeed(sf::Vector2f const &Speed_In);
 
