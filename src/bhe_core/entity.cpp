@@ -88,8 +88,9 @@ bhe::returnStatus<void> bhe::entity::SetHealth(int Health_In) {
 }
 
 bhe::returnStatus<void> bhe::entity::Move(const std::chrono::microseconds &Time) {
-  auto calculate_directions = [](auto const &Speed, std::chrono::duration<float, std::ratio<1>> const &Time_Local) -> float {
-    auto const result = (Speed > 0 || Speed < 0) ? ( ((5000 * Time_Local.count()) / Speed)) : 0;
+  auto calculate_directions = [](auto const &Speed, std::chrono::duration<double, std::milli> const &Time_Local) -> float {
+    auto const result = (static_cast<int>( Speed) != 0) ? (  (Time_Local.count()) / Speed) : 0;
+    std::cout << result << '\n';
     return result;
   };
 
