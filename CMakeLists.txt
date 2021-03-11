@@ -1,8 +1,163 @@
 cmake_minimum_required(VERSION 3.16)
-project(Bunny_Hop_Core)
+project(Bunny_Hop_Engine)
 set(CMAKE_CXX_STANDARD 20)
 enable_language(CXX)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+#set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
+#set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
+set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
 
+
+Include(FetchContent)
+
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v2.13.1)
+
+FetchContent_MakeAvailable(Catch2)
+
+FetchContent_Declare(
+        Vorbis
+        GIT_REPOSITORY https://github.com/xiph/vorbis.git
+        GIT_TAG        master
+)
+FetchContent_MakeAvailable(Vorbis)
+set(SFML_VERSION "2.5.1")
+
+FetchContent_Declare(
+        sfml
+        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
+        GIT_TAG        "${SFML_VERSION}"
+)
+
+FetchContent_GetProperties(sfml)
+if(NOT sfml_POPULATED)
+    message("alskdfjasldfjasldfj;alsdjf;djf;lkasjdf;asdjf;lkj")
+    FetchContent_Populate(sfml)
+    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+endif()
+
+
+FetchContent_Declare(
+        TGUI
+        GIT_REPOSITORY https://github.com/texus/TGUI.git
+        GIT_TAG        0.9)
+
+FetchContent_MakeAvailable(TGUI)
+
+
+FetchContent_Declare(
+        jsoncpp
+        GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+        GIT_TAG        master)
+
+FetchContent_MakeAvailable(jsoncpp)
+
+
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
+include(CTest)
+include(Catch)
+#add_subdirectory("csv-parser")
+
+
+
+set(bhe_tests_src
+        src/bhe_tests/test_animationState.cpp
+        src/bhe_tests/test_delegate.cpp
+        src/bhe_tests/test_drawable.cpp
+        src/bhe_tests/test_entity.cpp
+        src/bhe_tests/test_main.cpp
+        src/bhe_tests/test_pipeline.cpp
+        src/bhe_tests/test_ReturnStatus.cpp
+        src/bhe_tests/test_State_Machine.cpp)
+
+set(bhe_core_src
+        src/bhe_core/animationState.cpp
+        src/bhe_core/animationState.hpp
+        src/bhe_core/delegate.hpp
+        src/bhe_core/drawable.cpp
+        src/bhe_core/drawable.hpp
+        src/bhe_core/entity.cpp
+        src/bhe_core/entity.hpp
+        src/bhe_core/Functional_Events.h
+        src/bhe_core/gameScene.cpp
+        src/bhe_core/Json_Parser.cpp
+        src/bhe_core/Json_Parser.hpp
+        src/bhe_core/movement.cpp
+        src/bhe_core/movement.hpp
+        src/bhe_core/parallax.cpp
+        src/bhe_core/parallax.hpp
+        src/bhe_core/pipeline.hpp
+        src/bhe_core/player.cpp
+        src/bhe_core/player.hpp
+        src/bhe_core/Print_helper.hpp
+        src/bhe_core/Return_Status.hpp
+        src/bhe_core/State_Machine.cpp
+        src/bhe_core/State_Machine.hpp
+        src/bhe_core/systemEvent.cpp
+        src/bhe_core/systemEvent.hpp
+        src/bhe_core/textureManager.cpp
+        src/bhe_core/textureManager.hpp)
+
+set(bhe_engine_src src/bhe_engine/engine_main.cpp)
+
+set(bhe_designer_sr src/bhe_designer/basePannel.cpp
+        src/bhe_designer/basePannel.hpp
+        src/bhe_designer/baseWindowElement.hpp
+        src/bhe_designer/baseWindowElement.cpp
+        src/bhe_designer/designer_main.cpp
+        src/bhe_designer/pallet_pannel.cpp
+        src/bhe_designer/pallet_pannel.hpp
+        src/bhe_designer/windowManager.cpp
+        src/bhe_designer/windowManager.hpp)
+
+set(bhe_libs
+        Catch2::Catch2
+        sfml-audio
+        sfml-graphics
+        sfml-system
+        sfml-window
+        tgui
+        jsoncpp
+        pthread)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+include_directories(src)
+add_executable(bhe_test_runner  ${bhe_core_src} ${bhe_tests_src})
+target_link_libraries(bhe_test_runner PRIVATE ${bhe_libs})
+
+add_executable(bhe_engine ${bhe_engine_src} ${bhe_core_src})
+target_link_libraries(bhe_engine ${bhe_libs})
+
+catch_discover_tests(bhe_test_runner)
+
+
+configure_file(Scenes/TestScene.json Scenes/TestScene.json COPYONLY)
+configure_file(Scenes/Textures/tree.png Scenes/Textures/tree.png COPYONLY)
+configure_file(Scenes/Textures/parallax_test-bg001.png
+        Scenes/Textures/parallax_test-bg001.png COPYONLY)
+
+configure_file(Entity/Texture/animation_tests.png Entity/Texture/animation_tests.png COPYONLY)
+
+configure_file(Entity/Test.json Entity/Test.json COPYONLY)
+configure_file(Entity/Texture/default.png Entity/Texture/default.png COPYONLY)
+
+configure_file(Settings/Controls.json Settings/Controls.json COPYONLY)
+
+configure_file(Player/Player.json Player/Player.json COPYONLY)
+configure_file(Player/Textures/player_animation_test_002.png Player/Textures/player_animation_test_002.png COPYONLY)
+
+
+configure_file(.Test/images/test.png .Test/images/test.png COPYONLY)
+
+
+
+#[[
 add_subdirectory(SFML)
 add_subdirectory(TGUI)
 add_subdirectory(vorbis)
@@ -81,3 +236,4 @@ configure_file(Player/Textures/player_animation_test_002.png Player/Textures/pla
 
 
 configure_file(.Test/images/test.png .Test/images/test.png COPYONLY)
+]]
