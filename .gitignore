@@ -1,6 +1,8 @@
 # Project exclude paths
 /cmake-build-debug/
+/cmake-build-release/
 /cmake-build-debug-clang/
 /cmake-build-debug-msvc/
 /cmake-build-release-clang/
 /cmake-build-release-msvc/
+/.idea/
