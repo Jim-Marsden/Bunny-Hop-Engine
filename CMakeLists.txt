@@ -2,65 +2,88 @@ cmake_minimum_required(VERSION 3.16)
 project(Bunny_Hop_Engine)
 set(CMAKE_CXX_STANDARD 20)
 enable_language(CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
-#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
-#set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-#set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
 
 
-Include(FetchContent)
+#[[
 
-FetchContent_Declare(
-        Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG        v2.13.1)
+* The following block is for building on windows, using vcpkg.
+* The else block will be for using fetch content.
+]]
 
-FetchContent_MakeAvailable(Catch2)
-
-FetchContent_Declare(
-        Vorbis
-        GIT_REPOSITORY https://github.com/xiph/vorbis.git
-        GIT_TAG        master
-)
-FetchContent_MakeAvailable(Vorbis)
-set(SFML_VERSION "2.5.1")
-
-FetchContent_Declare(
-        sfml
-        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
-        GIT_TAG        "${SFML_VERSION}"
-)
-
-FetchContent_GetProperties(sfml)
-if(NOT sfml_POPULATED)
-    message("alskdfjasldfjasldfj;alsdjf;djf;lkasjdf;asdjf;lkj")
-    FetchContent_Populate(sfml)
-    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
-endif()
+if (WIN32)
+    find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+    find_package(Catch2 CONFIG REQUIRED)
+    find_package(TGUI CONFIG REQUIRED)
+    find_package(jsoncpp CONFIG REQUIRED)
 
 
-FetchContent_Declare(
-        TGUI
-        GIT_REPOSITORY https://github.com/texus/TGUI.git
-        GIT_TAG        0.9)
+    set(bhe_libs
+            Catch2::Catch2
+            sfml-audio
+            sfml-graphics
+            sfml-system
+            sfml-window
+            tgui
+            jsoncpp_lib
+            jsoncpp_object
+            )
 
-FetchContent_MakeAvailable(TGUI)
+else()
+
+    Include(FetchContent)
+
+    FetchContent_Declare(
+            Catch2
+            GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+            GIT_TAG v2.13.1)
+
+    FetchContent_MakeAvailable(Catch2)
+
+    FetchContent_Declare(
+            Vorbis
+            GIT_REPOSITORY https://github.com/xiph/vorbis.git
+            GIT_TAG master
+    )
+    FetchContent_MakeAvailable(Vorbis)
+    set(SFML_VERSION "2.5.1")
+
+    FetchContent_Declare(
+            sfml
+            GIT_REPOSITORY "https://github.com/SFML/SFML.git"
+            GIT_TAG "${SFML_VERSION}"
+    )
+
+    FetchContent_GetProperties(sfml)
+    if (NOT sfml_POPULATED)
+        message("alskdfjasldfjasldfj;alsdjf;djf;lkasjdf;asdjf;lkj")
+        FetchContent_Populate(sfml)
+        add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+    endif ()
 
 
-FetchContent_Declare(
-        jsoncpp
-        GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
-        GIT_TAG        master)
+    FetchContent_Declare(
+            TGUI
+            GIT_REPOSITORY https://github.com/texus/TGUI.git
+            GIT_TAG 0.9)
 
-FetchContent_MakeAvailable(jsoncpp)
+    FetchContent_MakeAvailable(TGUI)
 
 
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
+    FetchContent_Declare(
+            jsoncpp
+            GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+            GIT_TAG master)
+
+    FetchContent_MakeAvailable(jsoncpp)
+
+
+    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
+
+endif ()
+
 include(CTest)
 include(Catch)
 #add_subdirectory("csv-parser")
-
 
 
 set(bhe_tests_src
@@ -113,22 +136,13 @@ set(bhe_designer_sr src/bhe_designer/basePannel.cpp
         src/bhe_designer/windowManager.cpp
         src/bhe_designer/windowManager.hpp)
 
-set(bhe_libs
-        Catch2::Catch2
-        sfml-audio
-        sfml-graphics
-        sfml-system
-        sfml-window
-        tgui
-        jsoncpp
-        pthread)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 include_directories(src)
-add_executable(bhe_test_runner  ${bhe_core_src} ${bhe_tests_src})
+add_executable(bhe_test_runner ${bhe_core_src} ${bhe_tests_src})
 target_link_libraries(bhe_test_runner PRIVATE ${bhe_libs})
 
 add_executable(bhe_engine ${bhe_engine_src} ${bhe_core_src})
@@ -154,7 +168,6 @@ configure_file(Player/Textures/player_animation_test_002.png Player/Textures/pla
 
 
 configure_file(.Test/images/test.png .Test/images/test.png COPYONLY)
-
 
 
 #[[
