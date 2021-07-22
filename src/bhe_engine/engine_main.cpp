@@ -13,7 +13,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
 #include <chrono>
-#include <boost/timer/timer.hpp>
 
 
 std::string_view do_game_update(std::string_view const &Scene_file,
