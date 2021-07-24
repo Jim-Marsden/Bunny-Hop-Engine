@@ -126,7 +126,7 @@ set(bhe_core_src
 
 set(bhe_engine_src src/bhe_engine/engine_main.cpp)
 
-set(bhe_designer_sr src/bhe_designer/basePannel.cpp
+set(bhe_designer_src src/bhe_designer/basePannel.cpp
         src/bhe_designer/basePannel.hpp
         src/bhe_designer/baseWindowElement.hpp
         src/bhe_designer/baseWindowElement.cpp
@@ -144,6 +144,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 include_directories(src)
 add_executable(bhe_test_runner ${bhe_core_src} ${bhe_tests_src})
 target_link_libraries(bhe_test_runner PRIVATE ${bhe_libs})
+
+add_executable(bhe_designer ${bhe_core_src} ${bhe_designer_src})
+target_link_libraries(bhe_designer PRIVATE ${bhe_libs})
 
 add_executable(bhe_engine ${bhe_engine_src} ${bhe_core_src})
 target_link_libraries(bhe_engine ${bhe_libs})
