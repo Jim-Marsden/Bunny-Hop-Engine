@@ -45,4 +45,9 @@ auto windowManager::InitilalizeElements() -> bhe::returnStatus<int> {
 
     return {result, true, bhe::ReturnStatusCode::Normal};
 }
-
+auto windowManager::add_element(const baseWindowElement &element) -> bhe::returnStatus<void> {
+    if(!_has_iniliziazed){
+        elements.emplace_back(element);
+    }
+    return {true, bhe::ReturnStatusCode::SingleRunFunctionReran};
+}

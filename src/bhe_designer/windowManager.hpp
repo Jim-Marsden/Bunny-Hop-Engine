@@ -33,6 +33,8 @@ public:
 
     auto Run() -> bhe::returnStatus<void>;
 
+    auto add_element(baseWindowElement const & element) -> bhe::returnStatus<void>;
+
     auto InitilalizeElements() -> bhe::returnStatus<int>; // Number of elements initialzed;
 
 
