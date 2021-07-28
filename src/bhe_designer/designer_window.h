@@ -12,8 +12,7 @@
 class designer_window {
 protected:
     tgui::MenuBar::Ptr active_menu;
-    std::string title;
-    unsigned x, y;
+    sf::RenderWindow window;
 
 public:
     enum struct exit_code{
