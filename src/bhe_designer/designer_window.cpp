@@ -4,7 +4,7 @@
 
 #include "designer_window.h"
 #include <utility>
-designer_window::designer_window(unsigned int x, unsigned int y, char const *title) : x{x}, y{y}, title{title} {
+designer_window::designer_window(unsigned int x, unsigned int y, std::string  title_in = "Bunny Hop Designer") : x{x}, y{y}, title{std::move(title_in)} {
 
 }
 designer_window::exit_code designer_window::run() {

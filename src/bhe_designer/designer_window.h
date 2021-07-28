@@ -6,13 +6,13 @@
 #define BUNNY_HOP_CORE_DESIGNER_WINDOW_H
 
 #include <TGUI/TGUI.hpp>
-#include <functional>
+#include <string>
 
 
 class designer_window {
 protected:
     tgui::MenuBar::Ptr active_menu;
-    char const * title;
+    std::string title;
     unsigned x, y;
 
 public:
@@ -23,7 +23,7 @@ public:
     };
 
     designer_window() = delete;
-    designer_window(unsigned int x, unsigned int y, char const * title);
+    designer_window(unsigned int x, unsigned int y, std::string title);
     designer_window(designer_window const&) =delete;
     designer_window(designer_window &&) = delete;
 
