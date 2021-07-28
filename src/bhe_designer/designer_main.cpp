@@ -13,22 +13,10 @@
  * 3) extend out features and modes with 1) and use that as a primary tool for expansion
  */
 
-class tempMenu : public baseWindowElement {
-    tgui::MenuBar::Ptr menu;
-public:
-    bhe::returnStatus<void> InitWindow() override {
-        menu = tgui::MenuBar::create();
-        return {};
-    }
-};
 
 int main(){
     designer_window window{800, 400, "title"};
     window.run();
 
-
-//    windowManager window_manager;
-//    auto [result, message] = window_manager.Run();
-//    std::cout << "result: " << (result ? "true" : "false") << "\tmessage: " << static_cast<int>(message) << '\n';
-//    return 0;
+    return {};
 }
