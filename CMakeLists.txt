@@ -79,6 +79,16 @@ else()
 
     list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
 
+    set(bhe_libs
+            Catch2::Catch2
+            sfml-audio
+            sfml-graphics
+            sfml-system
+            sfml-window
+            tgui
+            jsoncpp
+            pthread)
+
 endif ()
 
 include(CTest)
@@ -134,7 +144,7 @@ set(bhe_designer_src src/bhe_designer/basePannel.cpp
         src/bhe_designer/pallet_pannel.cpp
         src/bhe_designer/pallet_pannel.hpp
         src/bhe_designer/windowManager.cpp
-        src/bhe_designer/windowManager.hpp src/bhe_designer/designer_window.cpp src/bhe_designer/designer_window.h)
+        src/bhe_designer/windowManager.hpp src/bhe_designer/designer_window.cpp src/bhe_designer/designer_window.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp)
 
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
