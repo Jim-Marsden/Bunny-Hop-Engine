@@ -7,6 +7,7 @@
 
 #include <TGUI/TGUI.hpp>
 #include <filesystem>
+#include <atomic>
 
 
 namespace bhe::designer{
@@ -14,7 +15,7 @@ namespace bhe::designer{
     tgui::MenuBar::Ptr default_menubar(sf::RenderWindow & window, tgui::Gui & gui);
 
     //Handles save/load pathes with an out peram...for now.
-    tgui::ChildWindow::Ptr file_dialog(std::filesystem::path & out_path, bool save_mode = false);
+    tgui::ChildWindow::Ptr file_dialog(std::filesystem::path & out_path, bool &  lock, bool save_mode = false);
 
     tgui::ChildWindow::Ptr settings_dialog();
 
