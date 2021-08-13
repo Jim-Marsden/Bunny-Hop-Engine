@@ -58,8 +58,9 @@ tgui::ChildWindow::Ptr bhe::designer::file_dialog(std::filesystem::path &out_pat
     if (!lock) {
         lock = true;
         auto window = tgui::ChildWindow::create("Filebox");
-        if(save_mode) window->add(tgui::Label::create("Placeholder(save mode)..... :c"));
-        else window->add(tgui::Label::create("Placeholder(load mode)..... :c"));
+        if (save_mode) window->add(tgui::Label::create("Placeholder(save mode)..... :c"));
+        else
+            window->add(tgui::Label::create("Placeholder(load mode)..... :c"));
         window->onClose([&lock]() { lock = false; });
         return window;
     } else
