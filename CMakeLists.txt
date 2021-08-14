@@ -144,7 +144,7 @@ set(bhe_designer_src src/bhe_designer/basePannel.cpp
         src/bhe_designer/pallet_pannel.cpp
         src/bhe_designer/pallet_pannel.hpp
         src/bhe_designer/windowManager.cpp
-        src/bhe_designer/windowManager.hpp src/bhe_designer/designer_window.cpp src/bhe_designer/designer_window.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp src/bhe_designer/gui_modes.cpp src/bhe_designer/gui_modes.hpp)
+        src/bhe_designer/windowManager.hpp src/bhe_designer/designerWindow.cpp src/bhe_designer/designerWindow.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp src/bhe_designer/gui_modes.cpp src/bhe_designer/gui_modes.hpp)
 
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
