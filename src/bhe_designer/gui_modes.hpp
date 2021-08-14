@@ -11,8 +11,8 @@
 
 namespace bhe::designer {
     struct gui_modes {
-        std::wstring mode_name;
         using event_callback = std::function<void()>;
+        std::wstring mode_name;
         std::vector<tgui::Widget::Ptr> to_draw;
         event_callback resize;
     };
