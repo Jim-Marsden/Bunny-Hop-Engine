@@ -8,19 +8,20 @@
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc?
 /* TODO:
- * 1) Change to have a single window_manager class that will have an overall layout, that can take "Mode"
- *      structs that follow a class layout with everything that isn't menu bar and status bar
- * 2) Have a menu bar and a status bar
- * 3) extend out features and modes with 1) and use that as a primary tool for expansion
+ * 1) Implement Modes
+ * 2) Implement A status bar
  */
 
 
 int main(){
     bhe::designer::gui_modes m1{.mode_name{L"Hai!"} };
-
+    sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Hello!"};
+    tgui::Gui gui{sf_window};
+//
+    designerWindow window(sf_window, gui);
     m1.to_draw.emplace_back(tgui::Label::create("stuff, stuff, stuff, more stuff!"));
 
-    designerWindow window{800, 400, "title"};
+    window.addMode(m1);
     window.run();
 
     return {};

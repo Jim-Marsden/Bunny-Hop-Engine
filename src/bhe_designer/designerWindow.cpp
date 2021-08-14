@@ -6,11 +6,12 @@
 #include "gui_helpers.hpp"
 #include <iostream>
 #include <utility>
-designerWindow::designerWindow(unsigned int x, unsigned int y, std::string title_in = "Bunny Hop Designer") : window{sf::VideoMode{x, y}, title_in} {
-}
+//designerWindow::designerWindow(unsigned int x, unsigned int y, std::string title_in = "Bunny Hop Designer") {
+//
+//}
 designerWindow::exitCode designerWindow::run() {
     //    sf::RenderWindow window(sf::VideoMode(x, y), title);
-    tgui::Gui gui(window);
+//    tgui::Gui gui(window);
 
     if (!activeMenu) {
         activeMenu = bhe::designer::default_menubar(window, gui);
@@ -22,4 +23,9 @@ designerWindow::exitCode designerWindow::run() {
 
 
     return exitCode::Normal;
+}
+void designerWindow::addMode(bhe::designer::gui_modes const & guiModes) {
+    modes.push_back(guiModes);
+}
+designerWindow::designerWindow(sf::RenderWindow &windowIn, tgui::Gui &guiin) : window{windowIn}, gui{guiin} {
 }

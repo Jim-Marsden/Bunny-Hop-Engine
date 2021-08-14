@@ -14,8 +14,8 @@
 class designerWindow {
 protected:
     tgui::MenuBar::Ptr activeMenu;
-    sf::RenderWindow window;
-
+    sf::RenderWindow & window;
+    tgui::Gui & gui;
     std::vector<bhe::designer::gui_modes> modes;
 
 
@@ -27,13 +27,16 @@ public:
     };
 
     designerWindow() = delete;
-    designerWindow(unsigned int x, unsigned int y, std::string title);
+//    designerWindow(unsigned int x, unsigned int y, std::string title);
+    designerWindow(sf::RenderWindow  &windowIn, tgui::Gui & gui);
     designerWindow(designerWindow const &) = delete;
     designerWindow(designerWindow &&) = delete;
 
     designerWindow &operator=(designerWindow const &) = delete;
 
     ~designerWindow() = default;
+
+    void addMode(bhe::designer::gui_modes const & guiModes);
 
     exitCode run();
 };
