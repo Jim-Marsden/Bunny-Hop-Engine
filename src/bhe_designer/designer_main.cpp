@@ -14,12 +14,16 @@
 
 
 int main(){
-    bhe::designer::gui_modes m1{.mode_name{L"Hai!"} };
-    sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Hello!"};
-    tgui::Gui gui{sf_window};
+    bhe::designer::gui_modes m1{.mode_name{L"!designer \U0001f98a!"}};
+    sf::RenderWindow sfWindow{sf::VideoMode{500, 500}, "Hello!"};
+    tgui::Gui gui{sfWindow};
 //
-    designerWindow window(sf_window, gui);
-    m1.to_draw.emplace_back(tgui::Label::create("stuff, stuff, stuff, more stuff!"));
+    designerWindow window(sfWindow, gui);
+
+    auto l = tgui::Label::create("stuff, stuff, stuff, more stuff!");
+    l->setAutoSize(true);
+    l->setPosition(0, 40);
+    m1.to_draw.emplace_back(l);
 
     window.addMode(m1);
     window.run();
