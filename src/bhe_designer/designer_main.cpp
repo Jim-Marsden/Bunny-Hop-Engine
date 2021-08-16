@@ -3,7 +3,6 @@
 //
 #include "designerWindow.h"
 #include "gui_modes.hpp"
-#include <bhe_designer/windowManager.hpp>
 #include <iostream>
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc?
