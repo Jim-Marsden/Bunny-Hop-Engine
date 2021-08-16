@@ -3,35 +3,34 @@
 //
 #include "designerWindow.h"
 #include "scene_designer.hpp"
-#include "gui_modes.hpp"
-#include <iostream>
 
-//Do I really want to keep this style of ugly gui interface? All the objects, etc?
+//Do I really want to keep this style of ugly gui interface? All the objects, etc.?
 /* TODO:
  * 1) Implement Modes
  * 2) Implement A status bar
  */
 
 
-int main(){
-    sf::RenderWindow sfWindow{sf::VideoMode{500, 500}, "Hello!"};
-    tgui::Gui gui{sfWindow};
+int main()
+{
+	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Hello!"};
+	tgui::Gui gui{sf_window};
 //
-    designerWindow window(sfWindow, gui);
+	designerWindow window(sf_window, gui);
 
-    bhe::designer::gui_modes m1{.mode_name{L"!designer \U0001f98a!"}};
-	auto m2{bhe::designer::create_scene_designer()};
+	bhe::designer::gui_modes mode_1{.mode_name{L"!designer \U0001f98a!"}};
+	auto mode_2{bhe::designer::create_scene_designer()};
 
 	auto l = tgui::Label::create("stuff, stuff, stuff, more stuff!");
 	l->setAutoSize(true);
 	l->setPosition(0, 40);
-	m1.to_draw.emplace_back(l);
+	mode_1.to_draw.emplace_back(l);
 
-//    window.addMode(bhe::designer::create_scene_designer());
+//    window.add_mode(bhe::designer::create_scene_designer());
 
-window.addMode(m1);
-window.addMode(m2);
-    window.run();
+	window.add_mode(mode_1);
+	window.add_mode(mode_2);
+	window.run();
 
-    return {};
+	return {};
 }

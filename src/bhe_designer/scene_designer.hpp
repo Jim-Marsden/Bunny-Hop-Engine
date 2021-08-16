@@ -1,5 +1,5 @@
 //
-// Created by james on 8/15/2021.
+// Created by Jim Marsden on 8/15/2021.
 //
 
 #ifndef BUNNY_HOP_CORE_SCENE_DESIGNER_HPP
@@ -7,7 +7,7 @@
 
 #include "gui_modes.hpp"
 namespace bhe::designer {
-    gui_modes create_scene_designer();
+gui_modes create_scene_designer();
 
 }  // namespace bhe::designer
 //
