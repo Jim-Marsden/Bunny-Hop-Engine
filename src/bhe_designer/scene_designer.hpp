@@ -7,12 +7,13 @@
 
 #include "gui_modes.hpp"
 namespace bhe::designer {
+    gui_modes create_scene_designer();
 
 }  // namespace bhe::designer
-
-struct scene_designer {
-
-};
+//
+//struct scene_designer {
+//
+//};
 
 
 #endif//BUNNY_HOP_CORE_SCENE_DESIGNER_HPP
