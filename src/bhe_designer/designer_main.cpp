@@ -1,7 +1,7 @@
 //
 // Created by Jim Marsden on 6/6/20.
 //
-#include "designerWindow.h"
+#include "DesignerWindow.h"
 #include "scene_designer.hpp"
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc.?
@@ -16,7 +16,7 @@ int main()
 	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Hello!"};
 	tgui::Gui gui{sf_window};
 //
-	designerWindow window(sf_window, gui);
+	DesignerWindow window(sf_window, gui);
 
 	bhe::designer::gui_modes mode_1{.mode_name{L"!designer \U0001f98a!"}};
 	auto mode_2{bhe::designer::create_scene_designer()};

@@ -10,7 +10,7 @@
 #include <TGUI/TGUI.hpp>
 #include <string>
 
-class designerWindow {
+class DesignerWindow {
 protected:
 	tgui::MenuBar::Ptr activeMenu;
 	sf::RenderWindow& window;
@@ -24,15 +24,15 @@ public:
 		FunctionFailed,
 	};
 
-	designerWindow() = delete;
+	DesignerWindow() = delete;
 //    designerWindow(unsigned int x, unsigned int y, std::string title);
-	designerWindow(sf::RenderWindow& window_in, tgui::Gui& gui);
-	designerWindow(designerWindow const&) = delete;
-	designerWindow(designerWindow&&) = delete;
+	DesignerWindow(sf::RenderWindow& window_in, tgui::Gui& gui);
+	DesignerWindow(DesignerWindow const&) = delete;
+	DesignerWindow(DesignerWindow&&) = delete;
 
-	designerWindow& operator=(designerWindow const&) = delete;
+	DesignerWindow& operator=(DesignerWindow const&) = delete;
 
-	~designerWindow() = default;
+	~DesignerWindow() = default;
 
 	void add_mode(bhe::designer::gui_modes const& gui_modes);
 

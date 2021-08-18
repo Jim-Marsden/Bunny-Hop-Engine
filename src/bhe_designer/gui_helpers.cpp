@@ -19,6 +19,9 @@ tgui::MenuBar::Ptr bhe::designer::default_menubar(sf::RenderWindow& window, tgui
 	active_menu->addMenuItem("Settings");
 	active_menu->addMenuItem("About");
 
+	active_menu->addMenu("Modes");
+
+
 	active_menu->connectMenuItem("File", "Load", [&gui]() {
 		std::filesystem::path p{};
 		auto v{bhe::designer::file_dialog(p, save_load_in_use, false)};
