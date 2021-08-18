@@ -13,7 +13,8 @@ namespace bhe::designer {
 struct gui_modes {
 	using EventCallback = std::function<void()>;
 	std::wstring mode_name;
-	std::vector<tgui::Widget::Ptr> to_draw;
+	[[deprecated]] std::vector<tgui::Widget::Ptr> to_draw;
+	tgui::Panel::Ptr panel;
 };
 }// namespace bhe::designer
 

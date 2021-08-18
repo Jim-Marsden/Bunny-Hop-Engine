@@ -16,10 +16,8 @@ void designerWindow::add_mode(bhe::designer::gui_modes const& gui_modes)
 	activeMenu->addMenu("Modes");
 	activeMenu->addMenuItem(gui_modes.mode_name);
 	activeMenu->connectMenuItem("Modes", gui_modes.mode_name, [&gui_modes, this]() {
-		for (auto const& modes_element : this->modes) {
-			for (auto const& element : modes_element.to_draw) gui.remove(element);
-		}
-		for (auto const& e : gui_modes.to_draw) gui.add(e);
+		for(auto const& current_mode : this->modes) gui.remove(current_mode.panel);
+		gui.add(gui_modes.panel);
 	});
 }
 designerWindow::designerWindow(sf::RenderWindow& window_in, tgui::Gui& gui_in)
