@@ -16,6 +16,8 @@ void DesignerWindow::add_mode(bhe::designer::gui_modes const& gui_modes)
 	activeMenu->addMenuItem(gui_modes.mode_name);
 	activeMenu->connectMenuItem("Modes", gui_modes.mode_name, [&gui_modes, this]() {
 		for(auto const& current_mode : this->modes) gui.remove(current_mode.panel);
+		gui_modes.panel->setSize("100%", "100% - 20");
+		gui_modes.panel->setPosition(0, 20);
 		gui.add(gui_modes.panel);
 	});
 }
