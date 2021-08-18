@@ -12,13 +12,13 @@
 
 class DesignerWindow {
 protected:
-	tgui::MenuBar::Ptr active_menu;
+	tgui::MenuBar::Ptr activeMenu;
 	sf::RenderWindow& window;
 	tgui::Gui& gui;
 	std::vector<bhe::designer::gui_modes> modes;
 
 public:
-	enum struct ExitCode {
+	enum struct exitCode {
 		Normal = 0,
 		NullFunction,
 		FunctionFailed,
@@ -36,7 +36,7 @@ public:
 
 	void add_mode(bhe::designer::gui_modes const& gui_modes);
 
-	ExitCode run();
+	exitCode run();
 };
 
 #endif//BUNNY_HOP_CORE_DESIGNERWINDOW_H
