@@ -16,6 +16,7 @@ protected:
 	sf::RenderWindow& window;
 	tgui::Gui& gui;
 	std::vector<bhe::designer::gui_modes> modes;
+	bhe::designer::gui_modes const *  active_mode;
 
 public:
 	enum struct exitCode {

@@ -7,7 +7,24 @@
 DesignerWindow::exitCode DesignerWindow::run()
 {
 	gui.add(activeMenu);
-	gui.mainLoop();
+
+	sf::Event event{};
+	while (window.isOpen())
+	{
+		while (window.pollEvent(event))
+		{
+			gui.handleEvent(event);
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		window.clear();
+		gui.draw();
+		active_mode->panel->get("canvas").clear();
+		window.display();
+	}
+
 	return exitCode::Normal;
 }
 void DesignerWindow::add_mode(bhe::designer::gui_modes const& gui_modes)
@@ -19,10 +36,11 @@ void DesignerWindow::add_mode(bhe::designer::gui_modes const& gui_modes)
 		gui_modes.panel->setSize("100%", "100% - 20");
 		gui_modes.panel->setPosition(0, 20);
 		gui.add(gui_modes.panel);
+		active_mode = &gui_modes;
 	});
 }
 DesignerWindow::DesignerWindow(sf::RenderWindow& window_in, tgui::Gui& gui_in)
-		:window{window_in}, gui{gui_in}, activeMenu{tgui::MenuBar::create()}
+		:window{window_in}, gui{gui_in}, activeMenu{tgui::MenuBar::create()}, active_mode{nullptr}
 {
 	activeMenu = bhe::designer::default_menubar(window, gui);
 }
