@@ -6,15 +6,16 @@
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc.?
 /* TODO:
- * 1) Implement Modes
- * 2) Implement A status bar
+ * 1) get designer mode setup, 100%
+ * 2) Finish a minimum save/load
+ * 3) have default designer
  */
 
 
 int main()
 {
 
-	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Hello!"};
+	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Bunny Hope Engine: Designer"};
 	tgui::Gui gui{sf_window};
 //
 	DesignerWindow window(sf_window, gui);
