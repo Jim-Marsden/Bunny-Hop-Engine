@@ -15,6 +15,8 @@ if (WIN32)
     find_package(Catch2 CONFIG REQUIRED)
     find_package(TGUI CONFIG REQUIRED)
     find_package(jsoncpp CONFIG REQUIRED)
+    find_package(imgui CONFIG REQUIRED)
+    find_package(ImGui-SFML CONFIG REQUIRED)
 
 
     set(bhe_libs
@@ -26,6 +28,8 @@ if (WIN32)
             tgui
             jsoncpp_lib
             jsoncpp_object
+            imgui::imgui
+            ImGui-SFML::ImGui-SFML
             )
 
 else()

@@ -14,7 +14,26 @@
 
 int main()
 {
+	sf::RenderWindow window{sf::VideoMode{900, 900}, "Bunny Hop Engine: Designer"};
+	sf::Event event{};
+	while (window.isOpen()) {
+		while (window.pollEvent(event)) {
+			if (event.type==sf::Event::Closed)
+				window.close();
+		}
 
+		window.pollEvent(event);
+		if (event.type==sf::Event::Closed) {
+			window.clear();
+			window.display();
+		}
+	}
+
+}
+
+[[deprecated]] int main_old()
+{
+	auto c{0};
 	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Bunny Hope Engine: Designer"};
 	tgui::Gui gui{sf_window};
 //

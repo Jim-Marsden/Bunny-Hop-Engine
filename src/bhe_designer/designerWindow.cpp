@@ -9,19 +9,28 @@ DesignerWindow::exitCode DesignerWindow::run()
 	gui.add(activeMenu);
 
 	sf::Event event{};
-	while (window.isOpen())
-	{
-		while (window.pollEvent(event))
-		{
+	while (window.isOpen()) {
+		while (window.pollEvent(event)) {
 			gui.handleEvent(event);
 
-			if (event.type == sf::Event::Closed)
+			if (event.type==sf::Event::Closed)
 				window.close();
 		}
 
 		window.clear();
 		gui.draw();
-		active_mode->panel->get("canvas").clear();
+		if (active_mode) {
+			if (active_mode->panel) {
+				auto v = active_mode->panel->get<tgui::Canvas>("canvas");
+				if (v) {
+					v->clear(sf::Color::Magenta);
+					v->display();
+					std::cout <<" FINES\n";
+				}
+				else std::cout << "hrm....\n";
+			}
+			else std::cout << "sad!\n";
+		}
 		window.display();
 	}
 
@@ -32,7 +41,7 @@ void DesignerWindow::add_mode(bhe::designer::gui_modes const& gui_modes)
 	modes.push_back(gui_modes);
 	activeMenu->addMenuItem(gui_modes.mode_name);
 	activeMenu->connectMenuItem("Modes", gui_modes.mode_name, [&gui_modes, this]() {
-		for(auto const& current_mode : this->modes) gui.remove(current_mode.panel);
+		for (auto const& current_mode : this->modes) gui.remove(current_mode.panel);
 		gui_modes.panel->setSize("100%", "100% - 20");
 		gui_modes.panel->setPosition(0, 20);
 		gui.add(gui_modes.panel);
