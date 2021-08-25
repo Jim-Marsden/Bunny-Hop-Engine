@@ -36,6 +36,7 @@ int main()
 
 		menu = bhe::designer::generate_menu(menu);
 		if(menu.exit){window.close();}
+		if(menu.demo){ImGui::ShowDemoWindow();}
 		ImGui::Begin("Hello, world!");
 		if (ImGui::Button("Look at this pretty button")) {
 			std::cout << "pretty button pressed!";
@@ -46,29 +47,4 @@ int main()
 		window.display();
 	}
 
-}
-
-[[deprecated]] int main_old()
-{
-	auto c{0};
-	sf::RenderWindow sf_window{sf::VideoMode{500, 500}, "Bunny Hope Engine: Designer"};
-	tgui::Gui gui{sf_window};
-//
-	DesignerWindow window(sf_window, gui);
-
-	bhe::designer::gui_modes mode_1{.mode_name{L"!designer \U0001f98a!"}, .panel{tgui::Panel::create()}};
-	auto mode_2{bhe::designer::create_scene_designer()};
-
-	auto l = tgui::Label::create("stuff, stuff, stuff, more stuff!");
-	l->setAutoSize(true);
-	l->setPosition(0, 40);
-	mode_1.panel->add(l);
-
-//    window.add_mode(bhe::designer::create_scene_designer());
-
-	window.add_mode(mode_1);
-	window.add_mode(mode_2);
-	window.run();
-
-	return {};
 }
