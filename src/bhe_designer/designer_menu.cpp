@@ -18,6 +18,7 @@ bhe::designer::menu_struct bhe::designer::generate_menu(const bhe::designer::men
 		if (ImGui::BeginMenu("Tools")) {
 			result.settings = ImGui::MenuItem("Settings");
 			result.about =  ImGui::MenuItem("About");
+			result.demo = ImGui::MenuItem("Demo");
 			ImGui::EndMenu();
 		}
 
