@@ -8,6 +8,7 @@
 
 #include <imgui.h>
 #include <imgui-SFML.h>
+#include <iostream>
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc.?
 /* TODO:

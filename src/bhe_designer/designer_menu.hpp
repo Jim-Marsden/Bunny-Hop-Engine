@@ -10,8 +10,9 @@ struct menu_struct {
 	short exit: 1;
 	short settings: 1;
 	short about: 1;
-	short demo : 1;
-	short mode: 4;
+	short demo: 1;
+	short sprite_editor: 1;
+	short designer_pallet: 1; // what's the word I'm looking for?
 };
 menu_struct generate_menu(menu_struct const& menu = {});
 } // namespace bhe::designer
