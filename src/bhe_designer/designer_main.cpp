@@ -5,6 +5,7 @@
 #include "scene_designer.hpp"
 
 #include "designer_menu.hpp"
+#include "designer_pallet.hpp"
 
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -37,7 +38,8 @@ int main()
 
 		menu = bhe::designer::generate_menu(menu);
 		if(menu.exit){window.close();}
-		if(menu.demo){ImGui::ShowDemoWindow();}
+		if (menu.demo){ImGui::ShowDemoWindow();}
+		if(menu.designer_pallet){bhe::designer::designer_pallet();}
 		ImGui::Begin("Hello, world!");
 		if (ImGui::Button("Look at this pretty button")) {
 			std::cout << "pretty button pressed!";

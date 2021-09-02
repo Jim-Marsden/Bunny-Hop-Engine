@@ -12,7 +12,7 @@ struct menu_struct {
 	short about: 1;
 	short demo: 1;
 	short sprite_editor: 1;
-	short designer_pallet: 1; // what's the word I'm looking for?
+	short designer_pallet: 1; // The word I was after was indeed pallet.
 };
 menu_struct generate_menu(menu_struct const& menu = {});
 } // namespace bhe::designer

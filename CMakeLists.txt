@@ -142,7 +142,7 @@ set(bhe_engine_src src/bhe_engine/engine_main.cpp)
 
 set(bhe_designer_src
         src/bhe_designer/designer_main.cpp
-        src/bhe_designer/DesignerWindow.cpp src/bhe_designer/DesignerWindow.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp src/bhe_designer/gui_modes.cpp src/bhe_designer/gui_modes.hpp src/bhe_designer/scene_designer.cpp src/bhe_designer/scene_designer.hpp src/bhe_designer/designer_menu.cpp src/bhe_designer/designer_menu.hpp)
+        src/bhe_designer/DesignerWindow.cpp src/bhe_designer/DesignerWindow.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp src/bhe_designer/gui_modes.cpp src/bhe_designer/gui_modes.hpp src/bhe_designer/scene_designer.cpp src/bhe_designer/scene_designer.hpp src/bhe_designer/designer_menu.cpp src/bhe_designer/designer_menu.hpp src/bhe_designer/designer_pallet.cpp src/bhe_designer/designer_pallet.hpp)
 
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
