@@ -113,28 +113,28 @@ set(bhe_tests_src
 set(bhe_core_src
         src/bhe_core/animationState.cpp
         src/bhe_core/animationState.hpp
-        src/bhe_core/delegate.hpp
+        src/bhe_core/Delegate.hpp
         src/bhe_core/drawable.cpp
         src/bhe_core/drawable.hpp
         src/bhe_core/entity.cpp
         src/bhe_core/entity.hpp
         src/bhe_core/Functional_Events.h
-        src/bhe_core/gameScene.cpp
+        src/bhe_core/GameScene.cpp
         src/bhe_core/Json_Parser.cpp
         src/bhe_core/Json_Parser.hpp
         src/bhe_core/movement.cpp
         src/bhe_core/movement.hpp
         src/bhe_core/parallax.cpp
         src/bhe_core/parallax.hpp
-        src/bhe_core/pipeline.hpp
+        src/bhe_core/Pipeline.hpp
         src/bhe_core/player.cpp
         src/bhe_core/player.hpp
         src/bhe_core/Print_helper.hpp
         src/bhe_core/Return_Status.hpp
         src/bhe_core/State_Machine.cpp
         src/bhe_core/State_Machine.hpp
-        src/bhe_core/systemEvent.cpp
-        src/bhe_core/systemEvent.hpp
+        src/bhe_core/SystemEvent.cpp
+        src/bhe_core/SystemEvent.hpp
         src/bhe_core/textureManager.cpp
         src/bhe_core/textureManager.hpp)
 

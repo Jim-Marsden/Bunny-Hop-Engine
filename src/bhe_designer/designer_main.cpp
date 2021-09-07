@@ -26,7 +26,7 @@ int main()
 	sf::Event event{};
 
 	bhe::designer::menu_struct menu{};
-	sf::Clock deltaClock{};
+	sf::Clock delta_clock{};
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 			ImGui::SFML::ProcessEvent(event);
@@ -34,7 +34,7 @@ int main()
 				window.close();
 		}
 
-		ImGui::SFML::Update(window, deltaClock.restart());
+		ImGui::SFML::Update(window, delta_clock.restart());
 
 		menu = bhe::designer::generate_menu(menu);
 		if(menu.exit){window.close();}

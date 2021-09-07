@@ -9,34 +9,34 @@
 
 namespace bhe {
 
-    class parallax {
-    protected:
-        sf::Sprite sprite_;
-        float offset_{0.0f};
-    public:
-        parallax() = default;
+class Parallax {
+protected:
+	sf::Sprite sprite;
+	float offset{0.0f};
+public:
+	Parallax() = default;
 
-        ~parallax() = default;
+	~Parallax() = default;
 
-        parallax(parallax &&) = default;
+	Parallax(Parallax&&) = default;
 
-        parallax(parallax const &) = default;
+	Parallax(Parallax const&) = default;
 
-        parallax &operator=(parallax &&) = default;
+	Parallax& operator=(Parallax&&) = default;
 
-        parallax &operator=(parallax const &) = default;
+	Parallax& operator=(Parallax const&) = default;
 
-        explicit parallax(sf::Texture const &Texture, float Offset_In = 1);
+	explicit Parallax(sf::Texture const& texture, float offset_in = 1);
 
-        sf::Sprite const &GetSprite() const;
+	sf::Sprite const& get_sprite() const;
 
-        void ApplyParallax(sf::Vector2f const &Player_Speed);
+	void apply_parallax(sf::Vector2f const& player_speed);
 
-        explicit operator sf::Sprite const &() const;
+	explicit operator sf::Sprite const&() const;
 
-        explicit operator sf::Drawable const *() const;
+	explicit operator sf::Drawable const*() const;
 
-    };
+};
 }// namespace bhe
 
 

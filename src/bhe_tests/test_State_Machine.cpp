@@ -15,7 +15,7 @@ TEST_CASE("bhe::State_Machine::Add no args") {
         three,
     } iteratorType;
 
-    bhe::stateMachine<iterator_type, bool(*)(), 3> stateMachine;
+    bhe::StateMachine<iterator_type, bool(*)(), 3> stateMachine;
 
     stateMachine.add(iterator_type::one, []() -> bool { return true; });
     REQUIRE(stateMachine[iterator_type::one]());
@@ -39,7 +39,7 @@ TEST_CASE("bhe::State_Machine::Add bool arg"){
         three,
     } iteratorType;
 
-    bhe::stateMachine<iterator_type, bool(*)(bool), 3> stateMachine;
+    bhe::StateMachine<iterator_type, bool(*)(bool), 3> stateMachine;
 
     stateMachine.add(iterator_type::one, [](bool val) -> bool { return val; });
     REQUIRE(stateMachine[iterator_type::one](true));
@@ -65,7 +65,7 @@ TEST_CASE("bhe::State_Machine ranged based for loop") {
         three,
     } iteratorType;
 
-    bhe::stateMachine<iterator_type, bool(*)(bool)> stateMachine;
+    bhe::StateMachine<iterator_type, bool(*)(bool)> stateMachine;
     for(auto & [key, value] : stateMachine){
         key = iterator_type::none;
         value = [](bool val){return val;};
@@ -87,7 +87,7 @@ TEST_CASE("bhe::State_Machine duplicate elements") {
         three,
     } iteratorType;
 
-    bhe::stateMachine<iterator_type, bool(*)(bool)> stateMachine;
+    bhe::StateMachine<iterator_type, bool(*)(bool)> stateMachine;
 
     REQUIRE(false);
 

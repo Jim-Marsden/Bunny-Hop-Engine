@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_DRAWABLE_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_DRAWABLE_HPP
+#ifndef BUNNY_HOP_CORE_DRAWABLE_HPP
+#define BUNNY_HOP_CORE_DRAWABLE_HPP
 
 #include <bhe_core/animationState.hpp>
 #include <bhe_core/Return_Status.hpp>
@@ -11,49 +11,45 @@
 #include <vector>
 #include <chrono>
 
-
 namespace bhe {
-    class drawable {
+class Drawable {
 
-    protected:
-        sf::Sprite sprite_;
-        //float current_frame_time_{0.0F};
+protected:
+	sf::Sprite sprite;
+	//float current_frame_time_{0.0F};
 
-        std::vector<animationState> animation_information_{};
-        std::size_t current_animation_{0};
+	std::vector<animationState> animation_information{};
+	std::size_t current_animation{0};
 
-    public:
-        drawable() = default;
+public:
+	Drawable() = default;
 
-        drawable(drawable const &) = default;
+	Drawable(Drawable const&) = default;
 
-        drawable(drawable &&) = default;
+	Drawable(Drawable&&) = default;
 
-        ~drawable() = default;
+	~Drawable() = default;
 
-        drawable &operator=(drawable &&) = default;
+	Drawable& operator=(Drawable&&) = default;
 
-        drawable &operator=(drawable const &) = default;
-        explicit operator sf::Sprite const &() const;
+	Drawable& operator=(Drawable const&) = default;
+	explicit operator sf::Sprite const&() const;
 
+	explicit Drawable(sf::Sprite const& sprite);
 
+	[[maybe_unused]] auto set_texture(sf::Texture const& texture) -> bhe::returnStatus<void>;
 
-        explicit drawable(sf::Sprite const &Sprite);
+	auto set_position(float top, float left) -> returnStatus<void>;
 
-      [[maybe_unused]] auto SetTexture(sf::Texture const &Texture) ->  bhe::returnStatus<void>;
+	auto set_origin(float top, float left) -> returnStatus<void>;
 
-        auto SetPosition(float Top, float Left)  -> returnStatus<void>;
+	auto set_texture_rect(sf::IntRect const& rect) -> returnStatus<void>;
 
-        auto SetOrigin(float Top, float Left) -> returnStatus<void>;
+	auto do_animation(std::chrono::microseconds const& time) -> returnStatus<void>;
 
-        auto SetTextureRect(sf::IntRect const &Rect) -> returnStatus<void>;
-
-
-        auto DoAnimation(std::chrono::microseconds const &Time) -> returnStatus<void>;
-
-        auto AddAnimationState(animationState const &Animation_State) -> returnStatus<void>;
-    };
+	auto add_animation_state(animationState const& animation_state) -> returnStatus<void>;
+};
 
 } // namespace bhe
 
-#endif // BUNNY_HOP_CORE_SRC_BHE_CORE_DRAWABLE_HPP
+#endif // BUNNY_HOP_CORE_DRAWABLE_HPP

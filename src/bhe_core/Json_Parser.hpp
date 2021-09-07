@@ -15,28 +15,28 @@
 
 namespace bhe::json_parsers {
 
-    [[nodiscard]] auto Load(const std::string &Json_File) -> Json::Value;
+    [[nodiscard]] auto load(const std::string &json_file) -> Json::Value;
 
-    [[nodiscard]] auto ParseParallax(Json::Value const &Root,
-                                     bhe::textureManager &Texture_Manager) -> std::vector<bhe::parallax>;
+    [[nodiscard]] auto parse_parallax(Json::Value const &root,
+                                     bhe::textureManager &texture_manager) -> std::vector<bhe::Parallax>;
 
-    [[nodiscard]] auto ParseGeometry(Json::Value const &Root) -> std::vector<sf::RectangleShape>;
+    [[nodiscard]] auto parse_geometry(Json::Value const &root) -> std::vector<sf::RectangleShape>;
 
 
     [[nodiscard]] auto
-    ParseDecorations(Json::Value const &Root, bhe::textureManager &Texture_Manager) -> std::vector<bhe::drawable>;
+    parse_decorations(Json::Value const &root, bhe::textureManager &texture_manager) -> std::vector<bhe::Drawable>;
 
-    [[nodiscard]] auto ParseEntities(Json::Value const &Root,
-                                     bhe::textureManager &Texture_Manager) -> std::vector<bhe::entity>;
+    [[nodiscard]] auto parse_entities(Json::Value const &Root,
+                                     bhe::textureManager &texture_manager) -> std::vector<bhe::Entity>;
 
     [[deprecated]] [[nodiscard]] auto
-    ParseEntity(Json::Value const &Root, bhe::textureManager &Texture_Manager) -> bhe::entity;
+    parse_entity(Json::Value const &root, bhe::textureManager &texture_manager) -> bhe::Entity;
 
     [[nodiscard]] auto
-    LoadEntity(std::string const & File_Name, bhe::textureManager &Texture_Manager) -> bhe::entity;
+    load_entity(std::string const & file_name, bhe::textureManager &texture_manager) -> bhe::Entity;
 
     [[nodiscard]] auto
-    ParsePlayer(std::string_view const &File_Name, bhe::textureManager &Texture_Manager) -> bhe::player;
+    parse_player(std::string_view const &file_name, bhe::textureManager &texture_manager) -> bhe::player;
 
 }
 

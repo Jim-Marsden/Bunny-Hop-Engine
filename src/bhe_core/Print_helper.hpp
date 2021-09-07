@@ -9,17 +9,19 @@
 #include <type_traits>
 
 namespace bhe {
-    template<class Sprite_Type>
-    void DoDraw(Sprite_Type const &Drawable, sf::RenderWindow &Window) {
-        Window.draw(static_cast<sf::Sprite>(Drawable));
-    }
+template<class Sprite_Type>
+void do_draw(Sprite_Type const& drawable, sf::RenderWindow& window)
+{
+	window.draw(static_cast<sf::Sprite>(drawable));
+}
 
-    template<>
-    void DoDraw<sf::RectangleShape>(sf::RectangleShape const &Drawable,
-                                    sf::RenderWindow &Window) {
-        Window.draw(Drawable);
+template<>
+void do_draw<sf::RectangleShape>(sf::RectangleShape const& drawable,
+		sf::RenderWindow& Window)
+{
+	Window.draw(drawable);
 
-    }
+}
 } //namespace bhe
 
 #endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP

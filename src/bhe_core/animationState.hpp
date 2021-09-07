@@ -17,7 +17,7 @@ namespace bhe {
 
     struct animationState {
 
-        const std::string name; //Animation name
+        const std::string name; //Animation get_name
 
         unsigned long long current_frame_index; // where it is on the left/right
         long current_time; //the timer as microseconds

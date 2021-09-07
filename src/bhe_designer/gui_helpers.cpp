@@ -11,7 +11,7 @@ tgui::MenuBar::Ptr bhe::designer::default_menubar(sf::RenderWindow& window, tgui
 {
 	auto active_menu = tgui::MenuBar::create();
 	active_menu->addMenu("File");
-	active_menu->addMenuItem("Load");
+	active_menu->addMenuItem("load");
 	active_menu->addMenuItem("Save");
 	active_menu->addMenuItem("Exit");
 
@@ -22,19 +22,19 @@ tgui::MenuBar::Ptr bhe::designer::default_menubar(sf::RenderWindow& window, tgui
 	active_menu->addMenu("Modes");
 
 
-	active_menu->connectMenuItem("File", "Load", [&gui]() {
+	active_menu->connectMenuItem("File", "load", [&gui]() {
 		std::filesystem::path p{};
 		auto v{bhe::designer::file_dialog(p, save_load_in_use, false)};
 		if (v) gui.add(v);
 		else
-			std::cout << "Load/Save already open!\n";
+			std::cout << "load/Save already open!\n";
 	});
 	active_menu->connectMenuItem("File", "Save", [&gui]() {
 		std::filesystem::path p{};
 		auto v{bhe::designer::file_dialog(p, save_load_in_use, true)};
 		if (v) gui.add(v);
 		else
-			std::cout << "Load/Save already open!\n";
+			std::cout << "load/Save already open!\n";
 
 		std::cout << "I need to make a save dialog :c \n";
 	});

@@ -9,28 +9,27 @@
 #include <bhe_core/textureManager.hpp>
 
 namespace bhe {
-    class player : public bhe::entity {
-    protected:
-        int jump_count_{};
-        int jump_timer_{};
-        int max_jump_timer_{5};
-        int max_jump_count_{2};
-    public:
-        explicit player(sf::Sprite const &Sprite);
+class player: public bhe::Entity {
+protected:
+	int jump_count{};
+	int jump_timer{};
+	int max_jump_timer{5};
+	int max_jump_count{2};
+public:
+	explicit player(sf::Sprite const& sprite);
 
-        explicit player(sf::Texture const &Texture);
+	explicit player(sf::Texture const& texture);
 
-        void DoJump(bool const &Should_Jump);
+	void do_jump(bool const& should_jump);
 
-        void MoveLeft(bool const &Should_Jump);
+	void move_left(bool const& should_jump);
 
-        void MoveRight(bool const &Should_Jump);
+	void move_right(bool const& should_jump);
 
-        void MoveDown(bool const &Should_Jump);
+	void move_down(bool const& should_jump);
 
-        [[nodiscard]] sf::Vector2f GetPos() const;
-    };
-
+	[[nodiscard]] sf::Vector2f get_pos() const;
+};
 
 } // namespace bhe
 

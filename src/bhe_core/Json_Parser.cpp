@@ -11,195 +11,194 @@
 #include "entity.hpp"
 
 namespace bhe::json_parsers::helpers {
-    [[nodiscard]] auto ParseMovement(Json::Value const &Root) {
+[[nodiscard]] auto parse_movement(Json::Value const& Root)
+{
 
-        struct result {
-            std::string key;
-            bhe::movement::movementDataT value;
-        };
-        return result{Root["name"].asString(), {Root["enabled"].asBool(),
-                                                Root["speed x"].asFloat(),
-                                                Root["speed y"].asFloat(),
-                                                Root["has timer"].asBool(),
-                                                Root["has timer"].asBool() ? Root["timer"].asInt() : 0,
-                                                Root["has timer"].asBool() ? Root["timer"].asInt() : 0}};
-
-    }
-
+	struct result {
+		std::string key;
+		bhe::Movement::movementDataT value;
+	};
+	return result{Root["get_name"].asString(), {Root["enabled"].asBool(),
+												Root["speed x"].asFloat(),
+												Root["speed y"].asFloat(),
+												Root["has timer"].asBool(),
+												Root["has timer"].asBool() ? Root["timer"].asInt() : 0,
+												Root["has timer"].asBool() ? Root["timer"].asInt() : 0}};
 
 }
 
-auto bhe::json_parsers::Load(std::string const &Json_File) -> Json::Value {
-    Json::Value root; // will contain the root value after parsing.
-    std::ifstream stream(Json_File, std::ifstream::binary);
-    stream >> root;
-    return root;
 }
 
-auto bhe::json_parsers::ParseParallax(Json::Value const &Root,
-                                      bhe::textureManager &Texture_Manager) -> std::vector<bhe::parallax> {
-    std::vector<bhe::parallax> parallaxes;
-    for (auto const &element : Root) {
-        // textureManager_out.operator+=()
-        parallaxes.emplace_back(
-                parallax(*(Texture_Manager += element["texture name"].asString()),
-                         element["speed"].asInt()));
-    }
-    return parallaxes;
+auto bhe::json_parsers::load(std::string const& json_file) -> Json::Value
+{
+	Json::Value root; // will contain the root value after parsing.
+	std::ifstream stream(json_file, std::ifstream::binary);
+	stream >> root;
+	return root;
 }
 
-auto bhe::json_parsers::ParseGeometry(Json::Value const &Root) -> std::vector<sf::RectangleShape> {
-    std::vector<sf::RectangleShape> geometry;
-
-    for (auto const &element : Root) {
-        geometry.emplace_back(sf::RectangleShape(
-                {element["width"].asFloat(), element["height"].asFloat()}));
-        geometry.back().setPosition(
-                {element["left"].asFloat(), element["top"].asFloat()});
-    }
-    return geometry;
+auto bhe::json_parsers::parse_parallax(Json::Value const& root,
+		bhe::textureManager& texture_manager) -> std::vector<bhe::Parallax>
+{
+	std::vector<bhe::Parallax> parallaxes;
+	for (auto const& element : root) {
+		// textureManager_out.operator+=()
+		parallaxes.emplace_back(
+				Parallax(*(texture_manager += element["texture get_name"].asString()),
+						element["speed"].asInt()));
+	}
+	return parallaxes;
 }
 
-auto bhe::json_parsers::ParseDecorations(Json::Value const &Root,
-                                         bhe::textureManager &Texture_Manager) -> std::vector<bhe::drawable> {
-    std::vector<bhe::drawable> decorations;
+auto bhe::json_parsers::parse_geometry(Json::Value const& root) -> std::vector<sf::RectangleShape>
+{
+	std::vector<sf::RectangleShape> geometry;
 
-    for (auto const &element : Root) {
-        decorations.emplace_back(
-                sf::Sprite(*(Texture_Manager += element["texture name"].asString())));
-        // foreground_decorations.back().set(element["height"].asFloat(),
-        // element["width"].asFloat())
-        decorations.back().SetPosition(element["left"].asFloat(),
-                                       element["top"].asFloat());
-    }
-
-    return decorations;
+	for (auto const& element : root) {
+		geometry.emplace_back(sf::RectangleShape(
+				{element["width"].asFloat(), element["height"].asFloat()}));
+		geometry.back().setPosition(
+				{element["left"].asFloat(), element["top"].asFloat()});
+	}
+	return geometry;
 }
 
-auto bhe::json_parsers::ParseEntity(Json::Value const &Root, bhe::textureManager &Texture_Manager) -> bhe::entity {
-    auto entity_value = Load(
-        Root["file name"]
-            .asString());
+auto bhe::json_parsers::parse_decorations(Json::Value const& root,
+		bhe::textureManager& texture_manager) -> std::vector<bhe::Drawable>
+{
+	std::vector<bhe::Drawable> decorations;
 
-    bhe::entity result_entity(*(Texture_Manager += entity_value["texture name"].asString()));
+	for (auto const& element : root) {
+		decorations.emplace_back(
+				sf::Sprite(*(texture_manager += element["texture get_name"].asString())));
+		// foreground_decorations.back().set(element["height"].asFloat(),
+		// element["width"].asFloat())
+		decorations.back().set_position(element["left"].asFloat(),
+				element["top"].asFloat());
+	}
 
-
-    result_entity.SetHealth(entity_value["health"].asInt());
-    result_entity.SetPosition(Root["spawn location"]["left"].asFloat(),
-                              Root["spawn location"]["top"].asFloat());
-    result_entity.SetTextureRect({0, 0, entity_value["sprite size"]["h"].asInt(),
-                                  entity_value["sprite size"]["w"].asInt()});
-
-    result_entity.SetOrigin(entity_value["sprite size"]["h"].asFloat() / 2.0f,
-                            entity_value["sprite size"]["w"].asFloat() / 2.0f);
-
-    for (auto const &animations : entity_value["animation"]) {
-        std::cout << animations["time per frame"].asFloat() << '\n';
-
-        result_entity.AddAnimationState({animations["name"].asString(),
-                                         animations["number of frames"].asUInt64(),
-                                         animations["animation offset"].asUInt64(),
-        animations["time per frame"].asInt()});
-    }
-    for (auto const &movement_element : entity_value["movement"]) {
-        auto[key, value] = bhe::json_parsers::helpers::ParseMovement(movement_element);
-        result_entity.AddMovement(key, value);
-    }
-    return result_entity;
+	return decorations;
 }
 
-auto
-bhe::json_parsers::LoadEntity(std::string const & File_Name, bhe::textureManager &Texture_Manager) -> bhe::entity{
-    auto entity_value = bhe::json_parsers::Load(File_Name);
+auto bhe::json_parsers::parse_entity(Json::Value const& root, bhe::textureManager& texture_manager) -> bhe::Entity
+{
+	auto entity_value = load(
+			root["file get_name"]
+					.asString());
 
-    bhe::entity result_entity(*(Texture_Manager += entity_value["texture name"].asString()));
+	bhe::Entity result_entity(*(texture_manager += entity_value["texture get_name"].asString()));
 
+	result_entity.set_health(entity_value["health"].asInt());
+	result_entity.set_position(root["spawn location"]["left"].asFloat(),
+			root["spawn location"]["top"].asFloat());
+	result_entity.set_texture_rect({0, 0, entity_value["sprite size"]["h"].asInt(),
+									entity_value["sprite size"]["w"].asInt()});
 
-    result_entity.SetHealth(entity_value["health"].asInt());
+	result_entity.set_origin(entity_value["sprite size"]["h"].asFloat()/2.0f,
+			entity_value["sprite size"]["w"].asFloat()/2.0f);
 
-    result_entity.SetTextureRect({0, 0, entity_value["sprite size"]["h"].asInt(),
-                                  entity_value["sprite size"]["w"].asInt()});
+	for (auto const& animations : entity_value["animation"]) {
+		std::cout << animations["time per frame"].asFloat() << '\n';
 
-    result_entity.SetOrigin(entity_value["sprite size"]["h"].asFloat() / 2.0f,
-                            entity_value["sprite size"]["w"].asFloat() / 2.0f);
-
-    for (auto const &animations : entity_value["animation"]) {
-
-        std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
-
-
-        long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
-        std::cout << grumpy << '\n';
-
-
-        result_entity.AddAnimationState({animations["name"].asString(),
-                                         animations["number of frames"].asUInt64(),
-                                         animations["animation offset"].asUInt64(),
-                                         grumpy});
-    }
-    for (auto const &movement_element : entity_value["movement"]) {
-        auto[key, value] = bhe::json_parsers::helpers::ParseMovement(movement_element);
-        result_entity.AddMovement(key, value);
-    }
-    return result_entity;
-}
-
-
-auto bhe::json_parsers::ParseEntities(Json::Value const &Root,
-                                      bhe::textureManager &Texture_Manager) -> std::vector<bhe::entity> {
-    std::vector<bhe::entity> local_entities;
-    for (auto const &element : Root) {
-        //std::cout << element["file name"].asString() << '\n';
-        //auto temp = Load( element["file name"].asString());
-        local_entities.emplace_back(bhe::json_parsers::LoadEntity(element["file name"].asString(), Texture_Manager));
-
-        //local_entities.push_back(ParseEntity(Load( element["file name"].asString()), Texture_manager));
-        local_entities.back().SetPosition(element["spawn location"]["top"].asFloat(), element["spawn location"]["left"].asFloat());
-    }
-    return local_entities;
+		result_entity.add_animation_state({animations["get_name"].asString(),
+										   animations["number of frames"].asUInt64(),
+										   animations["animation offset"].asUInt64(),
+										   animations["time per frame"].asInt()});
+	}
+	for (auto const& movement_element : entity_value["movement"]) {
+		auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
+		result_entity.add_movement(key, value);
+	}
+	return result_entity;
 }
 
 auto
-bhe::json_parsers::ParsePlayer(std::string_view const &File_Name,
-                               bhe::textureManager &Texture_Manager) -> bhe::player {
+bhe::json_parsers::load_entity(std::string const& file_name, bhe::textureManager& texture_manager) -> bhe::Entity
+{
+	auto entity_value = bhe::json_parsers::load(file_name);
 
+	bhe::Entity result_entity(*(texture_manager += entity_value["texture get_name"].asString()));
 
-    auto root = bhe::json_parsers::Load(std::string(File_Name));
+	result_entity.set_health(entity_value["health"].asInt());
 
-    bhe::player result(*(Texture_Manager += root["texture name"].asString()));
-    result.SetTextureRect({0, 0, root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()});
+	result_entity.set_texture_rect({0, 0, entity_value["sprite size"]["h"].asInt(),
+									entity_value["sprite size"]["w"].asInt()});
 
-    result.SetHealth(root["health"].asInt());
+	result_entity.set_origin(entity_value["sprite size"]["h"].asFloat()/2.0f,
+			entity_value["sprite size"]["w"].asFloat()/2.0f);
 
-    result.SetOrigin(root["sprite size"]["w"].asFloat() / 2.f, root["sprite size"]["h"].asFloat() / 2.f);
+	for (auto const& animations : entity_value["animation"]) {
 
+		std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
 
-    uint_fast64_t val{};
+		long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
+		std::cout << grumpy << '\n';
 
+		result_entity.add_animation_state({animations["get_name"].asString(),
+										   animations["number of frames"].asUInt64(),
+										   animations["animation offset"].asUInt64(),
+										   grumpy});
+	}
+	for (auto const& movement_element : entity_value["movement"]) {
+		auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
+		result_entity.add_movement(key, value);
+	}
+	return result_entity;
+}
 
-    for (auto const &animations : root["animation"]) {
+auto bhe::json_parsers::parse_entities(Json::Value const& Root,
+		bhe::textureManager& texture_manager) -> std::vector<bhe::Entity>
+{
+	std::vector<bhe::Entity> local_entities;
+	for (auto const& element : Root) {
+		//std::cout << element["file get_name"].asString() << '\n';
+		//auto temp = load( element["file get_name"].asString());
+		local_entities
+				.emplace_back(bhe::json_parsers::load_entity(element["file get_name"].asString(), texture_manager));
 
-        std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
+		//local_entities.push_back(parse_entity(load( element["file get_name"].asString()), Texture_manager));
+		local_entities.back()
+				.set_position(element["spawn location"]["top"].asFloat(), element["spawn location"]["left"].asFloat());
+	}
+	return local_entities;
+}
 
+auto
+bhe::json_parsers::parse_player(std::string_view const& file_name,
+		bhe::textureManager& texture_manager) -> bhe::player
+{
 
-        long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
-        std::cout << grumpy << '\n';
+	auto root = bhe::json_parsers::load(std::string(file_name));
 
+	bhe::player result(*(texture_manager += root["texture get_name"].asString()));
+	result.set_texture_rect({0, 0, root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()});
 
-        result.AddAnimationState({animations["name"].asString(),
-                                  animations["number of frames"].asUInt64(),
-                                  animations["animation offset"].asUInt64(),
-                                  grumpy});
+	result.set_health(root["health"].asInt());
 
-        //result.AddAnimationState({animations["name"].asString(), animations["number of frames"].asUInt64(), animations["animation offset"].asUInt64(),
-        // animations["time per frame"].asFloat()});
-    }
+	result.set_origin(root["sprite size"]["w"].asFloat()/2.f, root["sprite size"]["h"].asFloat()/2.f);
 
-    for (auto const &movement_element : root["movement"]) {
-        auto[key, value] = bhe::json_parsers::helpers::ParseMovement(movement_element);
-        result.AddMovement(key, value);
-    }
+	uint_fast64_t val{};
 
+	for (auto const& animations : root["animation"]) {
 
-    return result;
+		std::chrono::duration<float> fsec(animations["time per frame"].asDouble());
+
+		long grumpy = std::chrono::duration_cast<std::chrono::microseconds>(fsec).count();
+		std::cout << grumpy << '\n';
+
+		result.add_animation_state({animations["get_name"].asString(),
+									animations["number of frames"].asUInt64(),
+									animations["animation offset"].asUInt64(),
+									grumpy});
+
+		//result.add_animation_state({animations["get_name"].asString(), animations["number of frames"].asUInt64(), animations["animation offset"].asUInt64(),
+		// animations["time per frame"].asFloat()});
+	}
+
+	for (auto const& movement_element : root["movement"]) {
+		auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
+		result.add_movement(key, value);
+	}
+
+	return result;
 }

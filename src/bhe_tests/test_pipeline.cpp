@@ -4,30 +4,30 @@
 
 
 
-#include "bhe_core/pipeline.hpp"
+#include "bhe_core/Pipeline.hpp"
 
 
 #include <catch2/catch.hpp>
 
 TEST_CASE("bhe::pipeline accumilate") {
     int x{};
-    bhe::pipeline<int> pl(x);
+    bhe::Pipeline<int> pl(x);
 
     pl | [](int &x) { x += 1; };
-    REQUIRE(pl.GetValue() == 1);
+    REQUIRE(pl.get_value() == 1);
 
     pl | [](int &x) { x += 1; };
-    REQUIRE(pl.GetValue() == 2);
+    REQUIRE(pl.get_value() == 2);
 }
 
 
 
 TEST_CASE("bhe::pipeline muliple functions") {
     int x{};
-    bhe::pipeline<int> pl(x);
+    bhe::Pipeline<int> pl(x);
 
     pl | [](int & x){ x += 2;} | [](int & x){ --x;};
-    REQUIRE(pl.GetValue() == 1);
+    REQUIRE(pl.get_value() == 1);
 
 }
 

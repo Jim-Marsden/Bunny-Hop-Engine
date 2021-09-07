@@ -9,42 +9,40 @@
 #include <map>
 
 namespace bhe {
-    class movement {
+class Movement {
+
+public:
+
+	struct movementDataT {
+		//std::string_view get_name;
+		bool enabled{};
+		float x{}, y{};
+		bool enabled_timer{};
+		int timer{};
+		int max_timer{};
+		//movementDataT() = default;
 
 
-    public:
+	};
 
+protected:
+	std::map<std::string, movementDataT> movement_data;
+public:
+	void add_data(std::string const& string_view, movementDataT const& movement_data);
 
-        struct movementDataT {
-            //std::string_view name;
-            bool enabled{};
-            float x{}, y{};
-            bool enabled_timer{};
-            int timer{};
-            int max_timer{};
-            //movementDataT() = default;
+	void enable_value(std::string_view const& string_view, bool state);
 
+	[[nodiscard]] movementDataT get_data(std::string const& string_view) const;
 
-        };
+	[[nodiscard]] float calculate_x();
 
-    protected:
-        std::map<std::string, movementDataT> movement_data_;
-    public:
-        void AddData(std::string const &String_View, movementDataT const &Movement_Data);
+	[[nodiscard]] float calculate_y();
 
-        void EnableValue(std::string_view const &String_View, bool State);
+	[[nodiscard]] movementDataT calculate_x_and_y();
 
-        [[nodiscard]] movementDataT GetData(std::string const &String_View) const;
+	void reset_timer(std::string_view const& value);
 
-        [[nodiscard]] float CalculateX();
-
-        [[nodiscard]] float CalculateY();
-
-        [[nodiscard]] movementDataT CalculateXandY();
-
-        void ResetTimer(std::string_view const &Value);
-
-    };
+};
 } //namespace bhe
 
 

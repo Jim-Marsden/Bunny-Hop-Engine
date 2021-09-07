@@ -1,9 +1,9 @@
 //
-// Created by snizzfox on 7/3/20.
+// Created by Jim Marsden on 7/3/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_RETURN_STATUS_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_RETURN_STATUS_HPP
+#ifndef BUNNY_HOP_CORE_RETURN_STATUS_HPP
+#define BUNNY_HOP_CORE_RETURN_STATUS_HPP
 
 #include <string>
 
@@ -13,7 +13,7 @@ namespace bhe {
         Normal = 0,
         NotImplemented,
         Error,
-        SingleRunFunctionReran,
+		SingleRunFunctionReran,
         OutOfRange,
     };
 
@@ -40,4 +40,4 @@ namespace bhe {
 
 }
 
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_RETURN_STATUS_HPP
+#endif //BUNNY_HOP_CORE_RETURN_STATUS_HPP

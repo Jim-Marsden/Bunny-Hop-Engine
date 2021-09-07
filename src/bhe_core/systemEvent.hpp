@@ -2,10 +2,10 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_SYSTEMEVENT_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_SYSTEMEVENT_HPP
+#ifndef BUNNY_HOP_CORE_SYSTEMEVENT_HPP
+#define BUNNY_HOP_CORE_SYSTEMEVENT_HPP
 
-#include <bhe_core/delegate.hpp>
+#include <bhe_core/Delegate.hpp>
 #include <bhe_core/player.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
@@ -13,66 +13,63 @@
 
 namespace bhe {
 
+class SystemEvent {
+public:
+	enum class MtKey {
+		None,
+		Up,
+		Down,
+		Left,
+		Right,
+		Jump,
+	};
+	using KeyboardFunctionType = void(bool);
+	using KeyboardDelegateType =
+	Delegate<std::function<KeyboardFunctionType>>;
+protected:
+	std::map<sf::Keyboard::Key, MtKey> key_bindings;
+	KeyboardDelegateType move_left;
+	KeyboardDelegateType move_right;
+	KeyboardDelegateType move_up;
+	KeyboardDelegateType move_down;
 
-    class systemEvent {
-    public:
-        enum class MtKey {
-            None,
-            Up,
-            Down,
-            Left,
-            Right,
-            Jump,
-        };
-        using KeyboardFunctionType = void(bool);
-        using KeyboardDelegateType =
-        delegate<std::function<KeyboardFunctionType>>;
-    protected:
-        std::map<sf::Keyboard::Key, MtKey> key_bindings_;
-        KeyboardDelegateType move_left_;
-        KeyboardDelegateType move_right_;
-        KeyboardDelegateType move_up_;
-        KeyboardDelegateType move_down_;
+	KeyboardDelegateType move_jump;
 
+	Delegate<std::function<void()>> close;
 
-        KeyboardDelegateType move_jump_;
+	sf::RenderWindow& window;
+	//player &_player;
 
-        delegate<std::function<void()>> close_;
+public:
+	SystemEvent() = delete;
 
-        sf::RenderWindow &window_;
-        //player &_player;
+	SystemEvent(SystemEvent const&) = delete;
 
-    public:
-        systemEvent() = delete;
+	SystemEvent(SystemEvent&&) = delete;
 
-        systemEvent(systemEvent const &) = delete;
+	~SystemEvent() = default;
 
-        systemEvent(systemEvent &&) = delete;
+	SystemEvent& operator=(SystemEvent&&) = delete;
 
-        ~systemEvent() = default;
+	SystemEvent& operator=(SystemEvent const&) = delete;
 
-        systemEvent &operator=(systemEvent &&) = delete;
+	explicit SystemEvent(sf::RenderWindow& window);
 
-        systemEvent &operator=(systemEvent const &) = delete;
+	void add_move_left(std::function<KeyboardFunctionType> const& Callable);
 
-        explicit systemEvent(sf::RenderWindow &Window);
+	void add_move_right(std::function<KeyboardFunctionType> const& Callable);
 
-        void AddMoveLeft(std::function<KeyboardFunctionType> const &Callable);
+	void add_move_up(std::function<KeyboardFunctionType> const& Callable);
 
-        void AddMoveRight(std::function<KeyboardFunctionType> const &Callable);
+	void add_move_down(std::function<KeyboardFunctionType> const& Callable);
 
-        void AddMoveUp(std::function<KeyboardFunctionType> const &Callable);
+	void add_move_jump(std::function<KeyboardFunctionType> const& Callable);
 
-        void AddMoveDown(std::function<KeyboardFunctionType> const &Callable);
+	void add_close(std::function<void()> const& Callable);
 
-        void AddMoveJump(std::function<KeyboardFunctionType> const &Callable);
+	void do_events();
 
-        void AddClose(std::function<void()> const &Callable);
-
-        void DoEvents();
-
-    };
+};
 }
 
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_SYSTEMEVENT_HPP
+#endif //BUNNY_HOP_CORE_SYSTEMEVENT_HPP

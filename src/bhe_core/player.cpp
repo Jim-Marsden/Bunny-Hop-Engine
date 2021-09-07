@@ -1,5 +1,5 @@
 //
-// Created by snizzfox on 5/16/20.
+// Created by Jim Marsden on 5/16/20.
 //
 
 #include <iostream>
@@ -7,43 +7,42 @@
 #include <fstream>
 #include "player.hpp"
 
-bhe::player::player(const sf::Sprite &Sprite) : bhe::entity(Sprite) {
+bhe::player::player(const sf::Sprite &sprite) :bhe::Entity(sprite) {
 
 }
 
-bhe::player::player(const sf::Texture &Texture) : entity(Texture) {
-
-
-}
-
-void bhe::player::DoJump(const bool &Should_Jump) {
-    auto should_jump = Should_Jump;
-
-
-    movement_.EnableValue("jump", should_jump);
-    movement_.ResetTimer("jump");
+bhe::player::player(const sf::Texture &texture) :Entity(texture) {
 
 
 }
 
-void bhe::player::MoveRight(bool const &Should_Jump) {
-    movement_.EnableValue("move right", Should_Jump);
+void bhe::player::do_jump(const bool &should_jump) {
+//    auto should_jump = should_jump;
 
-}
-
-void bhe::player::MoveDown(bool const &Should_Jump) {
-    movement_.EnableValue("move down", Should_Jump);
+	movement_.enable_value("jump", should_jump);
+	movement_.reset_timer("jump");
 
 
 }
 
-void bhe::player::MoveLeft(bool const &Should_Jump) {
-    movement_.EnableValue("move left", Should_Jump);
+void bhe::player::move_right(bool const &should_jump) {
+	movement_.enable_value("move right", should_jump);
+
+}
+
+void bhe::player::move_down(bool const &should_jump) {
+	movement_.enable_value("move down", should_jump);
 
 
 }
 
-sf::Vector2f bhe::player::GetPos() const {
-    return sprite_.getPosition();
+void bhe::player::move_left(bool const &should_jump) {
+	movement_.enable_value("move left", should_jump);
+
+
+}
+
+sf::Vector2f bhe::player::get_pos() const {
+    return sprite.getPosition();
 }
 

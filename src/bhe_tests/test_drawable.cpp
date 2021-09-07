@@ -9,24 +9,23 @@
 
 
 TEST_CASE("bhe::drawable default constructor") {
-    bhe::drawable defaultCtr;
+    bhe::Drawable defaultCtr;
     REQUIRE(true);
 }
 
 
 TEST_CASE("bhe::drawable sprite constructor") {
     sf::Sprite sprite;
-    bhe::drawable defaultCtr(sprite);
+    bhe::Drawable defaultCtr(sprite);
     REQUIRE(true);
 }
 
-TEST_CASE("bhe::drawable::SetPosition") {
-    struct drawableTest : public bhe::drawable {
-        auto get_pos() { return sprite_.getPosition(); }
+TEST_CASE("bhe::drawable::set_position") {
+    struct drawableTest : public bhe::Drawable {
+        auto get_pos() { return sprite.getPosition(); }
     } drawable_test;
 
-
-    drawable_test.SetPosition(2.F, 3.F);
+	drawable_test.set_position(2.F, 3.F);
     REQUIRE(static_cast<int>(drawable_test.get_pos().x) == 2);
     REQUIRE(static_cast<int>(drawable_test.get_pos().y) == 3);
 

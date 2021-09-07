@@ -2,64 +2,70 @@
 // Created by james on 5/15/2020.
 //
 
-#include "bhe_core/gameScene.hpp"
+#include "bhe_core/GameScene.hpp"
 #include "Json_Parser.hpp"
 #include <json/json.h>
 
 #include <fstream>
 #include <iostream>
 
-std::vector<bhe::entity>
-bhe::gameScene::LoadFromJson(const std::string &Json_File,
-                             textureManager &Texture_Manager_Out) {
-    auto root = bhe::json_parsers::Load(Json_File);
+std::vector<bhe::Entity>
+bhe::GameScene::load_from_json(const std::string& json_file,
+		textureManager& texture_manager_out)
+{
+	auto root = bhe::json_parsers::load(json_file);
 
-    auto name = root["name"].asString();
+	auto name = root["get_name"].asString();
 
-  parallaxes_ = bhe::json_parsers::ParseParallax(root["background"],
-                                                 Texture_Manager_Out);
-  geometry_ = bhe::json_parsers::ParseGeometry(root["geometry"]);
-  foreground_decorations_ = bhe::json_parsers::ParseDecorations(
-      root["decoration foreground"], Texture_Manager_Out);
-  background_decorations_ = bhe::json_parsers::ParseDecorations(
-      root["decoration background"], Texture_Manager_Out);
+	parallaxes = bhe::json_parsers::parse_parallax(root["background"],
+			texture_manager_out);
+	geometry = bhe::json_parsers::parse_geometry(root["geometry"]);
+	foreground_decorations = bhe::json_parsers::parse_decorations(
+			root["decoration foreground"], texture_manager_out);
+	background_decorations = bhe::json_parsers::parse_decorations(
+			root["decoration background"], texture_manager_out);
 
-    return bhe::json_parsers::ParseEntities(root["entities"],
-                                            Texture_Manager_Out);
-
+	return bhe::json_parsers::parse_entities(root["entities"],
+			texture_manager_out);
 
 }
 
-std::string bhe::gameScene::Name() const { return name_; }
+std::string bhe::GameScene::get_name() const { return name; }
 
-decltype(bhe::gameScene::background_decorations_) const &
-bhe::gameScene::BackDecoration() const {
-    return background_decorations_;
+decltype(bhe::GameScene::background_decorations) const&
+bhe::GameScene::back_decoration() const
+{
+	return background_decorations;
 }
 
-decltype(bhe::gameScene::foreground_decorations_) const &
-bhe::gameScene::FrontDecoration() {
-    return foreground_decorations_;
+decltype(bhe::GameScene::foreground_decorations) const&
+bhe::GameScene::front_decoration()
+{
+	return foreground_decorations;
 }
 
-decltype(bhe::gameScene::geometry_) const &bhe::gameScene::GetCollisionBoxes() {
-    return geometry_;
+decltype(bhe::GameScene::geometry) const& bhe::GameScene::get_collision_boxes()
+{
+	return geometry;
 }
 
-decltype(bhe::gameScene::parallaxes_) const &
-bhe::gameScene::DoParallax(const sf::Vector2f &Location) {
-    for (auto &parallax : parallaxes_) {
-        parallax.ApplyParallax(Location);
-    }
-    return parallaxes_;
+decltype(bhe::GameScene::parallaxes) const&
+bhe::GameScene::do_parallax(const sf::Vector2f& location)
+{
+	for (auto& parallax : parallaxes) {
+		parallax.apply_parallax(location);
+	}
+	return parallaxes;
 }
 
-bhe::gameScene::gameScene(const std::string &Json_File,
-                          textureManager &Texture_Manager_Out) {
-  LoadFromJson(Json_File, Texture_Manager_Out);
+bhe::GameScene::GameScene(const std::string& json_file,
+		textureManager& texture_manager_out)
+{
+	load_from_json(json_file, texture_manager_out);
 }
 
-bool bhe::gameScene::IsActive() {
-    // TODO
-    return true;
+bool bhe::GameScene::is_active()
+{
+	// TODO
+	return true;
 }

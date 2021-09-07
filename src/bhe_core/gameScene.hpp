@@ -2,8 +2,8 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP
+#ifndef BUNNY_HOP_CORE_GAMESCENE_HPP
+#define BUNNY_HOP_CORE_GAMESCENE_HPP
 
 #include <bhe_core/textureManager.hpp>
 #include <bhe_core/parallax.hpp>
@@ -14,47 +14,45 @@
 #include <vector>
 
 namespace bhe {
-    class gameScene {
-        std::string name_;
+class GameScene {
+	std::string name;
 
-        //TODO parallax class
-        std::vector<parallax> parallaxes_;
-        std::vector<sf::RectangleShape> geometry_;
-        std::vector<bhe::drawable> background_decorations_;
-        std::vector<bhe::drawable> foreground_decorations_;
+	//TODO parallax class
+	std::vector<Parallax> parallaxes;
+	std::vector<sf::RectangleShape> geometry;
+	std::vector<bhe::Drawable> background_decorations;
+	std::vector<bhe::Drawable> foreground_decorations;
 
+public:
+	GameScene() = default;
 
-    public:
-        gameScene() = default;
+	~GameScene() = default;
 
-        ~gameScene() = default;
+	GameScene(GameScene const&) = default;
 
-        gameScene(gameScene const &) = default;
+	GameScene(GameScene&&) = default;
 
-        gameScene(gameScene &&) = default;
+	GameScene& operator=(GameScene&&) = default;
 
-        gameScene &operator=(gameScene &&) = default;
+	GameScene& operator=(GameScene const&) = default;
 
-        gameScene &operator=(gameScene const &) = default;
+	GameScene(std::string const& json_file, textureManager& texture_manager_out);
 
-        gameScene(std::string const &Json_File, textureManager &Texture_Manager_Out);
+	[[nodiscard]]decltype(parallaxes) const& do_parallax(sf::Vector2f const& location);
 
-        [[nodiscard]]decltype(parallaxes_) const &DoParallax(sf::Vector2f const &Location);
+	[[nodiscard]] decltype(geometry) const& get_collision_boxes();
 
-        [[nodiscard]] decltype(geometry_) const &GetCollisionBoxes();
+	[[nodiscard]]decltype(foreground_decorations) const& front_decoration();
 
-        [[nodiscard]]decltype(foreground_decorations_) const &FrontDecoration();
+	[[nodiscard]]decltype(background_decorations) const& back_decoration() const;
 
-        [[nodiscard]]decltype(background_decorations_) const &BackDecoration() const;
+	[[nodiscard]] std::string get_name() const;
 
-        [[nodiscard]] std::string Name() const;
+	std::vector<Entity> load_from_json(std::string const& json_file, textureManager& texture_manager_out);
 
-        std::vector<entity> LoadFromJson(std::string const &Json_File, textureManager &Texture_Manager_Out);
-
-        bool IsActive();
-    };
-
+	static bool is_active();
+};
 
 } //namespace bhe
 
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_GAMESCENE_HPP
+#endif //BUNNY_HOP_CORE_GAMESCENE_HPP

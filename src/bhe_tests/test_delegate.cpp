@@ -3,20 +3,20 @@
 //
 
 
-#include "bhe_core/delegate.hpp"
+#include "bhe_core/Delegate.hpp"
 
 #include <catch2/catch.hpp>
 
 
 TEST_CASE("bhe::delegate += operator") {
-    bhe::delegate<int (*)(int)> del;
-    REQUIRE(del.GetSize() == 0);
+    bhe::Delegate<int (*)(int)> del;
+    REQUIRE(del.get_size() == 0);
     del += [](int) { return 0; };
-    REQUIRE(del.GetSize() == 1);
+    REQUIRE(del.get_size() == 1);
 }
 
 TEST_CASE("bhe::delegate inc variable") {
-    bhe::delegate<int (*)(int &)> del;
+    bhe::Delegate<int (*)(int &)> del;
     del += [](int &val) {
         val = 1;
         return 0;
@@ -27,7 +27,7 @@ TEST_CASE("bhe::delegate inc variable") {
 }
 
 TEST_CASE("bhe::delegate return results") {
-    bhe::delegate<int (*)(int &)> del;
+    bhe::Delegate<int (*)(int &)> del;
     del += [](int &val) {
         val = 1;
         return 0;

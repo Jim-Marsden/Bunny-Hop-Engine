@@ -7,7 +7,7 @@
 
 
 TEST_CASE("bhe::animationState::GetCurrentFameIndex") {
-    /* animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
+    /* animationState(const std::string &get_name, unsigned long long const &Number_Of_Frames,
     unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 
 
@@ -15,7 +15,7 @@ TEST_CASE("bhe::animationState::GetCurrentFameIndex") {
 
     auto number_of_frames{4ull}, animation_offset{0ull};
     auto time_per_frame{5l};
-    bhe::animationState animation_state{"Name", number_of_frames, animation_offset, time_per_frame};
+    bhe::animationState animation_state{"get_name", number_of_frames, animation_offset, time_per_frame};
 
 
     REQUIRE(true);

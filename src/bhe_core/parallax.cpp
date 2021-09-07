@@ -4,30 +4,34 @@
 
 #include "parallax.hpp"
 
-bhe::parallax::parallax(const sf::Texture &Texture, float Offset_In) {
-    sprite_.setTexture(Texture);
-  offset_ = Offset_In;
+bhe::Parallax::Parallax(const sf::Texture& texture, float offset_in)
+{
+	sprite.setTexture(texture);
+	offset = offset_in;
 
 }
 
-sf::Sprite const &bhe::parallax::GetSprite() const {
-    return sprite_;
+sf::Sprite const& bhe::Parallax::get_sprite() const
+{
+	return sprite;
 }
 
-void bhe::parallax::ApplyParallax(const sf::Vector2f &Player_Speed) {
+void bhe::Parallax::apply_parallax(const sf::Vector2f& player_speed)
+{
 
-
-    sprite_.setPosition(Player_Speed.x / offset_,
-                        Player_Speed.y / offset_);
-    //TODO stuff
+	sprite.setPosition(player_speed.x/offset,
+			player_speed.y/offset);
+	//TODO stuff
 
 }
 
-bhe::parallax::operator sf::Sprite const &() const {
-    return sprite_;
+bhe::Parallax::operator sf::Sprite const&() const
+{
+	return sprite;
 }
 
-bhe::parallax::operator sf::Drawable const *() const {
-    return &sprite_;
+bhe::Parallax::operator sf::Drawable const*() const
+{
+	return &sprite;
 }
 

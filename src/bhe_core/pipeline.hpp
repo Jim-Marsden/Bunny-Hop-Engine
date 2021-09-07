@@ -1,31 +1,31 @@
 //
-// Created by snizzfox on 6/5/20.
+// Created by Jim Marsden on 6/5/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PIPELINE_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_PIPELINE_HPP
+#ifndef BUNNY_HOP_CORE_PIPELINE_HPP
+#define BUNNY_HOP_CORE_PIPELINE_HPP
 #include <functional>
 namespace bhe {
-    template<class Object_T>
-    class pipeline {
-    public:
-        pipeline() = delete;
-        constexpr explicit pipeline(Object_T &Object) : object_{Object} {}
-    protected:
-        Object_T &object_;
-    public:
-        template<class Fucntion_T>
-        constexpr pipeline& operator|(Fucntion_T function){
-            std::invoke(function, object_);
-            return *this;
-        }
+template<class Object_T>
+class Pipeline {
+public:
+	Pipeline() = delete;
+	constexpr explicit Pipeline(Object_T& object)
+			:object{object} { }
+protected:
+	Object_T& object;
+public:
+	template<class Fucntion_T>
+	constexpr Pipeline& operator|(Fucntion_T function)
+	{
+		std::invoke(function, object);
+		return *this;
+	}
 
-        [[nodiscard]] constexpr auto GetValue() const -> Object_T{return object_;}
+	[[nodiscard]] constexpr auto get_value() const -> Object_T { return object; }
 
-    };
-
-
+};
 
 } // namespace BHE
 
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PIPELINE_HPP
+#endif //BUNNY_HOP_CORE_PIPELINE_HPP
