@@ -5,22 +5,22 @@
 #include "animationState.hpp"
 #include <iostream>
 
-bhe::animationState::animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
-                                    unsigned long long const &Animation_Offset, long const &Time_Per_Frame)
-    : current_frame_index{0},
-      current_time{0}, number_of_frames{Number_Of_Frames},
-      animation_offset{Animation_Offset}, time_per_frame{Time_Per_Frame} {
+bhe::animationState::animationState(const std::string &name, unsigned long long const &number_of_frames,
+                                    unsigned long long const &animation_offset, long const &time_per_frame)
+    :current_frame_index{0},
+	 current_time{0}, number_of_frames{number_of_frames},
+	 animation_offset{animation_offset}, time_per_frame{time_per_frame} {
 
 }
 
-auto bhe::animationState::IsReadForNextFrame() -> returnStatus<bool> {
+auto bhe::animationState::is_read_for_next_frame() -> returnStatus<bool> {
 
   return {false};
 }
 
-auto bhe::animationState::CountNextFrame(std::chrono::microseconds Time_Span) -> returnStatus<void> {
+auto bhe::animationState::count_next_frame(std::chrono::microseconds time_span) -> returnStatus<void> {
 
-  current_time += Time_Span.count();
+  current_time += time_span.count();
   //std::cout << current_time << ':' <<  time_per_frame << '\n';
   if (current_time > time_per_frame) {
     current_time = 0;
@@ -32,6 +32,6 @@ auto bhe::animationState::CountNextFrame(std::chrono::microseconds Time_Span) ->
 
 }
 
-auto bhe::animationState::GetCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)> {
+auto bhe::animationState::get_current_fame_index() const -> returnStatus<decltype(current_frame_index)> {
   return {current_frame_index};
 }

@@ -27,8 +27,8 @@ auto bhe::Drawable::do_animation(std::chrono::microseconds const& time) -> bhe::
 		if (animation_information.size()>current_animation) {
 			auto& frame_data = animation_information[current_animation];
 
-			frame_data.CountNextFrame(time);
-			sprite.setTextureRect({static_cast<int>(frame_data.GetCurrentFameIndex().value)*
+			frame_data.count_next_frame(time);
+			sprite.setTextureRect({static_cast<int>(frame_data.get_current_fame_index().value)*
 					sprite.getTextureRect().width,
 								   0, sprite.getTextureRect().height,
 								   sprite.getTextureRect().width});

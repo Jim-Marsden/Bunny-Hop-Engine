@@ -19,25 +19,25 @@ bhe::player::player(const sf::Texture &texture) :Entity(texture) {
 void bhe::player::do_jump(const bool &should_jump) {
 //    auto should_jump = should_jump;
 
-	movement_.enable_value("jump", should_jump);
-	movement_.reset_timer("jump");
+	movement.enable_value("jump", should_jump);
+	movement.reset_timer("jump");
 
 
 }
 
 void bhe::player::move_right(bool const &should_jump) {
-	movement_.enable_value("move right", should_jump);
+	movement.enable_value("move right", should_jump);
 
 }
 
 void bhe::player::move_down(bool const &should_jump) {
-	movement_.enable_value("move down", should_jump);
+	movement.enable_value("move down", should_jump);
 
 
 }
 
 void bhe::player::move_left(bool const &should_jump) {
-	movement_.enable_value("move left", should_jump);
+	movement.enable_value("move left", should_jump);
 
 
 }

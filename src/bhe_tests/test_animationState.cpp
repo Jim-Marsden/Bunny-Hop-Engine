@@ -6,7 +6,7 @@
 #include <catch2/catch.hpp>
 
 
-TEST_CASE("bhe::animationState::GetCurrentFameIndex") {
+TEST_CASE("bhe::animationState::get_current_fame_index") {
     /* animationState(const std::string &get_name, unsigned long long const &Number_Of_Frames,
     unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
 

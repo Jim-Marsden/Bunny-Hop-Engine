@@ -20,18 +20,18 @@ namespace bhe {
         const std::string name; //Animation get_name
 
         unsigned long long current_frame_index; // where it is on the left/right
-        long current_time; //the timer as microseconds
+        long long current_time; //the timer as microseconds
         const unsigned long long number_of_frames; // total number of offsets on the left/right
         const unsigned long long animation_offset; // where the index is on the top/bottom
         const long time_per_frame; // how long on each frame state
 
-        animationState(const std::string &Name, unsigned long long const &Number_Of_Frames,
-                       unsigned long long const &Animation_Offset, long const &Time_Per_Frame);
+        animationState(const std::string &name, unsigned long long const &number_of_frames,
+                       unsigned long long const &animation_offset, long const &time_per_frame);
 
-        [[nodiscard]] auto IsReadForNextFrame() -> returnStatus<bool>; //
-        auto CountNextFrame(std::chrono::microseconds Time_Span) -> returnStatus<void>;
+        [[nodiscard]] auto is_read_for_next_frame() -> returnStatus<bool>; //
+        auto count_next_frame(std::chrono::microseconds time_span) -> returnStatus<void>;
 
-        [[nodiscard]] auto GetCurrentFameIndex() const -> returnStatus<decltype(current_frame_index)>;
+        [[nodiscard]] auto get_current_fame_index() const -> returnStatus<decltype(current_frame_index)>;
 
         /*animationState() = default;
         animationState(animationState const &) = default;
