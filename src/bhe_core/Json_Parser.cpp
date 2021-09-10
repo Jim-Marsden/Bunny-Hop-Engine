@@ -18,7 +18,7 @@ namespace bhe::json_parsers::helpers {
 		std::string key;
 		bhe::Movement::movementDataT value;
 	};
-	return result{Root["get_name"].asString(), {Root["enabled"].asBool(),
+	return result{Root["name"].asString(), {Root["enabled"].asBool(),
 												Root["speed x"].asFloat(),
 												Root["speed y"].asFloat(),
 												Root["has timer"].asBool(),
@@ -44,7 +44,7 @@ auto bhe::json_parsers::parse_parallax(Json::Value const& root,
 	for (auto const& element : root) {
 		// textureManager_out.operator+=()
 		parallaxes.emplace_back(
-				Parallax(*(texture_manager += element["texture get_name"].asString()),
+				Parallax(*(texture_manager += element["texture name"].asString()),
 						element["speed"].asInt()));
 	}
 	return parallaxes;
@@ -70,7 +70,7 @@ auto bhe::json_parsers::parse_decorations(Json::Value const& root,
 
 	for (auto const& element : root) {
 		decorations.emplace_back(
-				sf::Sprite(*(texture_manager += element["texture get_name"].asString())));
+				sf::Sprite(*(texture_manager += element["texture name"].asString())));
 		// foreground_decorations.back().set(element["height"].asFloat(),
 		// element["width"].asFloat())
 		decorations.back().set_position(element["left"].asFloat(),
@@ -117,7 +117,7 @@ bhe::json_parsers::load_entity(std::string const& file_name, bhe::textureManager
 {
 	auto entity_value = bhe::json_parsers::load(file_name);
 
-	bhe::Entity result_entity(*(texture_manager += entity_value["texture get_name"].asString()));
+	bhe::Entity result_entity(*(texture_manager += entity_value["texture name"].asString()));
 
 	result_entity.set_health(entity_value["health"].asInt());
 
@@ -154,7 +154,7 @@ auto bhe::json_parsers::parse_entities(Json::Value const& Root,
 		//std::cout << element["file get_name"].asString() << '\n';
 		//auto temp = load( element["file get_name"].asString());
 		local_entities
-				.emplace_back(bhe::json_parsers::load_entity(element["file get_name"].asString(), texture_manager));
+				.emplace_back(bhe::json_parsers::load_entity(element["file name"].asString(), texture_manager));
 
 		//local_entities.push_back(parse_entity(load( element["file get_name"].asString()), Texture_manager));
 		local_entities.back()
@@ -170,7 +170,7 @@ bhe::json_parsers::parse_player(std::string_view const& file_name,
 
 	auto root = bhe::json_parsers::load(std::string(file_name));
 
-	bhe::player result(*(texture_manager += root["texture get_name"].asString()));
+	bhe::player result(*(texture_manager += root["texture name"].asString()));
 	result.set_texture_rect({0, 0, root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()});
 
 	result.set_health(root["health"].asInt());
@@ -198,6 +198,7 @@ bhe::json_parsers::parse_player(std::string_view const& file_name,
 	for (auto const& movement_element : root["movement"]) {
 		auto[key, value] = bhe::json_parsers::helpers::parse_movement(movement_element);
 		result.add_movement(key, value);
+		std::cout << "Player movment :" << key << '\t' << value.x << ":" << value.y << '\n';
 	}
 
 	return result;
