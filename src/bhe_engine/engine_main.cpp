@@ -53,16 +53,16 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 				 static_cast<float>(Window.getSize().y)}));
 
 		for (auto const& bg : game_scene.do_parallax(Player.get_pos()))
-			bhe::draw(bg, Window);
+			bhe::do_draw(bg, Window);
 
 		for (auto const& element : game_scene.back_decoration())
-			bhe::draw(element, Window);
+			bhe::do_draw(element, Window);
 
 		for (auto const& element : game_scene.front_decoration())
-			bhe::draw(element, Window);
+			bhe::do_draw(element, Window);
 
 		for (auto const& shape : game_scene.get_collision_boxes())
-			bhe::draw(shape, Window);
+			bhe::do_draw(shape, Window);
 
 		auto update_lambda = [&game_scene, &time_check](bhe::Entity& e) {
 			if (auto const &[collision_direction, exit_code, exit_status] = e
@@ -78,7 +78,7 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 		update_lambda(Player);
 
 		entities.erase(std::remove_if(entities.begin(), entities.end(),
-						[](bhe::Entity const& Entity) { return Entity.get_health().value<1; }),
+						[](bhe::Entity const& Entity) { return Entity.get_health()<1; }),
 				entities.end());
 
 
@@ -86,7 +86,7 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 
 
 		for (auto& entity : entities) {
-			DoDraw(entity, Window);
+			bhe::do_draw(entity, Window);
 		}
 		do_draw(Player, Window);
 
