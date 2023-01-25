@@ -42,11 +42,11 @@ TEST_CASE("bhe::entity::is_colliding"){
   shapes.emplace_back(sf::RectangleShape(sf::Vector2f(64, 64)));
 
   auto collision_directions_result = herp_derp.is_colliding(shapes);
-  REQUIRE(collision_directions_result.exit_normal);
-  REQUIRE(collision_directions_result.value.top);
-  REQUIRE(collision_directions_result.value.bottom);
-  REQUIRE(collision_directions_result.value.left);
-  REQUIRE(collision_directions_result.value.right);
+  CHECK(collision_directions_result.exit_normal);
+  CHECK(collision_directions_result.value.top);
+  CHECK(collision_directions_result.value.bottom);
+  CHECK(collision_directions_result.value.left);
+  CHECK(collision_directions_result.value.right);
 
 /*
   shapes.back().move(60, 60);

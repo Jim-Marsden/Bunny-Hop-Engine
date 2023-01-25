@@ -89,6 +89,6 @@ TEST_CASE("bhe::State_Machine duplicate elements") {
 
     bhe::StateMachine<iterator_type, bool(*)(bool)> stateMachine;
 
-    REQUIRE(false);
+    CHECK(false);
 
 }
