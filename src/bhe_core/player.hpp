@@ -2,11 +2,10 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP
+#pragma once
 
-#include <bhe_core/entity.hpp>
-#include <bhe_core/textureManager.hpp>
+#include "bhe_core/entity.hpp"
+#include "bhe_core/textureManager.hpp"
 
 namespace bhe {
 class player: public bhe::Entity {
@@ -32,6 +31,3 @@ public:
 };
 
 } // namespace bhe
-
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PLAYER_HPP

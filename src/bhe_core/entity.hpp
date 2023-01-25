@@ -2,13 +2,12 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_ENTITY_HPP
-#define BUNNY_HOP_CORE_ENTITY_HPP
+#pragma once
 
-#include <bhe_core/drawable.hpp>
-#include <bhe_core/movement.hpp>
-#include <bhe_core/State_Machine.hpp>
-#include <bhe_core/Return_Status.hpp>
+#include "bhe_core/drawable.hpp"
+#include "bhe_core/movement.hpp"
+#include "bhe_core/State_Machine.hpp"
+#include "bhe_core/Return_Status.hpp"
 
 #include <functional>
 
@@ -97,5 +96,3 @@ namespace bhe {
                                   std::function<void(Entity &)> const &at_zero);
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_ENTITY_HPP

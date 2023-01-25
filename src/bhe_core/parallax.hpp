@@ -2,10 +2,10 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
+
 
 namespace bhe {
 
@@ -38,6 +38,3 @@ public:
 
 };
 }// namespace bhe
-
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PARALLAX_HPP

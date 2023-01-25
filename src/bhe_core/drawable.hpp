@@ -2,11 +2,10 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_DRAWABLE_HPP
-#define BUNNY_HOP_CORE_DRAWABLE_HPP
+#pragma once
 
-#include <bhe_core/animationState.hpp>
-#include <bhe_core/Return_Status.hpp>
+#include "bhe_core/animationState.hpp"
+#include "bhe_core/Return_Status.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <chrono>
@@ -51,5 +50,3 @@ public:
 };
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_DRAWABLE_HPP

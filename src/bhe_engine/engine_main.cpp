@@ -128,7 +128,7 @@ int main(int Argc, char** Argv)
 	};
 
 	sf::RenderWindow window(
-			sf::VideoMode(1900, 900),
+			sf::VideoMode({1900, 900}),
 			"Moonilight Trails~");
 	bhe::SystemEvent system_event(window);
 	window.setKeyRepeatEnabled(false);

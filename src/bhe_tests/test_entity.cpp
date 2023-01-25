@@ -2,7 +2,7 @@
 // Created by snizzfox on 8/1/20.
 //
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <bhe_core/entity.hpp>
 #include <algorithm>
 #include <memory>

@@ -19,8 +19,8 @@ sf::Sprite const& bhe::Parallax::get_sprite() const
 void bhe::Parallax::apply_parallax(const sf::Vector2f& player_speed)
 {
 
-	sprite.setPosition(player_speed.x/offset,
-			player_speed.y/offset);
+	sprite.setPosition({player_speed.x/offset,
+						player_speed.y/offset});
 	//TODO stuff
 
 }

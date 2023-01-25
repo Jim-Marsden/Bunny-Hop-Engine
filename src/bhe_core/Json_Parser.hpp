@@ -2,15 +2,15 @@
 // Created by snizzfox on 5/30/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP
+#pragma once
 
 #include <json/value.h>
-#include <bhe_core/parallax.hpp>
-#include <bhe_core/textureManager.hpp>
-#include <bhe_core/drawable.hpp>
-#include <bhe_core/entity.hpp>
-#include <bhe_core/player.hpp>
+
+#include "bhe_core/parallax.hpp"
+#include "bhe_core/textureManager.hpp"
+#include "bhe_core/drawable.hpp"
+#include "bhe_core/entity.hpp"
+#include "bhe_core/player.hpp"
 
 
 namespace bhe::json_parsers {
@@ -39,5 +39,3 @@ namespace bhe::json_parsers {
     parse_player(std::string_view const &file_name, bhe::textureManager &texture_manager) -> bhe::player;
 
 }
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_JSON_PARSER_HPP

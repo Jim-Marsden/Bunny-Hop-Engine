@@ -2,8 +2,7 @@
 // Created by Jim Marsden on 8/7/20.
 //
 
-#ifndef BUNNY_HOP_CORE_FUNCTIONAL_EVENTS_H
-#define BUNNY_HOP_CORE_FUNCTIONAL_EVENTS_H
+#pragma once
 
 #include <algorithm>
 #include <concepts>
@@ -29,5 +28,3 @@ auto entity_update(iterator_type begin, iterator_type  end, iterator_type functi
   std::for_each(begin, end, function);
   }
 } // namespace bhe
-
-#endif //BUNNY_HOP_CORE_FUNCTIONAL_EVENTS_H

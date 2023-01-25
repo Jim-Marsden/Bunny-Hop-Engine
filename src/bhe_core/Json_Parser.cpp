@@ -4,9 +4,10 @@
 
 #include <fstream>
 #include <bhe_core/Json_Parser.hpp>
-#include <json/json.h>
 #include <iostream>
 #include <chrono>
+
+#include <json/json.h>
 
 #include "entity.hpp"
 
@@ -33,6 +34,7 @@ auto bhe::json_parsers::load(std::string const& json_file) -> Json::Value
 {
 	Json::Value root; // will contain the root value after parsing.
 	std::ifstream stream(json_file, std::ifstream::binary);
+//	root << stream;
 	stream >> root;
 	return root;
 }
@@ -91,8 +93,8 @@ auto bhe::json_parsers::parse_entity(Json::Value const& root, bhe::textureManage
 	result_entity.set_health(entity_value["health"].asInt());
 	result_entity.set_position(root["spawn location"]["left"].asFloat(),
 			root["spawn location"]["top"].asFloat());
-	result_entity.set_texture_rect({0, 0, entity_value["sprite size"]["h"].asInt(),
-									entity_value["sprite size"]["w"].asInt()});
+	result_entity.set_texture_rect({{0, 0}, {entity_value["sprite size"]["h"].asInt(),
+											 entity_value["sprite size"]["w"].asInt()}});
 
 	result_entity.set_origin(entity_value["sprite size"]["h"].asFloat()/2.0f,
 			entity_value["sprite size"]["w"].asFloat()/2.0f);
@@ -121,8 +123,8 @@ bhe::json_parsers::load_entity(std::string const& file_name, bhe::textureManager
 
 	result_entity.set_health(entity_value["health"].asInt());
 
-	result_entity.set_texture_rect({0, 0, entity_value["sprite size"]["h"].asInt(),
-									entity_value["sprite size"]["w"].asInt()});
+	result_entity.set_texture_rect({{0, 0}, {entity_value["sprite size"]["h"].asInt(),
+											 entity_value["sprite size"]["w"].asInt()}});
 
 	result_entity.set_origin(entity_value["sprite size"]["h"].asFloat()/2.0f,
 			entity_value["sprite size"]["w"].asFloat()/2.0f);
@@ -171,7 +173,7 @@ bhe::json_parsers::parse_player(std::string_view const& file_name,
 	auto root = bhe::json_parsers::load(std::string(file_name));
 
 	bhe::player result(*(texture_manager += root["texture name"].asString()));
-	result.set_texture_rect({0, 0, root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()});
+	result.set_texture_rect({{0, 0}, {root["sprite size"]["w"].asInt(), root["sprite size"]["h"].asInt()}});
 
 	result.set_health(root["health"].asInt());
 
