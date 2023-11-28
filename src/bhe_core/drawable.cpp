@@ -18,7 +18,9 @@ auto bhe::Drawable::set_position(float top, float left) -> bhe::returnStatus<voi
 
 bhe::Drawable::operator sf::Sprite const&() const { return sprite; }
 
-bhe::Drawable::Drawable(const sf::Sprite& sprite_in) { sprite = sprite_in; }
+bhe::Drawable::Drawable(const sf::Sprite& sprite_in): sprite(sprite_in){  }
+
+bhe::Drawable::Drawable(sf::Texture const& texture) : sprite(texture){}
 
 auto bhe::Drawable::do_animation(std::chrono::microseconds const& time) -> bhe::returnStatus<void>
 {

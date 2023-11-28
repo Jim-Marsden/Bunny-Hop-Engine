@@ -14,7 +14,7 @@ protected:
 	sf::Sprite sprite;
 	float offset{0.0f};
 public:
-	Parallax() = default;
+	Parallax() = delete;
 
 	~Parallax() = default;
 

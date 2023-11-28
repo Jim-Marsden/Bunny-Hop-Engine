@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "bhe_core/textureManager.hpp"
-#include "bhe_core/parallax.hpp"
-#include "bhe_core/drawable.hpp"
-#include "bhe_core/entity.hpp"
+#include "textureManager.hpp"
+#include "parallax.hpp"
+#include "drawable.hpp"
+#include "entity.hpp"
 
 #include <SFML/Graphics.hpp>
 

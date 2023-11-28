@@ -46,15 +46,15 @@ set(bhe_core_src
 
 add_executable(bhe_engine src/bhe_engine/engine_main.cpp ${bhe_core_src})
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_engine SFML::Graphics jsoncpp_lib)
+target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt)
 
 add_executable(bhe_designer src/bhe_designer/designer_main.cpp ${bhe_core_src})
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_engine SFML::Graphics jsoncpp_lib)
+target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json)
 
 add_executable(bhe_tests ${bhe_tests_src} ${bhe_core_src})
 target_include_directories(bhe_tests PRIVATE ${PROJECT_SOURCE_DIR}/src/bhe_core ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_tests SFML::Graphics jsoncpp_lib Catch2::Catch2WithMain)
+target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain)
 
 set_target_properties(bhe_engine bhe_designer bhe_tests
         PROPERTIES

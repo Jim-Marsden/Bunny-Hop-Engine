@@ -4,7 +4,6 @@
 
 #include "gameScene.hpp"
 #include "Json_Parser.hpp"
-#include <json/json.h>
 
 #include <fstream>
 #include <iostream>
@@ -15,7 +14,7 @@ bhe::GameScene::load_from_json(const std::string& json_file,
 {
 	auto root = bhe::json_parsers::load(json_file);
 
-	auto name = root["get_name"].asString();
+	auto name = root["get_name"];
 
 	parallaxes = bhe::json_parsers::parse_parallax(root["background"],
 			texture_manager_out);

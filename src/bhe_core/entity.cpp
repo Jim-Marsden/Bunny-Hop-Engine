@@ -9,7 +9,7 @@ bhe::Entity::Entity(const sf::Sprite& sprite)
 		:Drawable(sprite), speed{} { }
 
 bhe::Entity::Entity(const sf::Texture& texture)
-		:speed{}
+		:speed{}, Drawable(texture)
 {
 	sprite.setTexture(texture);
 }

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "bhe_core/animationState.hpp"
-#include "bhe_core/Return_Status.hpp"
+#include "animationState.hpp"
+#include "Return_Status.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <chrono>
@@ -21,7 +21,7 @@ protected:
 	std::size_t current_animation{0};
 
 public:
-	Drawable() = default;
+	Drawable() = delete;
 
 	Drawable(Drawable const&) = default;
 
@@ -35,6 +35,8 @@ public:
 	explicit operator sf::Sprite const&() const;
 
 	explicit Drawable(sf::Sprite const& sprite);
+
+	explicit Drawable(sf::Texture const &texture);
 
 	[[maybe_unused]] auto set_texture(sf::Texture const& texture) -> bhe::returnStatus<void>;
 

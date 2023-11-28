@@ -5,7 +5,7 @@
 #ifndef BUNNY_HOP_CORE_GUI_MODES_HPP
 #define BUNNY_HOP_CORE_GUI_MODES_HPP
 #include <vector>
-#include <TGUI/TGUI.hpp>
+// #include <TGUI/TGUI.hpp>
 #include <functional>
 #include <string>
 

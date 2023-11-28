@@ -8,22 +8,21 @@
 #include <catch2/catch_test_macros.hpp>
 
 
-TEST_CASE("bhe::drawable default constructor") {
-    bhe::Drawable defaultCtr;
-    REQUIRE(true);
-}
 
 
 TEST_CASE("bhe::drawable sprite constructor") {
-    sf::Sprite sprite;
+    sf::Texture empty_texture;
+    sf::Sprite sprite{empty_texture};
     bhe::Drawable defaultCtr(sprite);
     REQUIRE(true);
 }
 
 TEST_CASE("bhe::drawable::set_position") {
+    sf::Texture empty_texture;
     struct drawableTest : public bhe::Drawable {
         auto get_pos() { return sprite.getPosition(); }
-    } drawable_test;
+        explicit drawableTest(sf::Texture const &texture) : Drawable(texture){}
+    } drawable_test{empty_texture};
 
 	drawable_test.set_position(2.F, 3.F);
     REQUIRE(static_cast<int>(drawable_test.get_pos().x) == 2);

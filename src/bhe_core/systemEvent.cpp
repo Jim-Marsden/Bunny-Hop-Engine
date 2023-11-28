@@ -3,9 +3,9 @@
 //
 
 #include <iostream>
-#include <bhe_core/SystemEvent.hpp>
+#include "bhe_core/systemEvent.hpp"
 
-#include <json/json.h>
+#include "Json_Parser.hpp"
 #include <fstream>
 #include <string_view>
 
@@ -100,16 +100,16 @@ sf::Keyboard::Key get_key(std::string_view const& Key)
 
 std::map<sf::Keyboard::Key, bhe::SystemEvent::MtKey> load_controls(std::string const& Json_File)
 {
-	Json::Value root;   // will contain the root value after parsing.
+	bhe::json_parsers::json_t root;   // will contain the root value after parsing.
 	std::ifstream stream(Json_File, std::ifstream::binary);
 	stream >> root;
 
 	return {
-			{get_key(root["Up"].asString()), bhe::SystemEvent::MtKey::Up},
-			{get_key(root["Down"].asString()), bhe::SystemEvent::MtKey::Down},
-			{get_key(root["Left"].asString()), bhe::SystemEvent::MtKey::Left},
-			{get_key(root["Right"].asString()), bhe::SystemEvent::MtKey::Right},
-			{get_key(root["Jump"].asString()), bhe::SystemEvent::MtKey::Jump},
+			{get_key(static_cast<std::string>(root["Up"])), bhe::SystemEvent::MtKey::Up},
+			{get_key(static_cast<std::string>(root["Down"])), bhe::SystemEvent::MtKey::Down},
+			{get_key(static_cast<std::string>(root["Left"])), bhe::SystemEvent::MtKey::Left},
+			{get_key(static_cast<std::string>(root["Right"])), bhe::SystemEvent::MtKey::Right},
+			{get_key(static_cast<std::string>(root["Jump"])), bhe::SystemEvent::MtKey::Jump},
 	};
 
 }

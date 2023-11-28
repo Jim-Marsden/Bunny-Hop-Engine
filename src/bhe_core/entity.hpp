@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "bhe_core/drawable.hpp"
-#include "bhe_core/movement.hpp"
-#include "bhe_core/State_Machine.hpp"
-#include "bhe_core/Return_Status.hpp"
+#include "drawable.hpp"
+#include "movement.hpp"
+#include "State_Machine.hpp"
+#include "Return_Status.hpp"
 
 #include <functional>
 

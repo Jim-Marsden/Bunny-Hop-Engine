@@ -4,12 +4,7 @@
 
 #include "parallax.hpp"
 
-bhe::Parallax::Parallax(const sf::Texture& texture, float offset_in)
-{
-	sprite.setTexture(texture);
-	offset = offset_in;
-
-}
+bhe::Parallax::Parallax(const sf::Texture& texture, float offset_in) : sprite(texture), offset(offset_in){}
 
 sf::Sprite const& bhe::Parallax::get_sprite() const
 {

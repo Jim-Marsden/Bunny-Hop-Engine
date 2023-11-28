@@ -6,12 +6,12 @@ set(SFML_REPO https://github.com/SFML/SFML.git)
 include(FetchContent)
 
 FetchContent_Declare(
-        sfml
-        GIT_REPOSITORY ${SFML_REPO}
-        GIT_TAG        ${SFML_BRANCH}
+        SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git #${SFML_REPO}
+        GIT_TAG        master #${SFML_BRANCH}
 )
 
-FetchContent_MakeAvailable(sfml)
+FetchContent_MakeAvailable(SFML)
 
 fetchContent_Declare(ImGui
         GIT_REPOSITORY https://github.com/ocornut/imgui
@@ -21,10 +21,24 @@ FetchContent_GetProperties(ImGui SOURCE_DIR IMGUI_DIR)
 
 FetchContent_Declare(
         jsoncpp
-        GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
         GIT_TAG master)
 
 FetchContent_MakeAvailable(jsoncpp)
+
+FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+        GIT_TAG master)
+
+FetchContent_MakeAvailable(fmt)
+
+#[[FetchContent_Declare(
+        jsoncpp
+        GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+        GIT_TAG master)
+
+FetchContent_MakeAvailable(jsoncpp)]]
 
 set(IMGUI_SFML_FIND_SFML OFF)
 FetchContent_Declare(ImGui-SFML

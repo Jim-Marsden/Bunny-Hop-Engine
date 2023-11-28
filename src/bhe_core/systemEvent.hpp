@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <bhe_core/Delegate.hpp>
+#include <bhe_core/delegate.hpp>
 #include <bhe_core/player.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
