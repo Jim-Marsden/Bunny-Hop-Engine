@@ -30,6 +30,14 @@ namespace bhe::json_parsers::helpers
 
 		fmt::println("name: {}, enabled: {}, x: {}, y: {}",name,  enabled, x, y);
 		bool has_timer = Root.at("has timer");
+		int timer{};
+		int max_timer{};
+
+		if(has_timer)
+		{
+			timer = Root.at("timer");
+			max_timer = Root.at("max timer");
+		}
 
 
 		return result{
@@ -38,10 +46,8 @@ namespace bhe::json_parsers::helpers
 				x,
 				y,
 				has_timer,
-				0, // static_cast<bool>(Root["has timer"] ) ? static_cast<int>(Root["timer"]) : 0,
-				0
-			}
-		}; //static_cast<bool>(Root["has timer"]) ? static_cast<int>(Root["max timer"]) : 0}};
+				 timer,
+				max_timer}};
 	}
 }
 

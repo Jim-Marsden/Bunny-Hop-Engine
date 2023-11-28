@@ -14,7 +14,7 @@
       "time per frame": 0.5
     },
     {
-      "name": "walk",
+      "name": "walk ",
       "number of frames": 5,
       "animation offset": 1,
       "time per frame": 0.5
@@ -34,86 +34,35 @@
       "enabled": false,
       "has timer": true,
       "timer": 45,
-      "max timer": 100
+      "max timer": 0
     },
     {
       "name": "move left",
       "speed y": 0.0,
       "speed x": -10.0,
       "enabled": false,
-      "has timer": false,
-      "timer": 0,
-      "max timer": 100
-
+      "has timer": false
     },
     {
       "name": "move right",
       "speed y": 0.0,
       "speed x": 10.0,
       "enabled": false,
-      "has timer": false,
-      "timer": 0,
-      "max timer": 100
-
+      "has timer": false
     },
     {
       "name": "move down",
       "speed y": 5.0,
       "speed x": 0.0,
       "enabled": false,
-      "has timer": false,
-      "timer": 0,
-      "max timer": 100
+      "has timer": false
     },
     {
       "name": "gravity",
       "speed y": 10.0,
       "speed x": 0.0,
       "enabled": true,
-      "timer": 0,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "has timer": false,
-      "max timer": 100
+      "has timer": false
     }
   ]
 }
