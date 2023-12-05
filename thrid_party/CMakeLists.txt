@@ -1,5 +1,5 @@
 
-set(SFML_BRANCH master)
+set(SFML_BRANCH event_api)
 set(SFML_REPO https://github.com/SFML/SFML.git)
 
 
@@ -7,8 +7,8 @@ include(FetchContent)
 
 FetchContent_Declare(
         SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git #${SFML_REPO}
-        GIT_TAG        master #${SFML_BRANCH}
+        GIT_REPOSITORY ${SFML_REPO}
+        GIT_TAG        ${SFML_BRANCH}
 )
 
 FetchContent_MakeAvailable(SFML)

@@ -51,16 +51,14 @@ namespace bhe::json_parsers::helpers
 	}
 }
 
-auto bhe::json_parsers::load(std::string const& json_file) -> json_t
+auto bhe::json_parsers::jp_v0_0_0::load(std::string const& json_file) -> json_t
 {
-	json_t root; // will contain the root value after parsing.
-	std::ifstream stream(json_file);
-	//	root << stream;
-	stream >> root;
-	return root;
+	json_t json{};
+	std::ifstream(json_file) >> json;
+	return json;
 }
 
-auto bhe::json_parsers::parse_parallax(json_t const& root,
+auto bhe::json_parsers::jp_v0_0_0::parse_parallax(json_t const& root,
                                        bhe::textureManager& texture_manager) -> std::vector<bhe::Parallax>
 {
 	std::vector<bhe::Parallax> parallaxes;
@@ -74,7 +72,7 @@ auto bhe::json_parsers::parse_parallax(json_t const& root,
 	return parallaxes;
 }
 
-auto bhe::json_parsers::parse_geometry(json_t const& root) -> std::vector<sf::RectangleShape>
+auto bhe::json_parsers::jp_v0_0_0::parse_geometry(json_t const& root) -> std::vector<sf::RectangleShape>
 {
 	std::vector<sf::RectangleShape> geometry;
 
@@ -88,7 +86,7 @@ auto bhe::json_parsers::parse_geometry(json_t const& root) -> std::vector<sf::Re
 	return geometry;
 }
 
-auto bhe::json_parsers::parse_decorations(json_t const& root,
+auto bhe::json_parsers::jp_v0_0_0::parse_decorations(json_t const& root,
                                           bhe::textureManager& texture_manager) -> std::vector<bhe::Drawable>
 {
 	std::vector<bhe::Drawable> decorations;
@@ -106,7 +104,7 @@ auto bhe::json_parsers::parse_decorations(json_t const& root,
 	return decorations;
 }
 
-auto bhe::json_parsers::parse_entity(json_t const& root, bhe::textureManager& texture_manager) -> bhe::Entity
+auto bhe::json_parsers::jp_v0_0_0::parse_entity(json_t const& root, bhe::textureManager& texture_manager) -> bhe::Entity
 {
 	auto entity_value = load(
 		root["file get_name"]);
@@ -146,7 +144,7 @@ auto bhe::json_parsers::parse_entity(json_t const& root, bhe::textureManager& te
 }
 
 auto
-bhe::json_parsers::load_entity(std::string const& file_name, bhe::textureManager& texture_manager) -> bhe::Entity
+bhe::json_parsers::jp_v0_0_0::load_entity(std::string const& file_name, bhe::textureManager& texture_manager) -> bhe::Entity
 {
 	auto entity_value = bhe::json_parsers::load(file_name);
 
@@ -186,7 +184,7 @@ bhe::json_parsers::load_entity(std::string const& file_name, bhe::textureManager
 	return result_entity;
 }
 
-auto bhe::json_parsers::parse_entities(json_t const& Root,
+auto bhe::json_parsers::jp_v0_0_0::parse_entities(json_t const& Root,
                                        bhe::textureManager& texture_manager) -> std::vector<bhe::Entity>
 {
 	std::vector<bhe::Entity> local_entities;
@@ -205,7 +203,7 @@ auto bhe::json_parsers::parse_entities(json_t const& Root,
 }
 
 auto
-bhe::json_parsers::parse_player(std::string_view const& file_name,
+bhe::json_parsers::jp_v0_0_0::parse_player(std::string_view const& file_name,
                                 bhe::textureManager& texture_manager) -> bhe::player
 {
 	auto root = bhe::json_parsers::load(std::string(file_name));
