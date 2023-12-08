@@ -38,7 +38,7 @@ public:
      * time points.
      * \return (durration)(m_time_point1 - m_time_point2)
      */
-    [[nodiscard]] constexpr duration delta() noexcept;
+    [[nodiscard]] constexpr duration delta() const noexcept;
 
     // Mainly used for unit testing, don't rely on these.
     [[nodiscard]] time_point const &get_first_time_point() noexcept;
@@ -49,7 +49,7 @@ private:
     time_point m_time_point2{m_time_point1};
 };
 
-    constexpr delta_time::duration delta_time::delta() noexcept
+    constexpr delta_time::duration delta_time::delta() const noexcept
     {
         return std::chrono::duration_cast<duration>(m_time_point1 - m_time_point2);
     }
@@ -58,7 +58,5 @@ private:
     {
         m_time_point2 = std::exchange(m_time_point1, new_first);
     }
-
-
 } // bhe
 
