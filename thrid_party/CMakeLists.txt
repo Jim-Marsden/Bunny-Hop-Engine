@@ -15,7 +15,7 @@ FetchContent_MakeAvailable(SFML)
 
 fetchContent_Declare(ImGui
         GIT_REPOSITORY https://github.com/ocornut/imgui
-        GIT_TAG v1.87)
+        GIT_TAG v1.89)
 FetchContent_MakeAvailable(ImGui)
 FetchContent_GetProperties(ImGui SOURCE_DIR IMGUI_DIR)
 

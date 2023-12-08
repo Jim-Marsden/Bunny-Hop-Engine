@@ -14,7 +14,12 @@ set(bhe_tests_src
         src/bhe_tests/test_main.cpp
         src/bhe_tests/test_pipeline.cpp
         src/bhe_tests/test_ReturnStatus.cpp
-        src/bhe_tests/test_State_Machine.cpp)
+        src/bhe_tests/test_State_Machine.cpp
+        src/bhe_core/delta_time.cpp
+        src/bhe_core/delta_time.hpp
+        src/bhe_core/delta_time.hpp
+        src/bhe_core/delta_time.cpp
+        src/bhe_tests/test_delta_time.cpp)
 
 set(bhe_core_src
         ${PROJECT_SOURCE_DIR}/src/bhe_core/animationState.cpp
@@ -42,9 +47,11 @@ set(bhe_core_src
         ${PROJECT_SOURCE_DIR}/src/bhe_core/SystemEvent.cpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/SystemEvent.hpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/textureManager.cpp
-        ${PROJECT_SOURCE_DIR}/src/bhe_core/textureManager.hpp)
+        ${PROJECT_SOURCE_DIR}/src/bhe_core/textureManager.hpp
+        src/bhe_core/delta_time.cpp)
 
-add_executable(bhe_engine src/bhe_engine/engine_main.cpp ${bhe_core_src})
+add_executable(bhe_engine src/bhe_engine/engine_main.cpp ${bhe_core_src}
+        src/bhe_core/delta_time.hpp)
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
 target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt)
 
@@ -54,7 +61,7 @@ target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json)
 
 add_executable(bhe_tests ${bhe_tests_src} ${bhe_core_src})
 target_include_directories(bhe_tests PRIVATE ${PROJECT_SOURCE_DIR}/src/bhe_core ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain)
+target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain fmt::fmt)
 
 set_target_properties(bhe_engine bhe_designer bhe_tests
         PROPERTIES
