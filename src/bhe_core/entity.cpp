@@ -110,6 +110,25 @@ void bhe::Entity::move(std::chrono::microseconds const & speed)
 	sprite.move(
 			{calculate_directions(movement.calculate_x(), speed), calculate_directions(movement.calculate_y(), speed)});
 }
+
+void bhe::Entity::move(delta_time const& delta_time)
+{
+	auto const dt = delta_time.delta();
+	auto calculate_directions = [](auto const& speed,
+			std::chrono::duration<double, std::milli> const& time_local) -> float {
+		auto const result = (static_cast<int>( speed)!=0) ? ((time_local.count())/speed) : 0;
+		std::cout << result << '\n';
+		return result;
+	};
+
+	sprite.move({movement.calculate_x() * dt.count(),
+		movement.calculate_y() * dt.count()
+	});
+
+	// sprite.move(
+	// 		{calculate_directions(movement.calculate_x(), speed), calculate_directions(movement.calculate_y(), speed)});
+
+}
 //
 //void bhe::Entity::move(std::chrono::duration<double> const& time)
 //{

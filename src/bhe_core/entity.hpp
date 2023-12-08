@@ -13,6 +13,8 @@
 
 #include <chrono>
 
+#include "delta_time.hpp"
+
 namespace bhe {
     class Entity : public bhe::Drawable {
     public:
@@ -68,7 +70,10 @@ namespace bhe {
 
         returnStatus<void> do_gravity(bool doit);
 
-        void move(std::chrono::microseconds const &speed);
+        [[deprecated]] void move(std::chrono::microseconds const &speed);
+
+        void move(delta_time const & delta_time);
+
 
         void add_speed(sf::Vector2f const &speed_in);
 
