@@ -46,6 +46,29 @@ auto bhe::Drawable::do_animation(std::chrono::microseconds const& time) -> bhe::
 
 }
 
+auto bhe::Drawable::do_animation(delta_time const& time) -> returnStatus<void>
+{
+	if (!animation_information.empty()) {
+
+		if (animation_information.size()>current_animation) {
+			auto& frame_data = animation_information[current_animation];
+
+			frame_data.count_next_frame(std::chrono::duration_cast<std::chrono::milliseconds>(time.delta()));
+
+			auto const x = static_cast<int>(frame_data.get_current_fame_index().value)*
+					sprite.getTextureRect().width;
+
+			sprite.setTextureRect({{static_cast<int>(x), 0},
+								   {sprite.getTextureRect().height, sprite.getTextureRect().width}});
+
+			return {};
+		}
+		return {false, bhe::ReturnStatusCode::OutOfRange};
+
+	}
+	return {false, bhe::ReturnStatusCode::Error};
+}
+
 auto bhe::Drawable::set_texture_rect(const sf::IntRect& rect) -> bhe::returnStatus<void>
 {
 	sprite.setTextureRect(rect);

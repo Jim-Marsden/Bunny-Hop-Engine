@@ -10,6 +10,8 @@
 #include <vector>
 #include <chrono>
 
+#include "delta_time.hpp"
+
 namespace bhe {
 class Drawable {
 
@@ -38,6 +40,8 @@ public:
 
 	explicit Drawable(sf::Texture const &texture);
 
+	// TODO remove all the returnStatus<void>
+
 	[[maybe_unused]] auto set_texture(sf::Texture const& texture) -> bhe::returnStatus<void>;
 
 	auto set_position(float top, float left) -> returnStatus<void>;
@@ -48,7 +52,11 @@ public:
 
 	auto do_animation(std::chrono::microseconds const& time) -> returnStatus<void>;
 
+	auto do_animation(delta_time const& time) -> returnStatus<void>;
+
 	auto add_animation_state(animationState const& animation_state) -> returnStatus<void>;
+
+
 };
 
 } // namespace bhe

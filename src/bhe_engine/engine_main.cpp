@@ -8,10 +8,13 @@
 #include <iostream>
 
 #include <chrono>
+#include <thread>
+
+#include "bhe_core/delta_time.hpp"
 
 std::string_view do_game_update(std::string_view const& Scene_file,
-		bhe::textureManager& Texture_manager, sf::RenderWindow& Window, bhe::player& Player,
-		bhe::SystemEvent& System_event)
+                                bhe::textureManager& Texture_manager, sf::RenderWindow& Window, bhe::player& Player,
+                                bhe::SystemEvent& System_event)
 {
 
 	uint_fast64_t frame_counter{};
@@ -30,12 +33,14 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 	auto time_start_loop = std::chrono::steady_clock::now();
 	auto movement_time_point = std::chrono::steady_clock::now();
 
-	std::chrono::duration<double> time_check = time_start_loop-movement_time_point;
+	// std::chrono::duration<double> time_check = time_start_loop-movement_time_point;
+
+	bhe::delta_time delta_time;
 
 	while (game_scene.is_active() && Window.isOpen()) {
 		//boost::timer::auto_cpu_timer timer;
 
-		time_start_loop = std::chrono::steady_clock::now();
+		// time_start_loop = std::chrono::steady_clock::now();
 
 		//std::cout << std::chrono::duration_cast<std::chrono::microseconds >(time_check).count() << '\n';
 
@@ -64,13 +69,13 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 		for (auto const& shape : game_scene.get_collision_boxes())
 			bhe::do_draw(shape, Window);
 
-		auto update_lambda = [&game_scene, &time_check](bhe::Entity& e) {
+		auto update_lambda = [&game_scene, time_check = delta_time](bhe::Entity& e) {
 			if (auto const &[collision_direction, exit_code, exit_status] = e
 						.is_colliding(game_scene.get_collision_boxes());
 					exit_code && exit_status==bhe::ReturnStatusCode::Normal) {
 				e.do_gravity(collision_direction.bottom);
-				e.move(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
-				e.do_animation(std::chrono::duration_cast<std::chrono::microseconds>(time_check));
+				e.move(time_check);
+				e.do_animation(time_check);
 			}
 		};
 		std::for_each(entities.begin(), entities.end(), update_lambda);
@@ -91,7 +96,9 @@ std::string_view do_game_update(std::string_view const& Scene_file,
 		do_draw(Player, Window);
 
 		Window.display();
-		time_check = std::chrono::steady_clock::now()-time_start_loop;
+		delta_time.shift();
+		// std::this_thread::sleep_for(std::chrono::seconds(1));
+		// time_check = std::chrono::steady_clock::now()-time_start_loop;
 		//movement_time_point = std::chrono::steady_clock::now();//time_start_loop;
 		//time_start_loop = std::chrono::system_clock::now();
 	}
@@ -133,7 +140,7 @@ int main(int Argc, char** Argv)
 	bhe::SystemEvent system_event(window);
 	window.setKeyRepeatEnabled(false);
 
-	//window.setFramerateLimit(60);
+	// window.setFramerateLimit(30);
 
 	system_event.add_move_left(move_player_left);
 	system_event.add_move_right(move_player_right);
