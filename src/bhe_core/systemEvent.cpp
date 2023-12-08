@@ -159,7 +159,7 @@ void bhe::SystemEvent::do_events()
 {
 	sf::Event event{};
 	sf::FloatRect visible_area{};
-	std::map<sf::Keyboard::Key, MtKey>::iterator iterator;
+	// std::map<sf::Keyboard::Key, MtKey>::iterator iterator;
 	while (window.pollEvent(event))
 	{
 		switch (event.getType())
@@ -186,6 +186,7 @@ void bhe::SystemEvent::do_events()
 				auto event_key = event.get<sf::Event::KeyPressed>();
 				// case sf::Event::KeyPressed:if (key_bindings.find(event.key.code)==key_bindings.end()) break;
 
+				if(not key_bindings.contains(event_key.code)) return;
 				if (key_bindings.at(event_key.code) == MtKey::Up)
 				{
 					move_up(true);
@@ -211,6 +212,8 @@ void bhe::SystemEvent::do_events()
 		case sf::Event::Type::KeyReleased:
 			{
 				auto event_presskey = event.get<sf::Event::KeyReleased>();
+				if(not key_bindings.contains(event_presskey.code)) return;
+
 				if (key_bindings.at(event_presskey.code) == MtKey::Up)
 				{
 					move_up(false);
