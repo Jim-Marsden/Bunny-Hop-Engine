@@ -2,8 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP
+#pragma once
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -47,6 +46,3 @@ namespace bhe {
 
     };
 } //namespace bhe
-
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_TEXTUREMANAGER_HPP

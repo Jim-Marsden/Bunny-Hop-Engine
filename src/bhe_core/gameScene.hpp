@@ -2,13 +2,14 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_GAMESCENE_HPP
-#define BUNNY_HOP_CORE_GAMESCENE_HPP
+#pragma once
 
-#include <bhe_core/textureManager.hpp>
-#include <bhe_core/parallax.hpp>
-#include <bhe_core/drawable.hpp>
-#include <bhe_core/entity.hpp>
+#include "textureManager.hpp"
+#include "parallax.hpp"
+#include "drawable.hpp"
+#include "entity.hpp"
+
+#include <SFML/Graphics.hpp>
 
 #include <string>
 #include <vector>
@@ -54,5 +55,3 @@ public:
 };
 
 } //namespace bhe
-
-#endif //BUNNY_HOP_CORE_GAMESCENE_HPP

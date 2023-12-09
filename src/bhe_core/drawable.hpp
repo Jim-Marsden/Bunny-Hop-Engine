@@ -2,14 +2,15 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_DRAWABLE_HPP
-#define BUNNY_HOP_CORE_DRAWABLE_HPP
+#pragma once
 
-#include <bhe_core/animationState.hpp>
-#include <bhe_core/Return_Status.hpp>
+#include "animationState.hpp"
+#include "Return_Status.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <chrono>
+
+#include "delta_time.hpp"
 
 namespace bhe {
 class Drawable {
@@ -22,7 +23,7 @@ protected:
 	std::size_t current_animation{0};
 
 public:
-	Drawable() = default;
+	Drawable() = delete;
 
 	Drawable(Drawable const&) = default;
 
@@ -37,6 +38,10 @@ public:
 
 	explicit Drawable(sf::Sprite const& sprite);
 
+	explicit Drawable(sf::Texture const &texture);
+
+	// TODO remove all the returnStatus<void>
+
 	[[maybe_unused]] auto set_texture(sf::Texture const& texture) -> bhe::returnStatus<void>;
 
 	auto set_position(float top, float left) -> returnStatus<void>;
@@ -47,9 +52,11 @@ public:
 
 	auto do_animation(std::chrono::microseconds const& time) -> returnStatus<void>;
 
+	auto do_animation(delta_time const& time) -> returnStatus<void>;
+
 	auto add_animation_state(animationState const& animation_state) -> returnStatus<void>;
+
+
 };
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_DRAWABLE_HPP

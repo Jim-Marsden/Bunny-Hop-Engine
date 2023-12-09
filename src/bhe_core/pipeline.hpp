@@ -2,8 +2,7 @@
 // Created by Jim Marsden on 6/5/20.
 //
 
-#ifndef BUNNY_HOP_CORE_PIPELINE_HPP
-#define BUNNY_HOP_CORE_PIPELINE_HPP
+#pragma once
 #include <functional>
 namespace bhe {
 template<class Object_T>
@@ -27,5 +26,3 @@ public:
 };
 
 } // namespace BHE
-
-#endif //BUNNY_HOP_CORE_PIPELINE_HPP

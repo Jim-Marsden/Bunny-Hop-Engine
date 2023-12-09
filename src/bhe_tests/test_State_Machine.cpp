@@ -2,7 +2,7 @@
 // Created by james on 8/11/2020.
 //
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <bhe_core/State_Machine.hpp>
 
@@ -89,6 +89,6 @@ TEST_CASE("bhe::State_Machine duplicate elements") {
 
     bhe::StateMachine<iterator_type, bool(*)(bool)> stateMachine;
 
-    REQUIRE(false);
+    CHECK(false);
 
 }

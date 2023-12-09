@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <json/json.h>
 #include <fstream>
 #include "player.hpp"
 

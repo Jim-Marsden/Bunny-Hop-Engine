@@ -9,7 +9,7 @@ bhe::Entity::Entity(const sf::Sprite& sprite)
 		:Drawable(sprite), speed{} { }
 
 bhe::Entity::Entity(const sf::Texture& texture)
-		:speed{}
+		:speed{}, Drawable(texture)
 {
 	sprite.setTexture(texture);
 }
@@ -22,7 +22,7 @@ bhe::Entity::is_colliding(const std::vector<sf::RectangleShape>& rectangles)
 	collision_direction.left = collision_direction.right = collision_direction.top = collision_direction
 			.bottom = false;
 	for (auto const& element : rectangles) {
-		if (sprite.getGlobalBounds().intersects(element.getGlobalBounds())) {
+		if (sprite.getGlobalBounds().findIntersection(element.getGlobalBounds())){//.intersects(element.getGlobalBounds())) {
 			if (is_colliding_top(element).value) {
 				//sprite_.setPosition(sprite_.getPosition().x, element.getGlobalBounds().top - sprite_.getOrigin().y);
 //				auto move_amount_test = ((sprite.getGlobalBounds().height+sprite.getGlobalBounds().top))
@@ -31,17 +31,17 @@ bhe::Entity::is_colliding(const std::vector<sf::RectangleShape>& rectangles)
 
 				collision_direction.top = true;
 			}
-			if (is_colliding_down(element).value) {
-				sprite.move(0, element.getGlobalBounds().top-(sprite.getGlobalBounds().top+sprite.getGlobalBounds()
-						.height));//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
-				collision_direction.bottom = true;
-			}
-			if (is_colliding_left(element).value) {
-				collision_direction.left = true;
-			}
-			if (is_colliding_right(element).value) {
-				collision_direction.right = true;
-			}
+//			if (is_colliding_down(element).value) {
+//				sprite.move(0, element.getGlobalBounds().top-(sprite.getGlobalBounds().top+sprite.getGlobalBounds()
+//						.height));//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
+//				collision_direction.bottom = true;
+//			}
+//			if (is_colliding_left(element).value) {
+//				collision_direction.left = true;
+//			}
+//			if (is_colliding_right(element).value) {
+//				collision_direction.right = true;
+//			}
 		}
 	}
 	return {collision_direction};
@@ -107,7 +107,27 @@ void bhe::Entity::move(std::chrono::microseconds const & speed)
 		return result;
 	};
 
-	sprite.move(calculate_directions(movement.calculate_x(), speed), calculate_directions(movement.calculate_y(), speed));
+	sprite.move(
+			{calculate_directions(movement.calculate_x(), speed), calculate_directions(movement.calculate_y(), speed)});
+}
+
+void bhe::Entity::move(delta_time const& delta_time)
+{
+	auto const dt = delta_time.delta();
+	auto calculate_directions = [](auto const& speed,
+			std::chrono::duration<double, std::milli> const& time_local) -> float {
+		auto const result = (static_cast<int>( speed)!=0) ? ((time_local.count())/speed) : 0;
+		std::cout << result << '\n';
+		return result;
+	};
+
+	sprite.move({movement.calculate_x() * dt.count(),
+		movement.calculate_y() * dt.count()
+	});
+
+	// sprite.move(
+	// 		{calculate_directions(movement.calculate_x(), speed), calculate_directions(movement.calculate_y(), speed)});
+
 }
 //
 //void bhe::Entity::move(std::chrono::duration<double> const& time)

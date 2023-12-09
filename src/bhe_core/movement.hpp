@@ -2,8 +2,7 @@
 // Created by snizzfox on 5/29/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP
+#pragma once
 
 #include <string_view>
 #include <map>
@@ -44,6 +43,3 @@ public:
 
 };
 } //namespace bhe
-
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_MOVEMENT_HPP

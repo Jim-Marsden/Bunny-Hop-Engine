@@ -25,7 +25,8 @@
       "name": "gravity",
       "speed y": 5.0,
       "speed x": 0.0,
-      "enabled": true
+      "enabled": true,
+      "has timer": false
     }
   ]
 }

@@ -2,13 +2,12 @@
 // Created by snizzfox on 5/23/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP
+#pragma once
 
 #include <string>
 #include <chrono>
 
-#include <bhe_core/Return_Status.hpp>
+#include "bhe_core/Return_Status.hpp"
 
 
 //TODO redo animation state, where it supports floating points and not based on a solid game tick
@@ -43,5 +42,3 @@ namespace bhe {
     };
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_SRC_BHE_CORE_ANIMATIONSTATE_HPP

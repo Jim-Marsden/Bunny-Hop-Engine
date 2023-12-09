@@ -33,7 +33,8 @@
       "speed x": 0.0,
       "enabled": false,
       "has timer": true,
-      "timer": 45
+      "timer": 45,
+      "max timer": 0
     },
     {
       "name": "move left",
