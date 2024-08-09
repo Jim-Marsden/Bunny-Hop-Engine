@@ -4,10 +4,10 @@
 
 
 
-#include "bhe_core/Pipeline.hpp"
+#include "bhe_core/pipeline.hpp"
 
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("bhe::pipeline accumilate") {
     int x{};

@@ -1,19 +1,8 @@
 # BHE — Bunny Hop Engine
+A JSON parser that turns JSON files into games!
 
-Said Bee
-
-BHE is a game engine that parses JSON files to make a playable experience. Complete with Designer, and portable engine binary. It currently supports Windows - amd64, Linux – amd64, aarch64. Currently relies on SFML for rendering, and inputs. TGUI for the graphical-user-interface.
-
+It comes in two parts, a desinger and the engine itself. It creates and parses JSON files. The goal is to have a full-featured 2D engine that anyone can use without knowing how to code.
 ## Authors
-
-- Jim Marsden — main developer
-- Insula — OS X developer
-
-## Download
-
-Coming Soon
-
-## Install
-
-Coming Soon
-
+- Jim Marsden
+- Insula
+- TremblingOdin

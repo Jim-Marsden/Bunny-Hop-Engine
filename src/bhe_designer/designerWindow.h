@@ -7,16 +7,20 @@
 
 #include "gui_modes.hpp"
 
-#include <TGUI/TGUI.hpp>
+
+// #include <TGUI/TGUI.hpp>
+#include <SFML/Graphics.hpp>
+#include <imgui.h>
+#include <imgui-SFML.h>
 #include <string>
 
 class DesignerWindow {
 protected:
-	tgui::MenuBar::Ptr activeMenu;
-	sf::RenderWindow& window;
-	tgui::Gui& gui;
-	std::vector<bhe::designer::gui_modes> modes;
-	bhe::designer::gui_modes const *  active_mode;
+//	tgui::MenuBar::Ptr activeMenu;
+//	sf::RenderWindow& window;
+//	tgui::Gui& gui;
+//	std::vector<bhe::designer::gui_modes> modes;
+//	bhe::designer::gui_modes const *  active_mode;
 
 public:
 	enum struct exitCode {
@@ -27,7 +31,7 @@ public:
 
 	DesignerWindow() = delete;
 //    designerWindow(unsigned int x, unsigned int y, std::string title);
-	DesignerWindow(sf::RenderWindow& window_in, tgui::Gui& gui);
+//	DesignerWindow(sf::RenderWindow& window_in, tgui::Gui& gui);
 	DesignerWindow(DesignerWindow const&) = delete;
 	DesignerWindow(DesignerWindow&&) = delete;
 

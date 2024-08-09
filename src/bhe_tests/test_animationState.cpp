@@ -3,7 +3,7 @@
 //
 
 #include <bhe_core/animationState.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 
 TEST_CASE("bhe::animationState::get_current_fame_index") {

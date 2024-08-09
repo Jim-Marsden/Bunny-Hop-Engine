@@ -6,9 +6,9 @@
 
 #include "designer_menu.hpp"
 #include "designer_pallet.hpp"
-
-#include <imgui.h>
-#include <imgui-SFML.h>
+//
+//#include <imgui.h>
+//#include <>
 #include <iostream>
 
 //Do I really want to keep this style of ugly gui interface? All the objects, etc.?
@@ -18,36 +18,64 @@
  * 3) have default designer
  */
 
+
+#include <imgui.h>
+#include <imgui-SFML.h>
+#include <SFML/Graphics.hpp>
+
 int main()
 {
-	sf::RenderWindow window{sf::VideoMode{900, 900}, "Bunny Hop Engine: Designer"};
-	ImGui::SFML::Init(window);
 
-	sf::Event event{};
+	sf::RenderWindow window{sf::VideoMode{{900U, 900U}}, "BHE Designer"};
+	sf::Clock deltatime;
+	if(ImGui::SFML::Init(window)){
+		while(window.isOpen()){
+			while(auto const event = window.pollEvent()){
+				ImGui::SFML::ProcessEvent(window, event.value());
+				if(event->is<sf::Event::Closed>()){
+					window.close();
+				}
+			}
+			window.clear();
+			ImGui::SFML::Update(window, deltatime.getElapsedTime());
+			ImGui::Begin("test");
+			if(ImGui::Button("Hai"))std::cout << "yay!~\n";
+			ImGui::End();
+			ImGui::EndFrame();
+			ImGui::SFML::Render(window);
+			window.display();
 
-	bhe::designer::menu_struct menu{};
-	sf::Clock delta_clock{};
-	while (window.isOpen()) {
-		while (window.pollEvent(event)) {
-			ImGui::SFML::ProcessEvent(event);
-			if (event.type==sf::Event::Closed)
-				window.close();
 		}
-
-		ImGui::SFML::Update(window, delta_clock.restart());
-
-		menu = bhe::designer::generate_menu(menu);
-		if(menu.exit){window.close();}
-		if (menu.demo){ImGui::ShowDemoWindow();}
-		if(menu.designer_pallet){bhe::designer::designer_pallet();}
-		ImGui::Begin("Hello, world!");
-		if (ImGui::Button("Look at this pretty button")) {
-			std::cout << "pretty button pressed!";
-		}
-		ImGui::End();
-		window.clear();
-		ImGui::SFML::Render(window);
-		window.display();
 	}
+
+//	sf::RenderWindow window{sf::VideoMode{900, 900}, "Bunny Hop Engine: Designer"};
+//	ImGui::SFML::Init(window);
+//
+//	sf::Event event{};
+//
+//	bhe::designer::menu_struct menu{};
+//	sf::Clock delta_clock{};
+//	while (window.isOpen()) {
+//		while (window.pollEvent(event)) {
+//			ImGui::SFML::ProcessEvent(event);
+//			if (event.type==sf::Event::Closed)
+//				window.close();
+//		}
+//
+//		ImGui::SFML::Update(window, delta_clock.restart());
+//
+//		menu = bhe::designer::generate_menu(menu);
+//		if(menu.exit){window.close();}
+//		if (menu.demo){ImGui::ShowDemoWindow();}
+//		if(menu.designer_pallet){bhe::designer::designer_pallet();}
+//		ImGui::Begin("Hello, world!");
+//		if (ImGui::Button("Look at this pretty button")) {
+//			std::cout << "pretty button pressed!";
+//		}
+//		ImGui::End();
+//		window.clear();
+//		ImGui::SFML::Render(window);
+//		window.display();
+//	}
 
 }

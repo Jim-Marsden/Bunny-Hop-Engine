@@ -2,8 +2,7 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef BUNNY_HOP_CORE_DELEGATE_HPP
-#define BUNNY_HOP_CORE_DELEGATE_HPP
+#pragma once
 
 #include <tuple>
 #include <vector>
@@ -73,5 +72,3 @@ constexpr auto Delegate<Callable_T>::operator()(Args_T&& ... args) const
 }
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_DELEGATE_HPP

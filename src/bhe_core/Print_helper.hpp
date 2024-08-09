@@ -2,8 +2,7 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP
-#define BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <type_traits>
@@ -23,5 +22,3 @@ void do_draw<sf::RectangleShape>(sf::RectangleShape const& drawable,
 
 }
 } //namespace bhe
-
-#endif //BUNNY_HOP_CORE_SRC_BHE_CORE_PRINT_HELPER_HPP

@@ -2,8 +2,7 @@
 // Created by Jim Marsden on 5/22/20.
 //
 
-#ifndef BUNNY_HOP_CORE_STATE_MACHINE_HPP
-#define BUNNY_HOP_CORE_STATE_MACHINE_HPP
+#pragma once
 
 #include <utility>
 #include <array>
@@ -103,4 +102,3 @@ namespace bhe {
 
 
 } //namespace bhe
-#endif //BUNNY_HOP_CORE_STATE_MACHINE_HPP

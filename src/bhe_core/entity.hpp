@@ -2,17 +2,18 @@
 // Created by james on 5/15/2020.
 //
 
-#ifndef BUNNY_HOP_CORE_ENTITY_HPP
-#define BUNNY_HOP_CORE_ENTITY_HPP
+#pragma once
 
-#include <bhe_core/drawable.hpp>
-#include <bhe_core/movement.hpp>
-#include <bhe_core/State_Machine.hpp>
-#include <bhe_core/Return_Status.hpp>
+#include "drawable.hpp"
+#include "movement.hpp"
+#include "State_Machine.hpp"
+#include "Return_Status.hpp"
 
 #include <functional>
 
 #include <chrono>
+
+#include "delta_time.hpp"
 
 namespace bhe {
     class Entity : public bhe::Drawable {
@@ -69,7 +70,10 @@ namespace bhe {
 
         returnStatus<void> do_gravity(bool doit);
 
-        void move(std::chrono::microseconds const &speed);
+        [[deprecated]] void move(std::chrono::microseconds const &speed);
+
+        void move(delta_time const & delta_time);
+
 
         void add_speed(sf::Vector2f const &speed_in);
 
@@ -97,5 +101,3 @@ namespace bhe {
                                   std::function<void(Entity &)> const &at_zero);
 
 } // namespace bhe
-
-#endif // BUNNY_HOP_CORE_ENTITY_HPP

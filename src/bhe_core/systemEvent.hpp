@@ -2,11 +2,10 @@
 // Created by snizzfox on 5/16/20.
 //
 
-#ifndef BUNNY_HOP_CORE_SYSTEMEVENT_HPP
-#define BUNNY_HOP_CORE_SYSTEMEVENT_HPP
+#pragma once
 
-#include <bhe_core/Delegate.hpp>
-#include <bhe_core/player.hpp>
+#include "delegate.hpp"
+#include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>
@@ -71,5 +70,3 @@ public:
 
 };
 }
-
-#endif //BUNNY_HOP_CORE_SYSTEMEVENT_HPP
