@@ -32,10 +32,10 @@ auto bhe::Drawable::do_animation(std::chrono::microseconds const& time) -> bhe::
 			frame_data.count_next_frame(time);
 
 			auto const x = static_cast<int>(frame_data.get_current_fame_index().value)*
-					sprite.getTextureRect().width;
+					sprite.getTextureRect().size.x;
 
 			sprite.setTextureRect({{static_cast<int>(x), 0},
-								   {sprite.getTextureRect().height, sprite.getTextureRect().width}});
+								   {sprite.getTextureRect().size}});
 
 			return {};
 		}
@@ -56,10 +56,10 @@ auto bhe::Drawable::do_animation(delta_time const& time) -> returnStatus<void>
 			frame_data.count_next_frame(std::chrono::duration_cast<std::chrono::milliseconds>(time.delta()));
 
 			auto const x = static_cast<int>(frame_data.get_current_fame_index().value)*
-					sprite.getTextureRect().width;
+					sprite.getTextureRect().size.x;
 
 			sprite.setTextureRect({{static_cast<int>(x), 0},
-								   {sprite.getTextureRect().height, sprite.getTextureRect().width}});
+								   sprite.getTextureRect().size});
 
 			return {};
 		}

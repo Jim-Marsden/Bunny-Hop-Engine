@@ -28,7 +28,7 @@ set(bhe_core_src
         ${PROJECT_SOURCE_DIR}/src/bhe_core/drawable.cpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/drawable.hpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/entity.cpp
-        ${PROJECT_SOURCE_DIR}/ src/bhe_core/entity.hpp
+        ${PROJECT_SOURCE_DIR}/src/bhe_core/entity.hpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/Functional_Events.h
         ${PROJECT_SOURCE_DIR}/src/bhe_core/GameScene.cpp
         ${PROJECT_SOURCE_DIR}/src/bhe_core/Json_Parser.cpp
@@ -53,15 +53,15 @@ set(bhe_core_src
 add_executable(bhe_engine src/bhe_engine/engine_main.cpp ${bhe_core_src}
         src/bhe_core/delta_time.hpp)
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt)
+target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt  ImGui-SFML::ImGui-SFML)
 
 add_executable(bhe_designer src/bhe_designer/designer_main.cpp ${bhe_core_src})
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json)
+target_link_libraries(bhe_designer SFML::Graphics nlohmann_json::nlohmann_json ImGui-SFML::ImGui-SFML fmt::fmt)
 
 add_executable(bhe_tests ${bhe_tests_src} ${bhe_core_src})
 target_include_directories(bhe_tests PRIVATE ${PROJECT_SOURCE_DIR}/src/bhe_core ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain fmt::fmt)
+target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain ImGui fmt::fmt ImGui-SFML::ImGui-SFML)
 
 set_target_properties(bhe_engine bhe_designer bhe_tests
         PROPERTIES

@@ -11,9 +11,6 @@
 
 namespace bhe::designer {
 struct gui_modes {
-	using EventCallback = std::function<void()>;
-	std::wstring mode_name;
-	tgui::Panel::Ptr panel;
 };
 }// namespace bhe::designer
 

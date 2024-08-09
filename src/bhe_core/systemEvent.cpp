@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "bhe_core/systemEvent.hpp"
+#include "systemEvent.hpp"
 
 #include "Json_Parser.hpp"
 #include <fstream>
@@ -12,61 +12,61 @@
 sf::Keyboard::Key get_key(std::string_view const& Key)
 {
 	if (Key == "A" || Key == "a")
-		return sf::Keyboard::A;
+		return sf::Keyboard::Key::A;
 	else if (Key == "B" || Key == "b")
-		return sf::Keyboard::B;
+		return sf::Keyboard::Key::B;
 	else if (Key == "C" || Key == "c")
-		return sf::Keyboard::C;
+		return sf::Keyboard::Key::C;
 	else if (Key == "D" || Key == "d")
-		return sf::Keyboard::D;
+		return sf::Keyboard::Key::D;
 	else if (Key == "E" || Key == "e")
-		return sf::Keyboard::E;
+		return sf::Keyboard::Key::E;
 	else if (Key == "F" || Key == "f")
-		return sf::Keyboard::F;
+		return sf::Keyboard::Key::F;
 	else if (Key == "G" || Key == "g")
-		return sf::Keyboard::G;
+		return sf::Keyboard::Key::G;
 	else if (Key == "H" || Key == "h")
-		return sf::Keyboard::H;
+		return sf::Keyboard::Key::H;
 	else if (Key == "I" || Key == "i")
-		return sf::Keyboard::I;
+		return sf::Keyboard::Key::I;
 	else if (Key == "J" || Key == "j")
-		return sf::Keyboard::J;
+		return sf::Keyboard::Key::J;
 	else if (Key == "K" || Key == "k")
-		return sf::Keyboard::K;
+		return sf::Keyboard::Key::K;
 	else if (Key == "L" || Key == "l")
-		return sf::Keyboard::L;
+		return sf::Keyboard::Key::L;
 	else if (Key == "M" || Key == "m")
-		return sf::Keyboard::M;
+		return sf::Keyboard::Key::M;
 	else if (Key == "N" || Key == "n")
-		return sf::Keyboard::N;
+		return sf::Keyboard::Key::N;
 	else if (Key == "O" || Key == "o")
-		return sf::Keyboard::O;
+		return sf::Keyboard::Key::O;
 	else if (Key == "P" || Key == "p")
-		return sf::Keyboard::P;
+		return sf::Keyboard::Key::P;
 	else if (Key == "Q" || Key == "q")
-		return sf::Keyboard::Q;
+		return sf::Keyboard::Key::Q;
 	else if (Key == "R" || Key == "r")
-		return sf::Keyboard::R;
+		return sf::Keyboard::Key::R;
 	else if (Key == "S" || Key == "s")
-		return sf::Keyboard::S;
+		return sf::Keyboard::Key::S;
 	else if (Key == "T" || Key == "t")
-		return sf::Keyboard::T;
+		return sf::Keyboard::Key::T;
 	else if (Key == "U" || Key == "u")
-		return sf::Keyboard::U;
+		return sf::Keyboard::Key::U;
 	else if (Key == "V" || Key == "v")
-		return sf::Keyboard::V;
+		return sf::Keyboard::Key::V;
 	else if (Key == "W" || Key == "w")
-		return sf::Keyboard::W;
+		return sf::Keyboard::Key::W;
 	else if (Key == "X" || Key == "x")
-		return sf::Keyboard::X;
+		return sf::Keyboard::Key::X;
 	else if (Key == "Y" || Key == "y")
-		return sf::Keyboard::Y;
+		return sf::Keyboard::Key::Y;
 	else if (Key == "Z" || Key == "z")
-		return sf::Keyboard::Z;
+		return sf::Keyboard::Key::Z;
 	else if (Key == "Space" || Key == "space" || Key == " ")
-		return sf::Keyboard::Space;
+		return sf::Keyboard::Key::Space;
 	else
-		return sf::Keyboard::Unknown;
+		return sf::Keyboard::Key::Unknown;
 
 	/* Unknown = -1, A = 0, B, C,
   D, E, F, G,
@@ -157,86 +157,87 @@ void bhe::SystemEvent::add_close(std::function<void()> const& Callable)
 
 void bhe::SystemEvent::do_events()
 {
-	sf::Event event{};
-	sf::FloatRect visible_area{};
+	window.handleEvents([this](sf::Event::Closed){window.close();});
+//	sf::Event event{};
+//	sf::FloatRect visible_area{};
 	// std::map<sf::Keyboard::Key, MtKey>::iterator iterator;
-	while (window.pollEvent(event))
-	{
-		switch (event.getType())
-		{
-		case sf::Event::Type::Closed:
-			close();
-			window.close();
-			break;
-
-		case sf::Event::Type::Resized:
-			{
-				auto size = event.get<sf::Event::Resized>();
-				visible_area = sf::FloatRect({0, 0},
-											 {
-												 static_cast<float>(size.size.x),
-												 static_cast<float>(size.size.y)
-											 });
-				window.setView(sf::View(visible_area));
-			}
-			break;
-
-		case sf::Event::Type::KeyPressed:
-			{
-				auto event_key = event.get<sf::Event::KeyPressed>();
-				// case sf::Event::KeyPressed:if (key_bindings.find(event.key.code)==key_bindings.end()) break;
-
-				if(not key_bindings.contains(event_key.code)) return;
-				if (key_bindings.at(event_key.code) == MtKey::Up)
-				{
-					move_up(true);
-				}
-				if (key_bindings.at(event_key.code) == MtKey::Left)
-				{
-					move_left(true);
-				}
-				if (key_bindings.at(event_key.code) == MtKey::Right)
-				{
-					move_right(true);
-				}
-				if (key_bindings.at(event_key.code) == MtKey::Down)
-				{
-					move_down(true);
-				}
-				if (key_bindings.at(event_key.code) == MtKey::Jump)
-				{
-					move_jump(true);
-				}
-			}
-			break;
-		case sf::Event::Type::KeyReleased:
-			{
-				auto event_presskey = event.get<sf::Event::KeyReleased>();
-				if(not key_bindings.contains(event_presskey.code)) return;
-
-				if (key_bindings.at(event_presskey.code) == MtKey::Up)
-				{
-					move_up(false);
-				}
-				if (key_bindings.at(event_presskey.code) == MtKey::Left)
-				{
-					move_left(false);
-				}
-				if (key_bindings.at(event_presskey.code) == MtKey::Right)
-				{
-					move_right(false);
-				}
-				if (key_bindings.at(event_presskey.code) == MtKey::Down)
-				{
-					move_down(false);
-				}
-				if (key_bindings.at(event_presskey.code) == MtKey::Jump)
-				{
-					move_jump(false);
-				}
-			}
-			break;
-		}
+//	while (window.pollEvent(event))
+//	{
+//		switch (event.getType())
+//		{
+//		case sf::Event::Type::Closed:
+//			close();
+//			window.close();
+//			break;
+//
+//		case sf::Event::Type::Resized:
+//			{
+//				auto size = event.get<sf::Event::Resized>();
+//				visible_area = sf::FloatRect({0, 0},
+//											 {
+//												 static_cast<float>(size.size.x),
+//												 static_cast<float>(size.size.y)
+//											 });
+//				window.setView(sf::View(visible_area));
+//			}
+//			break;
+//
+//		case sf::Event::Type::KeyPressed:
+//			{
+//				auto event_key = event.get<sf::Event::KeyPressed>();
+//				// case sf::Event::KeyPressed:if (key_bindings.find(event.key.code)==key_bindings.end()) break;
+//
+//				if(not key_bindings.contains(event_key.code)) return;
+//				if (key_bindings.at(event_key.code) == MtKey::Up)
+//				{
+//					move_up(true);
+//				}
+//				if (key_bindings.at(event_key.code) == MtKey::Left)
+//				{
+//					move_left(true);
+//				}
+//				if (key_bindings.at(event_key.code) == MtKey::Right)
+//				{
+//					move_right(true);
+//				}
+//				if (key_bindings.at(event_key.code) == MtKey::Down)
+//				{
+//					move_down(true);
+//				}
+//				if (key_bindings.at(event_key.code) == MtKey::Jump)
+//				{
+//					move_jump(true);
+//				}
+//			}
+//			break;
+//		case sf::Event::Type::KeyReleased:
+//			{
+//				auto event_presskey = event.get<sf::Event::KeyReleased>();
+//				if(not key_bindings.contains(event_presskey.code)) return;
+//
+//				if (key_bindings.at(event_presskey.code) == MtKey::Up)
+//				{
+//					move_up(false);
+//				}
+//				if (key_bindings.at(event_presskey.code) == MtKey::Left)
+//				{
+//					move_left(false);
+//				}
+//				if (key_bindings.at(event_presskey.code) == MtKey::Right)
+//				{
+//					move_right(false);
+//				}
+//				if (key_bindings.at(event_presskey.code) == MtKey::Down)
+//				{
+//					move_down(false);
+//				}
+//				if (key_bindings.at(event_presskey.code) == MtKey::Jump)
+//				{
+//					move_jump(false);
+//				}
+//			}
+//			break;
+//		}
 
 
 		/*if(event.getIf<sf::Event::Closed>())
@@ -289,6 +290,7 @@ void bhe::SystemEvent::do_events()
 				move_jump(false);
 			}
 		}*/
-	}
+	//}
+
 }
 

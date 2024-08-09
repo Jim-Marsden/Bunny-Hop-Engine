@@ -7,7 +7,7 @@
 #include <string>
 #include <chrono>
 
-#include "bhe_core/Return_Status.hpp"
+#include "Return_Status.hpp"
 
 
 //TODO redo animation state, where it supports floating points and not based on a solid game tick

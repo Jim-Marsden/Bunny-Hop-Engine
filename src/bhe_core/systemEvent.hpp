@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <bhe_core/delegate.hpp>
-#include <bhe_core/player.hpp>
+#include "delegate.hpp"
+#include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>

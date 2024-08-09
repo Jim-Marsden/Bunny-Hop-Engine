@@ -3,13 +3,14 @@
 //
 
 #pragma once
+//#include <
 #include <nlohmann/json.hpp>
 #include <filesystem>
-#include "bhe_core/parallax.hpp"
-#include "bhe_core/textureManager.hpp"
-#include "bhe_core/drawable.hpp"
-#include "bhe_core/entity.hpp"
-#include "bhe_core/player.hpp"
+#include "parallax.hpp"
+#include "textureManager.hpp"
+#include "drawable.hpp"
+#include "entity.hpp"
+#include "player.hpp"
 
 
 namespace bhe::json_parsers {

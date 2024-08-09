@@ -19,32 +19,8 @@ bhe::Entity::Entity(const sf::Texture& texture)
 bhe::returnStatus<bhe::Entity::collisionDirection>
 bhe::Entity::is_colliding(const std::vector<sf::RectangleShape>& rectangles)
 {
-	collision_direction.left = collision_direction.right = collision_direction.top = collision_direction
-			.bottom = false;
-	for (auto const& element : rectangles) {
-		if (sprite.getGlobalBounds().findIntersection(element.getGlobalBounds())){//.intersects(element.getGlobalBounds())) {
-			if (is_colliding_top(element).value) {
-				//sprite_.setPosition(sprite_.getPosition().x, element.getGlobalBounds().top - sprite_.getOrigin().y);
-//				auto move_amount_test = ((sprite.getGlobalBounds().height+sprite.getGlobalBounds().top))
-//						-((element.getGlobalBounds().height+element.getGlobalBounds().top));
-				//sprite_.move(0, move_amount_test);//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
 
-				collision_direction.top = true;
-			}
-//			if (is_colliding_down(element).value) {
-//				sprite.move(0, element.getGlobalBounds().top-(sprite.getGlobalBounds().top+sprite.getGlobalBounds()
-//						.height));//((element.getGlobalBounds().top + element.getGlobalBounds().height)/2) - ((sprite_.getGlobalBounds().top + sprite_.getGlobalBounds().top)/2));
-//				collision_direction.bottom = true;
-//			}
-//			if (is_colliding_left(element).value) {
-//				collision_direction.left = true;
-//			}
-//			if (is_colliding_right(element).value) {
-//				collision_direction.right = true;
-//			}
-		}
-	}
-	return {collision_direction};
+	return {{}};
 }
 
 bhe::returnStatus<bool> bhe::Entity::is_colliding_down(sf::RectangleShape const& rectangles)
@@ -56,19 +32,18 @@ bhe::returnStatus<bool> bhe::Entity::is_colliding_down(sf::RectangleShape const&
 
 bhe::returnStatus<bool> bhe::Entity::is_colliding_right(sf::RectangleShape const& rectangles) const
 {
-	return {(sprite.getGlobalBounds().left<rectangles.getGlobalBounds().left)};
+	return {false};
 }
 
 bhe::returnStatus<bool> bhe::Entity::is_colliding_left(sf::RectangleShape const& rectangles) const
 {
-	return {(sprite.getGlobalBounds().left<
-			rectangles.getGlobalBounds().left+rectangles.getGlobalBounds().width)};
+	return {false};
 }
 
 bhe::returnStatus<bool> bhe::Entity::is_colliding_top(const sf::RectangleShape& rectangles) const
 {
-	return {(sprite.getGlobalBounds().height+sprite.getGlobalBounds().top)/2
-					>=(rectangles.getGlobalBounds().height+rectangles.getGlobalBounds().top)/2};
+
+	return {false};
 
 	//return {(sprite_.getGlobalBounds().top <
 	//         rectangles.getGlobalBounds().top + rectangles.getGlobalBounds().height)};

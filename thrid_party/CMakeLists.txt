@@ -1,5 +1,5 @@
 
-set(SFML_BRANCH event_api)
+set(SFML_BRANCH master)
 set(SFML_REPO https://github.com/SFML/SFML.git)
 
 
@@ -15,14 +15,14 @@ FetchContent_MakeAvailable(SFML)
 
 fetchContent_Declare(ImGui
         GIT_REPOSITORY https://github.com/ocornut/imgui
-        GIT_TAG v1.89)
+        GIT_TAG master)
 FetchContent_MakeAvailable(ImGui)
 FetchContent_GetProperties(ImGui SOURCE_DIR IMGUI_DIR)
 
 FetchContent_Declare(
         jsoncpp
         GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG master)
+        GIT_TAG develop)
 
 FetchContent_MakeAvailable(jsoncpp)
 
@@ -42,7 +42,7 @@ FetchContent_MakeAvailable(jsoncpp)]]
 
 set(IMGUI_SFML_FIND_SFML OFF)
 FetchContent_Declare(ImGui-SFML
-        GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml
+        GIT_REPOSITORY https://github.com/SFML/imgui-sfml.git
         GIT_TAG master)
 FetchContent_MakeAvailable(ImGui-SFML)
 

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "bhe_core/entity.hpp"
-#include "bhe_core/textureManager.hpp"
+#include "entity.hpp"
+#include "textureManager.hpp"
 
 namespace bhe {
 class player: public bhe::Entity {
