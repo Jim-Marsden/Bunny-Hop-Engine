@@ -53,15 +53,15 @@ set(bhe_core_src
 add_executable(bhe_engine src/bhe_engine/engine_main.cpp ${bhe_core_src}
         src/bhe_core/delta_time.hpp)
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_engine SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt  ImGui-SFML::ImGui-SFML)
+target_link_libraries(bhe_engine PRIVATE SFML::Graphics nlohmann_json::nlohmann_json fmt::fmt  ImGui-SFML::ImGui-SFML)
 
 add_executable(bhe_designer src/bhe_designer/designer_main.cpp ${bhe_core_src})
 target_include_directories(bhe_engine PRIVATE ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_designer SFML::Graphics nlohmann_json::nlohmann_json ImGui-SFML::ImGui-SFML fmt::fmt)
+target_link_libraries(bhe_designer PRIVATE SFML::Graphics nlohmann_json::nlohmann_json ImGui-SFML::ImGui-SFML fmt::fmt)
 
 add_executable(bhe_tests ${bhe_tests_src} ${bhe_core_src})
 target_include_directories(bhe_tests PRIVATE ${PROJECT_SOURCE_DIR}/src/bhe_core ${PROJECT_SOURCE_DIR}/src/)
-target_link_libraries(bhe_tests SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain ImGui fmt::fmt ImGui-SFML::ImGui-SFML)
+target_link_libraries(bhe_tests PRIVATE SFML::Graphics nlohmann_json::nlohmann_json Catch2::Catch2WithMain fmt::fmt ImGui-SFML::ImGui-SFML)
 
 set_target_properties(bhe_engine bhe_designer bhe_tests
         PROPERTIES
@@ -69,28 +69,6 @@ set_target_properties(bhe_engine bhe_designer bhe_tests
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
         )
-#
-#set(bhe_engine_src src/bhe_engine/engine_main.cpp)
-#
-#set(bhe_designer_src
-#        src/bhe_designer/designer_main.cpp
-#        src/bhe_designer/DesignerWindow.cpp src/bhe_designer/DesignerWindow.h src/bhe_designer/gui_helpers.cpp src/bhe_designer/gui_helpers.hpp src/bhe_designer/gui_modes.cpp src/bhe_designer/gui_modes.hpp src/bhe_designer/scene_designer.cpp src/bhe_designer/scene_designer.hpp src/bhe_designer/designer_menu.cpp src/bhe_designer/designer_menu.hpp src/bhe_designer/designer_pallet.cpp src/bhe_designer/designer_pallet.hpp)
-#
-#
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-#
-#include_directories(src)
-#add_executable(bhe_test_runner ${bhe_core_src} ${bhe_tests_src})
-#target_link_libraries(bhe_test_runner PRIVATE ${bhe_libs})
-#
-#add_executable(bhe_designer ${bhe_core_src} ${bhe_designer_src})
-#target_link_libraries(bhe_designer PRIVATE ${bhe_libs})
-#
-#add_executable(bhe_engine ${bhe_engine_src} ${bhe_core_src})
-#target_link_libraries(bhe_engine ${bhe_libs})
-
 configure_file(Scenes/TestScene.json Scenes/TestScene.json COPYONLY)
 configure_file(Scenes/Textures/tree.png Scenes/Textures/tree.png COPYONLY)
 configure_file(Scenes/Textures/parallax_test-bg001.png
